@@ -7,10 +7,14 @@ from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
 from flask_jwt_extended import jwt_required
+from io import BytesIO
+from PIL import Image
 import cloudinary
 import cloudinary.uploader
 import re
 import hashlib
+import qrcode
+import base64
 
 api = Blueprint('api', __name__)
 
@@ -20,9 +24,6 @@ def user_login():
     body_password = request.json.get("password")
     user = User.query.filter_by(email=body_email).first()
     
-    # Find the user with the matching username
-    # if not user:
-    #     return jsonify({"Error": "Invalid credentials"}), 401
     if user is None:
         return jsonify({"response": "Invalid username or password."}), 401
     
@@ -82,33 +83,11 @@ def handle_upload():
 
 @api.route('/cache', methods=['GET'])
 def get_caches():
-    # name = request.json.get("name")
-    # description = request.json.get("description")
-    # country = request.jeson.get("country")
-    # city = request.jeson.get("city")
-    # postal_code = request.jeson.get("postal_code")
-    # coordinates_y = request.jeson.get("coordinates_y")
-    # coordinates_x = request.jeson.get("coordinates_x")
-    # difficulty = request.jeson.get("difficulty")
-    # size = request.jeson.get("size")
-    # qr_url = request.jeson.get("qr_url")
-    # owner_id = request.jeson.get("owner_id")
     caches = Cache.query.all()
     return jsonify({"results": [cache.serialize() for cache in caches]}), 200
 
 @api.route('/ToShowcache', methods=['GET'])
 def get_ToShowCaches():
-    # name = request.json.get("name")
-    # description = request.json.get("description")
-    # country = request.jeson.get("country")
-    # city = request.jeson.get("city")
-    # postal_code = request.jeson.get("postal_code")
-    # coordinates_y = request.jeson.get("coordinates_y")
-    # coordinates_x = request.jeson.get("coordinates_x")
-    # difficulty = request.jeson.get("difficulty")
-    # size = request.jeson.get("size")
-    # qr_url = request.jeson.get("qr_url")
-    # owner_id = request.jeson.get("owner_id")
     toShowcache = Cache.query.all()
     return jsonify({"results": [cache.serialize() for cache in toShowcache]}), 200
 
@@ -162,20 +141,61 @@ def user_register():
 @jwt_required()
 def cache_register():
     user_id = get_jwt_identity()
+
     body_name = request.json.get("name")
+    if not body_name or not isinstance(body_name, str):
+        return jsonify({"response": "Invalid or missing 'name' parameter"}), 400
+
     body_description = request.json.get("description")
+
     body_country = request.json.get("country")
+
     body_state = request.json.get("state")
+    if not body_state or not isinstance(body_state, str):
+        return jsonify({"response": "Invalid or missing 'state' parameter"}), 400
+
     body_city = request.json.get("city")
+    if not body_city or not isinstance(body_city, str):
+        return jsonify({"response": "Invalid or missing 'city' parameter"}), 400
+
     body_postal_code = request.json.get("postal_code")
+    if not body_postal_code or not isinstance(body_postal_code, str):
+        return jsonify({"response": "Invalid or missing 'postal_code' parameter"}), 400
+
     body_coordinates_y = request.json.get("coordinates_y")
+    if not body_coordinates_y or not isinstance(body_coordinates_y, str):
+        return jsonify({"response": "Invalid or missing 'Latitud' parameter"}), 400
+
     body_coordinates_x = request.json.get("coordinates_x")
+    if not body_coordinates_x or not isinstance(body_coordinates_x, str):
+        return jsonify({"response": "Invalid or missing 'Longitud' parameter"}), 400
+
     body_difficulty = request.json.get("difficulty")
+    if not body_difficulty or not isinstance(body_difficulty, str):
+        return jsonify({"response": "Invalid or missing 'difficulty' parameter"}), 400
+
     body_size = request.json.get("size")
-    body_qr_url = request.json.get("qr_url")
+    if not body_size or not isinstance(body_size, str):
+        return jsonify({"response": "Invalid or missing 'size' parameter"}), 400
+    
+    # Checks if cache exists
     cache_already_exist = Cache.query.filter_by(name= body_name).first()
     if cache_already_exist:
         return jsonify({"response": "Cache already created, choose another name"}), 300
+
+    # Generating the QR code image
+    qr_data = f"{body_name}, {body_description}, {body_country}, {body_state}, {body_city}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
+    qr_img = qrcode.make(qr_data)
+
+    # Store the Qr code as binary data in the database
+    qr_buf = BytesIO()
+    qr_img.save(qr_buf, format='PNG')
+    qr_binary = qr_buf.getvalue()
+
+    # Encode binary data to base64 string
+    qr_code_data = base64.b64encode(qr_binary).decode('utf-8')
+
+    # Submit all data of new to the database
     new_cache = Cache(
         name=body_name,
         description=body_description,
@@ -187,7 +207,7 @@ def cache_register():
         coordinates_x=body_coordinates_x,
         difficulty=body_difficulty,
         size=body_size,
-        qr_url=body_qr_url,
+        qr_code=qr_code_data,
         owner_id=user_id,
         )
     db.session.add(new_cache)
