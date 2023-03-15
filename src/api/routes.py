@@ -124,6 +124,9 @@ def user_register():
     body_email = request.json.get("email")
     body_password = request.json.get("password")
     body_username = request.json.get("name")
+    body_country = request.json.get("country")
+    body_city = request.json.get("city")
+    body_date_of_birth = request.json.get("date_of_birth")
     user_already_exist = User.query.filter_by(email= body_email).first()
     
     # Check if user already exists
@@ -153,7 +156,7 @@ def user_register():
     # Hash the password using SHA-256
     hashed_password = hashlib.sha256(body_password.encode('utf-8')).hexdigest()
 
-    new_user = User(email=body_email, password=hashed_password, name=body_username)
+    new_user = User(email=body_email, password=hashed_password, name=body_username, country=body_country, city=body_city, date_of_birth=body_date_of_birth)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({"response": "User registered successfully"}), 200   
