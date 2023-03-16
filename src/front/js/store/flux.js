@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			caches: [],
 			cachesToShow: [],
 			userActive: null,
-			currentUser: {}
+			currentUser: {},
+			is_favorite: false,
 		},
 
 		actions: {
@@ -49,6 +50,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"country": country,
 						"city": city,
 						"date_of_birth": date_of_birth,
+					}),
+				});
+				const data = await response.json();
+				console.log(data);
+				if (response.ok) setStore({ currentUser: data.user });
+			},
+
+			updateUserPassword: async (password) => {
+				const response = await fetch(process.env.BACKEND_URL + "/api/updateUser-password", {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+					body: JSON.stringify({
+						"password": password,
 
 
 					}),
@@ -58,9 +75,70 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) setStore({ currentUser: data.user });
 			},
 
+			updateUserPass: async (currentPassword, newPassword, confirmPassword) => {
+				const response = await fetch(process.env.BACKEND_URL + "/api/updateUser-pass", {
+					method: "PUT",
+					headers: {
+						"Content-Type": "application/json",
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+					body: JSON.stringify({
+						"currentPassword": currentPassword,
+						"newPassword": newPassword,
+						"confirmPassword": confirmPassword,
 
 
+					}),
+				});
+				const data = await response.json();
+				console.log(data);
+				if (response.ok) setStore({ currentUser: data.user });
+			},
 
+			favoritesCaches: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/favorites-caches",
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.ok) {
+					getActions().getCaches();
+				} else {
+					setError(responsetoJson.response);
+				}
+			},
+
+			createFavoritesCaches: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/create-user-favorites",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.ok) {
+					getActions().validateUser();
+
+				} else {
+					setError(responsetoJson.response);
+				}
+			},
 
 
 			logout: () => {
@@ -81,12 +159,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					headers: {
 						Authorization: "Bearer " + localStorage.getItem("token"),
 					},
+
 					body: body
 				}
 
 				const response = await fetch(process.env.BACKEND_URL + apiURL, options)
 				if (response.status == 200) { return response.json() }
-			}
+			},
+
+			uploadImageCache: async (body) => {
+				console.log(body)
+				const options = {
+					method: "POST",
+					headers: {
+						Authorization: "Bearer " + localStorage.getItem("token"),
+					},
+					body: body
+				}
+
+				const response = await fetch(process.env.BACKEND_URL + "/api/perfil-galery", options)
+				if (response.status == 200) { return await response.json() }
+			},
+
+
+
+
+
+
+
+
 		}
 	};
 };

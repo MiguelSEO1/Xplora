@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
 import { Buscador } from "../component/buscador";
+import { UploadImageCache } from "../component/uploadImageCache";
+
 
 
 
@@ -10,7 +12,9 @@ export const Demo = () => {
 	const { store, actions } = useContext(Context);
     const [city, setCity] = useState("");
     const [name, setName] = useState("");
+	const [favoriteCaches, setfavoriteCaches] = useState([]);
     const [id, setId] = useState("");
+
 
 
 
@@ -19,6 +23,9 @@ export const Demo = () => {
         setName(store.caches.name);
         setCity(store.caches.city);
     }, [store.caches])
+
+
+	
 	
 	return (
 		
@@ -51,8 +58,12 @@ export const Demo = () => {
 									<h5 className="card-title">{cache.city}</h5>
 									<p className="card-text">{cache.name}</p>
 									<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none">
-										<a href="#" className="btn btn-primary">Ver Detalles</a>
+										<a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
 									</Link>
+
+									<button onClick={() => {
+                                    actions.createFavoritesCaches(cache.id);
+                                }}type="button" class="btn btn-outline-danger mx-1" ><i class="fa-solid fa-heart"></i></button>
 								</div>
 							</div>
 						)

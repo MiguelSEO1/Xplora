@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
 import { UploadImage } from "../component/upload";
+import { NewPassword } from "../component/newPassword";
+
 
 
 
@@ -34,6 +36,8 @@ export const MiPerfil = () => {
         setName(store.currentUser.name);
         setCountry(store.currentUser.country);
         setCity(store.currentUser.city);
+        setPassword(store.currentUser.password);
+
     }, [store.currentUser])
 
 
@@ -229,7 +233,7 @@ export const MiPerfil = () => {
 
     };
 
-
+    
 
 
 
@@ -265,9 +269,10 @@ export const MiPerfil = () => {
                             <input type="email" class="form-control" id="exampleFormControlInput1" value={email}
                                 onChange={(e) => { setEmail(e.target.value); }} placeholder={store.currentUser.email} />
                             <label for="disabledTextInput" class="form-label mt-3 ">Password</label>
-                            <input class="form-control text-dark" type="text" aria-label="Disabled input example" disabled readonly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={"..................."} />
+                            <input class="form-control text-dark" type="text" aria-label="Disabled input example" disabled readonly placeholder={"..................."} />
                             <div className="d-flex justify-content-end my-3">
-                                <button type="button" class="btn btn-primary btn-sm" >Cambiar Contraseña</button>
+                                <NewPassword />
+
                             </div>
                             <label for="exampleFormControlInput1" class="form-label mt-1 ">País</label>
                             <input type="email" class="form-control" id="exampleFormControlInput1" value={country}
@@ -278,8 +283,8 @@ export const MiPerfil = () => {
                             <div class="d-flex justify-content-end">
                                 <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
                                     e.preventDefault();
-                                    actions.getUpdateUser(email, name, country, city);
-                                }}>Guardar Cambios </button>
+                                    actions.getUpdateUser(email, name, country, city)}}>Guardar Cambios </button>
+                                
                             </div>
                         </div>
                     ) : null}
@@ -312,6 +317,23 @@ export const MiPerfil = () => {
                     {showDiv4 ? (
                         <div>
                             <h2 className="text-center mb-5">Mis Cachés Favoritos</h2>
+                            {store.currentUser.favorites.map((favorites) => {
+                                return (
+                                    <div className="card" key={favorites.id}>
+                                        <img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
+                                        <div className="card-body">
+                                            <h5 className="card-title">{favorites.cache.city}</h5>
+                                            <p className="card-text">{favorites.cache.name}</p>
+                                            <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none">
+                                                <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
+                                            </Link>
+                                            <button onClick={() => {
+                                                actions.createFavoritesCaches(favorites.cache.id);
+                                            }} type="button" class="btn btn-outline-danger mx-1" >Delete</button>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     ) : null}
                     {showDiv5 ? (

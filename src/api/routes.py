@@ -1,8 +1,8 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Cache
+from flask import Flask, request, jsonify, url_for, Blueprint, json
+from api.models import db, User, Cache, Comment, Image, Favorite 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -17,6 +17,8 @@ def user_login():
     body_email = request.json.get("email")
     body_password = request.json.get("password")
     user = User.query.filter_by(email= body_email, password=body_password).first()
+    print("@@@@@@@")
+    print(user)
     if not user:
         return jsonify({"Error": "Invalid credentials"}), 401
     token = create_access_token(identity=user.id)
@@ -52,6 +54,43 @@ def Update_user():
     # devolver una respuesta JSON que confirme que se han actualizado los datos
     return jsonify({"response": "Los datos se han actualizado correctamente", "user": user.serialize()}), 200
 
+@api.route('/updateUser-password', methods=['PUT'])
+@jwt_required()
+def Update_password():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    new_data = request.get_json()
+    user.password = new_data.get('password', user.password)    
+    db.session.commit()
+    return jsonify({"response": "password actualizado correctamente", "user": user.serialize()}), 200
+
+@api.route('/updateUser-pass', methods=['PUT'])
+@jwt_required()
+def Update_pass():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    new_data = request.get_json()
+
+    # Obtener la contraseña actual del usuario de la base de datos
+    current_password = user.password
+
+    # Verificar si la contraseña actual proporcionada en la solicitud coincide con la contraseña almacenada en la base de datos
+    if new_data.get('currentPassword') != current_password:
+        return jsonify({"error": "La contraseña actual no coincide."}), 400
+
+    # Verificar si la nueva contraseña y la confirmación de la contraseña son iguales
+    new_password = new_data.get('newPassword')
+    confirm_password = new_data.get('confirmPassword')
+    if new_password != confirm_password:
+        return jsonify({"error": "La nueva contraseña y la confirmación de la contraseña no coinciden."}), 400
+
+    # Actualizar la contraseña del usuario en la base de datos
+    user.password = new_password
+    db.session.commit()
+
+    # Devolver una respuesta exitosa
+    return jsonify({"response": "Contraseña actualizada correctamente", "user": user.serialize()}), 200
+
 @api.route('/upload', methods=['POST'])
 @jwt_required()
 def handle_upload():
@@ -61,11 +100,29 @@ def handle_upload():
 
     user.profile_image_url= result['secure_url']
     print(result['secure_url'])
-    
+    print("@@@@@@@@@@@")
     db.session.add(user)
     db.session.commit()
 
     return jsonify(user.profile_image_url), 200
+
+
+
+@api.route('/upload-cache', methods=['POST'])
+@jwt_required()
+def handle_upload_cache():
+    userid = get_jwt_identity()
+    cache_id = request.json.get("id")
+    result= cloudinary.uploader.upload(request.files['profile_image'])
+    images.url= result['secure_url']
+    db.session.add(images)
+    db.session.commit()
+
+    return jsonify(images.url), 200
+
+
+
+     
 
 @api.route('/cache', methods=['GET'])
 def get_caches():
@@ -105,6 +162,78 @@ def get_details(id):
     if not cache:
         return jsonify({"error": "Cache no encontrada"}), 404
     return jsonify(cache.serialize()), 200
+
+
+
+@api.route('/perfil-comments/<int:id>', methods=['POST'])
+@jwt_required()
+def create_comments(id):
+    cache = Cache.query.filter_by(id=id).first()
+    user_id = get_jwt_identity()
+    body_title = request.json.get("title")
+    body_text = request.json.get("text")
+    new_comment = Comment(title=body_title, text=body_text, user_id=user_id, cache=cache)
+    db.session.add(new_comment)
+    db.session.commit() 
+    return jsonify({"response": "Comment ok"}), 200
+
+@api.route('/delete-comments/', methods=['DELETE'])
+@jwt_required()
+def delete_comments():
+    user_id = get_jwt_identity()
+    cache_id = request.json.get("id")
+    comment_id= request.json.get("id")
+    comment= Comment.query.filter_by(cache_id=cache_id, user_id=user_id, comment_id=comment_id).first()
+    db.session.delete(comment)
+    db.session.commit() 
+    return jsonify({"response": "Comment delete ok", "cache": cache.serialize()}), 200
+  
+
+@api.route('/perfil-galery', methods=['POST'])
+@jwt_required()
+def create_galery():
+
+    user_id = get_jwt_identity()
+    body= json.loads(request.form["galery"])
+    cache = Cache.query.filter_by(id=body["id"]).first()
+    
+    new_galery = Image(title=body["title"], url="@@@@@", date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
+    db.session.add(new_galery)
+    db.session.commit() 
+    return jsonify({"response": "Galery ok"}), 200  
+
+
+@api.route('/favorites-caches', methods=['PUT'])
+@jwt_required()
+def favorites():
+    user_id = get_jwt_identity()
+    cache_id = request.json.get("id")
+    cache = Cache.query.get(cache_id)
+    if cache:
+        if cache.is_favorite:
+            cache.is_favorite = False
+        else:
+            cache.is_favorite = True
+    db.session.commit()
+    return jsonify(cache.serialize()), 200
+    return jsonify({"error": "Cache not found"}), 404
+
+@api.route('/create-user-favorites', methods=['POST'])
+@jwt_required()
+def new():
+    user_id = get_jwt_identity()
+    cache_id = request.json.get("id")
+    favorite= Favorite.query.filter_by(cache_id=cache_id, user_id=user_id).first()
+    if favorite:
+        db.session.delete(favorite)
+    else:
+        new_favorite=Favorite(cache_id=cache_id, user_id=user_id)
+        db.session.add(new_favorite)   
+    print(favorite)
+    print("@@@@@@@@@")
+    db.session.commit()
+    return jsonify({"response": "Cache is favorite"}), 200    
+   
 
 @api.route('/register', methods=['POST'])
 def user_register():
