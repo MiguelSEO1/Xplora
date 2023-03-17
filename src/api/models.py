@@ -66,7 +66,7 @@ class Cache(db.Model):
     coordinates_x = db.Column(db.Float)
     difficulty = db.Column(db.String(255), nullable=False)
     size = db.Column(db.String(255), nullable=False)
-    qr_url = db.Column(db.String(255), nullable=False) 
+    qr_code = db.Column(db.String(1500), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     # favorites = db.relationship('Favorite')
     images = db.relationship('Image')
@@ -87,7 +87,7 @@ class Cache(db.Model):
             "coordinates_x": self.coordinates_x,
             "size": self.size,
             "difficulty": self.difficulty,
-            "qr_url": self.qr_url,
+            "qr_code": self.qr_code,
             "owner_id": self.owner_id,
         }
 

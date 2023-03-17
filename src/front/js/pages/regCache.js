@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { MapsGoogle } from "../component/mapsGoogle";
 
+
 export const Cache = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
@@ -14,9 +15,8 @@ export const Cache = () => {
     const [city, setCity] = useState([]);
     const [cityid, setCityID] = useState(null);
     const [postalCode, setPostalCode] = useState("");
-    const [difficulty, setDifficulty] = useState("-1");
-    const [size, setSize] = useState("Pequeño");
-    const [qrURL, setQrURL] = useState("");
+    const [difficulty, setDifficulty] = useState("");
+    const [size, setSize] = useState("");
     const [error, setError] = useState("");
     const [data, setData] = useState({});
 
@@ -40,7 +40,7 @@ export const Cache = () => {
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
                     size: size,
-                    qr_url: qrURL,
+
                 }),
             }
         );
@@ -285,37 +285,18 @@ export const Cache = () => {
                                 setSize(e.target.value);
                             }}
                         >
-                            <option disabled>---</option>
+                            <option value="-1">---</option>
                             <option value="Pequeño">Pequeño</option>
                             <option value="Mediano">Mediano</option>
                             <option value="Grande">Grande</option>
                         </select>
                     </div>
                 </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="qrURL">
-                        QR URL:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            className="form-control"
-                            name="qrURL"
-                            placeholder="qrURL"
-                            value={qrURL}
-                            onChange={(e) => {
-                                setError(false);
-                                setQrURL(e.target.value);
-                            }}
-                        ></input>
-                    </div>
-                </div>
                 <div className="text-center mt-2 p-3 ">
                     <button
                         className="btn btn-success btn-lg"
                         onClick={() => {
-                            if (difficulty != "-1") {
-                                sendCacheRegistral()
-                            }
+                            sendCacheRegistral()
                         }}
                     >
                         Register Cache
