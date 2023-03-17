@@ -24,10 +24,11 @@ def user_login():
     body_password = request.json.get("password")
     user = User.query.filter_by(email=body_email).first()
     
+    # Find the user with the matching username
     if user is None:
         return jsonify({"response": "Invalid username or password."}), 401
     
-     # Hash the entered password and compare to the stored hash
+    # Hash the entered password and compare to the stored hash
     hashed_password = hashlib.sha256(body_password.encode('utf-8')).hexdigest()
     if hashed_password != user.password:
         return jsonify({"response": "Invalid username or password."}), 401
@@ -42,6 +43,44 @@ def current_user_email():
     user = User.query.get(user_id)
     return jsonify({"response": user.serialize()}), 200
 
+@api.route('/change-password', methods=['PUT'])
+@jwt_required()
+def change_password():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    current_password = request.json.get("current_password")
+    new_password = request.json.get("new_password")
+    repeat_new_password = request.json.get("repeat_new_password")
+
+    # Validates if the new password matches
+    if new_password != repeat_new_password:
+        return {"error": "New passwords do not match"}, 400
+    
+    # Checks if the input is empty
+    if not current_password:
+        return {"error": "Current password cannot be empty"}, 400
+    
+    # Checks if the password is the same as the database
+    if user.password != hashlib.sha256(current_password.encode('utf-8')).hexdigest():
+        return {"error": "Incorrect current password"}, 400
+    
+    if len(new_password) < 8:
+        return jsonify({"response": "Password must be at least 8 characters."}), 300
+    if not re.search(r'[A-Z]', body_password):
+        return jsonify({"response": "Password must include at least one capital letter."}), 300
+    if not re.search(r'[a-z]', body_password):
+        return jsonify({"response": "Password must include at least one lowercase letter."}), 300
+    if not re.search(r'\d', body_password):
+        return jsonify({"response": "Password must include at least one number."}), 300
+    if not re.search(r'[^\w\s]', body_password):
+        return jsonify({"response": "Password must include at least one special character."}), 300
+
+    # Update the user's password in the database
+    new_hashed_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+    user.password = new_hashed_password
+    db.session.commit()
+    
+    return jsonify({"message": "Password updated successfully"})
 
 @api.route('/updateUser-user', methods=['PUT'])
 @jwt_required()

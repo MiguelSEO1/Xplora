@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
 import { UploadImage } from "../component/upload";
-
+import { NewPassword } from "../component/newPassword";
 
 
 export const MiPerfil = () => {
@@ -392,7 +392,7 @@ export const MiPerfil = () => {
                             <label htmlFor="disabledTextInput" className="form-label mt-3 ">Password</label>
                             <input className="form-control text-dark" type="text" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={"..................."} />
                             <div className="d-flex justify-content-end my-3">
-                                <button type="button" className="btn btn-primary btn-sm" >Cambiar Contraseña</button>
+                                <NewPassword />
                             </div>
                             <label htmlFor="exampleFormControlInput1" className="form-label mt-1 ">País</label>
                             <input type="email" className="form-control" id="exampleFormControlInput1" value={country}
