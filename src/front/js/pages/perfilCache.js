@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
 import Comentario from "../../img/comentario.png";
-
+import QRCode from "react-qr-code";
 import Mapa from "../../img/mapa.png"
 
 
@@ -25,9 +25,13 @@ export const PerfilCache = () => {
     const getDetails = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache/" + params.id);
         const data = await response.json();
-        setPerfilDetails(data)
-
+        const qrCodeData = atob(data.qr_code);
+        const qrCodeBlob = new Blob([new Uint8Array(qrCodeData.split('').map(char => char.charCodeAt(0)))], { type: 'image/png' });
+        const qrCodeUrl = URL.createObjectURL(qrCodeBlob);
+        setPerfilDetails({ ...data, qr_code_url: qrCodeUrl });
+        console.log(data)
     }
+
 
     const mostrarDatosCache = () => {
         setSelectedDiv1(true);
@@ -100,10 +104,13 @@ export const PerfilCache = () => {
                                     <li className="list-group-item list-group-item-warning"><strong>Nombre:</strong> {perfilDetails.name}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>Coordenadas:</strong> {perfilDetails.coordinates_x}/ {perfilDetails.coordinates_y} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>Country:</strong> {perfilDetails.country}</li>
+                                    <li className="list-group-item list-group-item-warning"><strong>State:</strong> {perfilDetails.state}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>City:</strong> {perfilDetails.city}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>difficulty:</strong> {perfilDetails.difficulty} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>Size:</strong> {perfilDetails.size} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>Description:</strong> {perfilDetails.description}</li>
+                                    <li className="list-group-item"><strong>QR Code:</strong> <img src={perfilDetails.qr_code_url} width="200" alt="QR code" /></li>
+
                                 </ul>
                             </div>
                         </div>
