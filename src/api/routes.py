@@ -21,12 +21,10 @@ def user_login():
     user = User.query.filter_by(email=body_email).first()
     
     # Find the user with the matching username
-    # if not user:
-    #     return jsonify({"Error": "Invalid credentials"}), 401
     if user is None:
         return jsonify({"response": "Invalid username or password."}), 401
     
-     # Hash the entered password and compare to the stored hash
+    # Hash the entered password and compare to the stored hash
     hashed_password = hashlib.sha256(body_password.encode('utf-8')).hexdigest()
     if hashed_password != user.password:
         return jsonify({"response": "Invalid username or password."}), 401
@@ -41,6 +39,35 @@ def current_user_email():
     user = User.query.get(user_id)
     return jsonify({"response": user.serialize()}), 200
 
+@api.route('/change-password', methods=['PUT'])
+@jwt_required()
+def change_password():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    current_password = request.json.get("current_password")
+    new_password = request.json.get("new_password")
+    repeat_new_password = request.json.get("repeat_new_password")
+
+    # Perform any necessary validation here, such as checking if the user's current password matches
+    if new_password != repeat_new_password:
+        return {"error": "New passwords do not match"}, 400
+    
+    if not current_password:
+        return {"error": "Current password cannot be empty"}, 400
+
+    if user.password != hashlib.sha256(current_password.encode('utf-8')).hexdigest():
+        return {"error": "Incorrect current password"}, 400
+    
+    # current_hashed_password = hashlib.sha256(current_password.encode('utf-8')).hexdigest()
+    # if user.password != current_hashed_password:
+    #     return jsonify({"error": "Invalid password."}), 401
+
+    # Update the user's password in the database here
+    new_hashed_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
+    user.password = new_hashed_password
+    db.session.commit()
+    
+    return jsonify({"message": "Password updated successfully"})
 
 @api.route('/updateUser-user', methods=['PUT'])
 @jwt_required()
@@ -82,33 +109,11 @@ def handle_upload():
 
 @api.route('/cache', methods=['GET'])
 def get_caches():
-    # name = request.json.get("name")
-    # description = request.json.get("description")
-    # country = request.jeson.get("country")
-    # city = request.jeson.get("city")
-    # postal_code = request.jeson.get("postal_code")
-    # coordinates_y = request.jeson.get("coordinates_y")
-    # coordinates_x = request.jeson.get("coordinates_x")
-    # difficulty = request.jeson.get("difficulty")
-    # size = request.jeson.get("size")
-    # qr_url = request.jeson.get("qr_url")
-    # owner_id = request.jeson.get("owner_id")
     caches = Cache.query.all()
     return jsonify({"results": [cache.serialize() for cache in caches]}), 200
 
 @api.route('/ToShowcache', methods=['GET'])
 def get_ToShowCaches():
-    # name = request.json.get("name")
-    # description = request.json.get("description")
-    # country = request.jeson.get("country")
-    # city = request.jeson.get("city")
-    # postal_code = request.jeson.get("postal_code")
-    # coordinates_y = request.jeson.get("coordinates_y")
-    # coordinates_x = request.jeson.get("coordinates_x")
-    # difficulty = request.jeson.get("difficulty")
-    # size = request.jeson.get("size")
-    # qr_url = request.jeson.get("qr_url")
-    # owner_id = request.jeson.get("owner_id")
     toShowcache = Cache.query.all()
     return jsonify({"results": [cache.serialize() for cache in toShowcache]}), 200
 
