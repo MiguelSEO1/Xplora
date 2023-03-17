@@ -48,21 +48,30 @@ def change_password():
     new_password = request.json.get("new_password")
     repeat_new_password = request.json.get("repeat_new_password")
 
-    # Perform any necessary validation here, such as checking if the user's current password matches
+    # Validates if the new password matches
     if new_password != repeat_new_password:
         return {"error": "New passwords do not match"}, 400
     
+    # Checks if the input is empty
     if not current_password:
         return {"error": "Current password cannot be empty"}, 400
-
+    
+    # Checks if the password is the same as the database
     if user.password != hashlib.sha256(current_password.encode('utf-8')).hexdigest():
         return {"error": "Incorrect current password"}, 400
     
-    # current_hashed_password = hashlib.sha256(current_password.encode('utf-8')).hexdigest()
-    # if user.password != current_hashed_password:
-    #     return jsonify({"error": "Invalid password."}), 401
+    if len(new_password) < 8:
+        return jsonify({"response": "Password must be at least 8 characters."}), 300
+    if not re.search(r'[A-Z]', body_password):
+        return jsonify({"response": "Password must include at least one capital letter."}), 300
+    if not re.search(r'[a-z]', body_password):
+        return jsonify({"response": "Password must include at least one lowercase letter."}), 300
+    if not re.search(r'\d', body_password):
+        return jsonify({"response": "Password must include at least one number."}), 300
+    if not re.search(r'[^\w\s]', body_password):
+        return jsonify({"response": "Password must include at least one special character."}), 300
 
-    # Update the user's password in the database here
+    # Update the user's password in the database
     new_hashed_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
     user.password = new_hashed_password
     db.session.commit()
