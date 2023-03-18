@@ -3,32 +3,20 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
 import { Buscador } from "../component/buscador";
-import { UploadImageCache } from "../component/uploadImageCache";
 
 
 
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
-    const [city, setCity] = useState("");
-    const [name, setName] = useState("");
+	const [city, setCity] = useState("");
+	const [name, setName] = useState("");
 	const [favoriteCaches, setfavoriteCaches] = useState([]);
-    const [id, setId] = useState("");
+	const [id, setId] = useState("");
 
 
-
-
-	useEffect(() => {
-        setId(store.caches.id);
-        setName(store.caches.name);
-        setCity(store.caches.city);
-    }, [store.caches])
-
-
-	
-	
 	return (
-		
+
 
 		<div>
 
@@ -62,8 +50,8 @@ export const Demo = () => {
 									</Link>
 
 									<button onClick={() => {
-                                    actions.createFavoritesCaches(cache.id);
-                                }}type="button" class="btn btn-outline-danger mx-1" ><i class="fa-solid fa-heart"></i></button>
+										actions.createFavoritesCaches(cache.id);
+									}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1" : "btn btn-outline-warning mx-1"} ><i class="fa-solid fa-heart"></i></button>
 								</div>
 							</div>
 						)
@@ -71,7 +59,7 @@ export const Demo = () => {
 				</div>
 
 			</div>
-			
+
 
 		</div>
 	);

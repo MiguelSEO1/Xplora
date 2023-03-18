@@ -164,7 +164,6 @@ def get_details(id):
     return jsonify(cache.serialize()), 200
 
 
-
 @api.route('/perfil-comments/<int:id>', methods=['POST'])
 @jwt_required()
 def create_comments(id):
@@ -177,30 +176,55 @@ def create_comments(id):
     db.session.commit() 
     return jsonify({"response": "Comment ok"}), 200
 
+@api.route('/perfil-cache-comments/<int:id>', methods=['GET'])
+def get_comments(id):
+    cache = Cache.query.filter_by(id=id).first()
+    comments = Comment.query.filter_by(cache=cache).all()
+    serialized_comments = [x.serialize() for x in comments]
+    return jsonify(serialized_comments), 200
+   
+
 @api.route('/delete-comments/', methods=['DELETE'])
 @jwt_required()
 def delete_comments():
     user_id = get_jwt_identity()
-    cache_id = request.json.get("id")
     comment_id= request.json.get("id")
-    comment= Comment.query.filter_by(cache_id=cache_id, user_id=user_id, comment_id=comment_id).first()
+    comment= Comment.query.get(comment_id)
     db.session.delete(comment)
     db.session.commit() 
-    return jsonify({"response": "Comment delete ok", "cache": cache.serialize()}), 200
+    return jsonify({"response": "Comment delete ok"}), 200
   
 
 @api.route('/perfil-galery', methods=['POST'])
 @jwt_required()
 def create_galery():
-
     user_id = get_jwt_identity()
     body= json.loads(request.form["galery"])
     cache = Cache.query.filter_by(id=body["id"]).first()
-    
-    new_galery = Image(title=body["title"], url="@@@@@", date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
+    result= cloudinary.uploader.upload(request.files['profile_image'])
+    new_galery = Image(title=body["title"], url=result['secure_url'], date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
     db.session.add(new_galery)
     db.session.commit() 
     return jsonify({"response": "Galery ok"}), 200  
+
+@api.route('/perfil-cache-images/<int:id>', methods=['GET'])
+def get_images(id):
+    cache = Cache.query.filter_by(id=id).first()
+    images = Image.query.filter_by(cache=cache).all()
+    serialized_images = [x.serialize() for x in images]
+    return jsonify(serialized_images), 200
+
+
+@api.route('/delete-image/', methods=['DELETE'])
+@jwt_required()
+def delete_image():
+    user_id = get_jwt_identity()
+    image_id= request.json.get("id") 
+    image= Image.query.get(image_id)
+    if image:
+        db.session.delete(image)
+        db.session.commit() 
+        return jsonify({"response": "Imagen eliminada correctamente"}), 200
 
 
 @api.route('/favorites-caches', methods=['PUT'])

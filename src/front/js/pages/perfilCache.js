@@ -5,14 +5,13 @@ import { Context } from "../store/appContext";
 import Comentario from "../../img/comentario.png";
 import Mapa from "../../img/mapa.png"
 import { UploadImage } from "../component/upload";
-import { UploadImageCache } from "../component/uploadImageCache";
 
 
 export const PerfilCache = () => {
     const params = useParams();
     const { store, actions } = useContext(Context);
     const [files, setFiles] = useState(null)
-
+    const [url, setUrl] = useState('');
     const [urlImage, seturlImage] = useState("https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280.jpg");
     const [selectedDiv1, setSelectedDiv1] = useState(true);
     const [selectedDiv2, setSelectedDiv2] = useState(false);
@@ -21,6 +20,7 @@ export const PerfilCache = () => {
     const [selectedDiv5, setSelectedDiv5] = useState(false);
     const [perfilDetails, setPerfilDetails] = useState({});
     const [perfilComment, setPerfilComment] = useState({});
+    const [perfilImages, setPerfilImages] = useState({});
 
     const [comment, setComment] = useState({ title: undefined, text: undefined });
     const [galery, setGalery] = useState({ id: params.id, title: undefined, url: undefined, date_of_Publication: undefined });
@@ -28,7 +28,27 @@ export const PerfilCache = () => {
 
     useEffect(() => {
         getDetails();
+        getCacheComments();
+        getCacheImages();
+
     }, []);
+
+    useEffect(() => {
+        getCacheImages();
+    }, [url]); // solo llama a la función getCacheImages cuando se actualiza url
+
+    const getCacheComments = async () => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-comments/" + params.id)
+        const data = await response.json();
+        setPerfilComment(data)
+    };
+
+    const getCacheImages = async () => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-images/" + params.id)
+        const data = await response.json();
+        setPerfilImages(data)
+    };
+
 
 
 
@@ -50,6 +70,10 @@ export const PerfilCache = () => {
             },
             body: JSON.stringify(comment),
         });
+
+        if (response.ok) {
+            getCacheComments();
+        }
     };
 
     const deleteComments = async (id) => {
@@ -61,8 +85,14 @@ export const PerfilCache = () => {
             },
             body: JSON.stringify({
                 id: id,
-            }),
+            })
+
         });
+
+        if (response.ok) {
+            getCacheComments();
+        }
+
     };
 
 
@@ -76,7 +106,32 @@ export const PerfilCache = () => {
             },
             body: JSON.stringify(galery),
         });
-    }
+
+        if (response.ok) {
+            getCacheImages();
+        }
+
+    };
+
+    const deleteImages = async (id) => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/delete-image", {
+            method: "DELETE",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+                id: id,
+            })
+
+        });
+
+        if (response.ok) {
+            getCacheImages();
+        }
+
+    };
+
 
     const uploadImage = async () => {
         console.log("This are the files", files);
@@ -86,7 +141,12 @@ export const PerfilCache = () => {
         body.append("galery", JSON.stringify(galery))
         const url = await actions.uploadImageCache(body)
         setUrl(url)
+        await getCacheImages(); // llamada a la función getCacheImages después de uploadImage
+
     };
+
+
+
 
     const mostrarDatosCache = () => {
         setSelectedDiv1(true);
@@ -240,20 +300,26 @@ export const PerfilCache = () => {
                                 </div>
 
                                 <div class=" d-flex justify-content-end mt-2 mb-5">
-                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => createComments()}>Enviar</button>
+                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => {
+                                        createComments()
+                                        setComment({ title: "", text: "" })
+                                    }}>Enviar</button>
                                 </div>
                             </div>
-                            {perfilDetails.comments.map((comment, i) => {
+                            {perfilComment.map((comment, i) => {
                                 return <div key={i} class="container row border-bottom-0 border-dark border-top border-top-2 mt- mb-3 mx-auto ">
                                     <div class="tamn col-lg-2 col-md-2 col-sm-3 border-bottom border-end border-primary my-2 justify-content-start align-items-start">
                                         <h6 class="tamano">{comment.user.name}</h6>
-                                        <img src={comment.user.profile_image_url} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
+                                        <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
+                                        <div class="mb-3" >
+                                            {store.currentUser.id === comment.user.id ? (
+                                                <button type="button" class="btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
+                                            ) : null}
+                                        </div>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-8 my-2">
                                         <h6 class="tamano">{comment.title}</h6>
                                         <p class="tamano">{comment.text}</p>
-                                        <button type="button" class="btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Cancelar</button>
-
                                     </div>
                                 </div>
                             })}
@@ -286,42 +352,48 @@ export const PerfilCache = () => {
 
                                 <div className="d-flex align-items-end ">
                                     <>
-                                        <img src={urlImage} className="img-thumbnail w-25" alt="..." />
+                                        <img src={files ? URL.createObjectURL(files[0]) : urlImage} className=" img-thumbnail w-25 mb-3" alt="..." />
                                         <div className="m-3">
-                                            <p>Puede cargar un archivo JPG, GIF o PNG. El límite de tamaño de archivo es de 4 MB.</p>
+                                            <div className="">
+                                                <p>Puede cargar un archivo JPG, GIF o PNG. El límite de tamaño de archivo es de 4 MB.</p>
+                                            </div>
                                             <div className="form-group">
                                                 <input type="file" className="form-control-file" onChange={(e) => setFiles(e.target.files)} />
                                             </div>
-                                            <button className="btn btn-danger btn-sm mt-3">Subir Foto</button>
 
                                         </div>
-                                    </>                                </div>
+                                    </>
+                                </div>
 
                                 <div class="mb-3">
-                                    <input type="text" name="title" value={galery.title} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-secondary  p-2 text-dark bg-opacity-10 border border-danger" id="exampleFormControlInput1" placeholder="Título Foto" />
+                                    <input type="text" name="title" value={galery.title} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-secondary  p-2 text-dark bg-opacity-10 border border-danger" id="floatingInputInvalid" placeholder="Título Foto" />
                                 </div>
                                 <div class="mb-2">
-                                    <input name="url" value={galery.url} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control p-2 text-dark bg-opacity-10 border border-danger" type="file" id="formFileMultiple" multiple />
-                                </div>
-                                <div class="mb-2">
-                                    <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control p-2 text-dark bg-opacity-10 border border-danger" type="text" id="formFileMultiple" multiple />
+                                    <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-secondary p-2 text-dark bg-opacity-10 border border-danger" type="text" id="formFileMultiple" multiple placeholder="Fecha Foto - dd-mm-aa" />
                                 </div>
                                 <div class=" d-flex justify-content-end my-2">
-                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => uploadImage()}>Enviar</button>
-                                    <button type="button" class="btn btn-danger btn-sm">Cancelar</button>
+                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => {
+                                        uploadImage()
+                                        setGalery({ title: "", date_of_Publication: "" })
+                                    }}>Enviar</button>
                                 </div>
-                                {perfilDetails.images.map((image, i) => {
+                                {perfilImages.map((image, i) => {
                                     return <div key={i} class="container row border-bottom-0 border-dark border-top border-dark m-3 mx-auto my-3">
                                         <div class="tamn col-lg-2 col-md-2 border-bottom border-end border-primary my-2 justify-content-start align-items-start">
                                             <h6 class="tamano">{image.user.name}</h6>
-                                            <img src={image.user.profile_image_url} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
-
+                                            <img src={image.user.profile_image_url ? image.user.profile_image_url : urlImage} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
+                                            <div className="mb-3" >
+                                                {store.currentUser.id === image.user.id ? (
+                                                    <button type="button" class="btn btn-danger btn-sm" onClick={() => deleteImages(image.id)}>Eliminar Foto</button>) : null
+                                                }
+                                            </div>
                                         </div>
                                         <div class="col-lg-10 col-md-10 my-2  text-center">
                                             <h6 class="tamano">{image.title}</h6>
                                             <img src={image.url} alt="Imagen del usuario" class="img-fluid w-auto pb-3 d-felx" />
                                             <h6 class="tamano">{image.date_of_Publication}</h6>
                                         </div>
+
                                     </div>
                                 })}
                             </div>

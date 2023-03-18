@@ -86,8 +86,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						"currentPassword": currentPassword,
 						"newPassword": newPassword,
 						"confirmPassword": confirmPassword,
-
-
 					}),
 				});
 				const data = await response.json();
@@ -176,9 +174,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					},
 					body: body
 				}
+				
 
 				const response = await fetch(process.env.BACKEND_URL + "/api/perfil-galery", options)
 				if (response.status == 200) { return await response.json() }
+	
+				
 			},
 
 

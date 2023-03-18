@@ -29,10 +29,10 @@ import { CachesDificultad} from "./pages/cachesDificultad";
 
 import injectContext from "./store/appContext";
 import { NavbarNuevo } from "./component/navbarNuevo";
+
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Buscador } from "./component/buscador";
-import { UploadImageCache } from "./component/uploadImageCache";
 
 //create your first component
 const Layout = () => {
@@ -51,6 +51,7 @@ const Layout = () => {
             <Route element={<Login />} path="/login" />
             <Route element={<PerfilCache />} path="/perfil-cache/:id" />
             <Route element={<MiPerfil />} path="/mi-Perfil" />
+
             <Route element={<Register />} path="/register" />
             <Route element={<Cache />} path="/reg_cache" />
             <Route element={<PaginaEnhorabuena />} path="/enhorabuena" />
@@ -64,7 +65,6 @@ const Layout = () => {
             <Route element={<CachesFamilia />} path="/como-involucrar-a-los-mas-pequenos-en-la-busqueda-de-caches" />
             <Route element={<Blog />} path="/blog" />
             <Route element={<Buscador />} path="/buscador" />
-            <Route element={<UploadImageCache />} path="/uploadImageCache" />
             <Route element={<TiposDeCaches />} path="/tipos-de-caches" />
             <Route element={<CachesUbicacion />} path="/caches-ubicacion"/>
             <Route element={<CachesDificultad />} path="/caches-dificultad"/>
