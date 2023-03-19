@@ -33,6 +33,7 @@ import { NavbarNuevo } from "./component/navbarNuevo";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Buscador } from "./component/buscador";
+import { CachesSegmentacionProvincias } from "./pages/cachesSegmentacionProvincias";
 
 //create your first component
 const Layout = () => {
@@ -70,6 +71,7 @@ const Layout = () => {
             <Route element={<CachesDificultad />} path="/caches-dificultad"/>
             <Route element={<CachesTamano />} path="/caches-tamano"/>
             <Route element={<CachesSegmentacion />} path="/caches/:tipos"/>
+            <Route element={<CachesSegmentacionProvincias />} path="/caches-provincias/:tipos"/>
             <Route element={<h1>Not found!</h1>} />
             
           </Routes>

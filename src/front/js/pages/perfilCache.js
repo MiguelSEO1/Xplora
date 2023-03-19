@@ -374,7 +374,7 @@ export const PerfilCache = () => {
                                 <div class=" d-flex justify-content-end my-2">
                                     <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => {
                                         uploadImage()
-                                        setGalery({ title: "", date_of_Publication: "" })
+
                                     }}>Enviar</button>
                                 </div>
                                 {perfilImages.map((image, i) => {
