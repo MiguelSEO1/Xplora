@@ -46,3 +46,18 @@
   background: #597ae6;
   color: #f8f6d7;
 }
+
+
+@media (max-width: 991px) {
+  .tamano {
+    font-size: 7px;
+    };
+
+  .imgtamn {
+    size: 15px;
+  }
+
+
+}
+
+

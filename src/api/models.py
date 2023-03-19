@@ -23,7 +23,9 @@ class User(db.Model):
     blogs = db.relationship('Blog', backref='blog_creator')
     caches_found = db.relationship('Cache', secondary=cache_found, backref=db.backref('users_found'))
     caches = db.relationship('Cache', backref='user_creator')
-    # commets = db.relationship('Comment', backref='user')
+    comments = db.relationship('Comment', backref='user')
+    images = db.relationship('Image', backref='user')
+    favorites = db.relationship('Favorite', backref='user')
 
     def serialize(self):
         return {
@@ -35,7 +37,19 @@ class User(db.Model):
             "profile_image_url": self.profile_image_url,
             "caches_found": [x.serialize()for x in self.caches_found],
             "is_admin": self.is_admin,
+            "favorites" : [x.serialize() for x in self.favorites],
+            "password": self.password,
+
         }
+
+    def basicInfo(self): 
+        return{
+            "id": self.id,
+            "name": self.name,
+            "profile_image_url": self.profile_image_url,
+ 
+        }   
+
     def rank(self):
         return {
             "id": self.id,
@@ -68,11 +82,10 @@ class Cache(db.Model):
     size = db.Column(db.String(255), nullable=False)
     qr_code = db.Column(db.String(1500), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-    # favorites = db.relationship('Favorite')
-    images = db.relationship('Image')
-    # commets = db.relationship('Comment', backref='cache')
-    # images = db.relationship('Image', backref='cache')
-
+    comments = db.relationship('Comment', backref='cache')
+    images = db.relationship('Image', backref='cache')
+    favorites = db.relationship('Favorite', backref='cache')
+    is_favorite = db.Column(db.Boolean, nullable=False, default=False)
     
     def serialize(self):
         return {
@@ -86,34 +99,81 @@ class Cache(db.Model):
             "coordinates_y": self.coordinates_y,
             "coordinates_x": self.coordinates_x,
             "size": self.size,
+            "is_favorite": self.is_favorite,
             "difficulty": self.difficulty,
             "qr_code": self.qr_code,
             "owner_id": self.owner_id,
+            "comments": [x.serialize() for x in self.comments],
+            "images" : [x.serialize() for x in self.images],
+            #"favorites" : [x.serialize() for x in self.favorites]
+
+    #La clave "comments" contiene una lista con los comentarios asociados al objeto.
+
         }
+
+    def basicInfo(self): 
+        return{
+            "id": self.id,
+            "name": self.name,
+            "description": self.description,
+            "country": self.country,
+            "city": self.city,
+            "size": self.size,
+            "difficulty": self.difficulty,
+            "state": self.state,
+ 
+        }  
+    
 
 class Image(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255), nullable=False)
+    title = db.Column(db.String(100), nullable=False)
+    date_of_Publication = db.Column(db.Date, nullable=True)
+    imageprimary = db.Column(db.Boolean, default=False)
     cache_id = db.Column(db.Integer, db.ForeignKey('cache.id'), nullable=False)
-#   user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
+    def serialize(self):
+        user= User.query.get(self.user_id)
+        return {
+            "id": self.id,
+            "user": user.basicInfo(),
+            "title": self.title,
+            "date_of_Publication": self.date_of_Publication,
+            "url": self.url,
+        }
 
+class Comment(db.Model):
+     id = db.Column(db.Integer, primary_key=True)
+     title = db.Column(db.String(100), nullable=False)
+     text = db.Column(db.Text, nullable=False)
+     url_image = db.Column(db.String(255))
+     cache_id = db.Column(db.Integer, db.ForeignKey('cache.id'), nullable=False)
+     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
 
-# class Comment(db.Model):
-#     id = db.Column(db.Integer, primary_key=True)
-#     title = db.Column(db.String(100), nullable=False)
-#     text = db.Column(db.Text, nullable=False)
-#     url_image = db.Column(db.String(255))
-#     cache_id = db.Column(db.Integer, db.ForeignKey('cache.id'), nullable=False)
-#     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
-
+     def serialize(self):
+        user= User.query.get(self.user_id)
+        return {
+            "id": self.id,
+            "title": self.title,
+            "text": self.text,
+            "user": user.serialize()
+        }
 
 class Favorite(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     cache_id = db.Column(db.Integer, db.ForeignKey('cache.id'))
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     blog_id = db.Column(db.Integer, db.ForeignKey('blog.id'))
-    cache = db.relationship('Cache')
-    user = db.relationship('User')
     blog = db.relationship('Blog')
    
+    def serialize(self):
+         user= User.query.get(self.user_id)
+         cache= Cache.query.get(self.cache_id)
+         return {
+             "id": self.id,
+             "user": user.basicInfo(),
+             "cache":cache.basicInfo(),
+
+        }
