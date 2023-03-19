@@ -233,7 +233,7 @@ export const MiPerfil = () => {
 
     };
 
-    
+
 
 
 
@@ -283,8 +283,9 @@ export const MiPerfil = () => {
                             <div class="d-flex justify-content-end">
                                 <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
                                     e.preventDefault();
-                                    actions.getUpdateUser(email, name, country, city)}}>Guardar Cambios </button>
-                                
+                                    actions.getUpdateUser(email, name, country, city)
+                                }}>Guardar Cambios </button>
+
                             </div>
                         </div>
                     ) : null}
@@ -321,7 +322,8 @@ export const MiPerfil = () => {
                                 return (
                                     <div className="card" key={favorites.id}>
                                         <img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
-                                        <div className="card-body">
+                                        <div className="card-body text-center">
+                                            <h4 className="card-title">{favorites.cache.state}</h4>
                                             <h5 className="card-title">{favorites.cache.city}</h5>
                                             <p className="card-text">{favorites.cache.name}</p>
                                             <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none">

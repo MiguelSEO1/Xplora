@@ -42,22 +42,26 @@ export const TiposDeCaches = () => {
                 <h2 className="text-center mb-3 mt-4">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
                 <p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 row row-cols-lg-4 mx-auto gx-3">
-					{store.caches.map((caches) => {
-						return (
-							<div class="card" key={caches.id}>
-								<img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
-								<div class="card-body">
-									<h5 class="card-title">{caches.city}</h5>
-									<p class="card-text">{caches.name}</p>
-									<Link to={"/perfil-cache/" + caches.id }className="text-decoration-none">
-									<a href="#" class="btn btn-primary">Ver Detalles</a>
+                    {store.caches.map((cache) => {
+                        return (
+                            <div class="card" key={cache.id}>
+                                <img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
+                                <div class="card-body">
+                                    <h4 className="card-title">{cache.state}</h4>
+                                    <h5 class="card-title">{cache.city}</h5>
+                                    <p class="card-text">{cache.name}</p>
+									<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none">
+										<a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
 									</Link>
-								</div>
-							</div>
-						)
-					})}
+                                    <button onClick={() => {
+										actions.createFavoritesCaches(cache.id);
+									}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1" : "btn btn-outline-warning mx-1"} ><i class="fa-solid fa-heart"></i></button>
+                                </div>
+                            </div>
+                        )
+                    })}
 
-				</div>
+                </div>
 
             </div>
 

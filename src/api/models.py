@@ -110,6 +110,7 @@ class Cache(db.Model):
             "city": self.city,
             "size": self.size,
             "difficulty": self.difficulty,
+            "state": self.state,
  
         }  
     
