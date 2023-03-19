@@ -29,7 +29,7 @@
   color: #f8f6d7;
 }
 .nav-link {
-  color: rgb(64, 64, 177);
+  color: #f15f1b;
 }
 
 .desplegable:hover {
@@ -47,17 +47,16 @@
   color: #f8f6d7;
 }
 
-
 @media (max-width: 991px) {
   .tamano {
     font-size: 7px;
-    };
+  }
 
   .imgtamn {
     size: 15px;
   }
-
-
 }
 
-
+.alert-primary {
+  background-color: #cebea3;
+}

@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
-import logo from "../../img/logo.png"
+import logonuevo from "../../img/logonuevo.png"
 import person from "../../img/person.png"
 import { Buscador } from "../component/buscador";
 
@@ -29,31 +29,14 @@ export const NavbarNuevo = () => {
 
     return (
         <div>
-            {store.userActive ? (
-                <div className=" card text-bg-white sticky-sm-top">
-                    <Link to="/demo" className="">
-                        <img
-                            src={logo}
-                            className="card-img mw-50"
-                            alt="Mountain"
-                            height=""
-                        />
-                    </Link>
-                </div>) : (
-                <div className="card text-bg-white">
-                    <Link to="/" className="">
-                        <img
-                            src={logo}
-                            className="card-img mw-50"
-                            alt="Mountain"
-                            height=""
-                        />
-                    </Link></div>)}
-
-
             <ul className="nav justify-content-center alert alert-primary p-1 border-0">
                 {store.userActive ? (
                     <>
+                        <div className="navbar-logo col-6 me-auto">
+                            <a href="/">
+                                <img src={logonuevo} alt="Descripción del logo" />
+                            </a>
+                        </div>
                         <li className="nav-item d-none d-lg-block">
                             <Link to="/demo" className="nav-link active " onClick={() => setShowSearch(false)} aria-current="page">
                                 Home
@@ -116,10 +99,14 @@ export const NavbarNuevo = () => {
                             <button type="button" className="btn btn-light" onClick={mostrarBuscador}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                         </li>
 
-
                     </>
                 ) : (
                     <>
+                        <div className="navbar-logo col-6 me-auto">
+                            <a href="/">
+                                <img src={logonuevo} alt="Descripción del logo" />
+                            </a>
+                        </div>
                         <li className="nav-item d-none d-lg-block">
                             <Link to="/" className="nav-link active" aria-current="page">
                                 Home
@@ -189,7 +176,7 @@ export const NavbarNuevo = () => {
                                 </p>
 
                                 {showSearchMobile ? (
-                <Buscador />) : null}
+                                    <Buscador />) : null}
                             </>) : (<>
                                 <a class="dropdown-item" href="/">Home</a>
                                 <a class="dropdown-item" href="/blog">Faqs</a>
