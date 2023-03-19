@@ -93,17 +93,18 @@ export const NavbarNuevo = () => {
                             <ul className="dropdown-menu">
 
                                 <Link to="/mi-Perfil" className="text-decoration-none">
-                                    <li><a className="dropdown-item" href="#">Mi perfil</a></li>
+                                    <button className="dropdown-item" href="#">Mi perfil</button>
                                 </Link>
-                                <li className="nav-item mx-3 text-danger"
+
+                                <button
+                                    className="dropdown-item nav-item me-1 text-danger text-aling"
                                     onClick={async () => {
                                         if (await actions.logout()) {
                                             navigate("/");
                                         }
-                                    }}
-                                >
-                                    Logout
-                                </li>
+                                    }}>Logout</button>
+
+
                             </ul>
                         </div>
                         <li className="nav-item d-none d-lg-block ">
@@ -112,7 +113,7 @@ export const NavbarNuevo = () => {
                             </Link>
                         </li>
                         <li className="nav-item d-none d-lg-block">
-                            <button type="button" class="btn btn-light" onClick={mostrarBuscador}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                            <button type="button" className="btn btn-light" onClick={mostrarBuscador}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                         </li>
 
 
@@ -149,35 +150,34 @@ export const NavbarNuevo = () => {
             {showSearch ? (
                 <Buscador />) : null}
 
-            <div class="container Orbital position-fixed end-0 mx-5 d-block d-md-none">
-                <a class="btn btn-secondary btn-floating d-block d-md-none " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+            <div className="container Orbital position-fixed end-0 mx-5 d-block d-md-none">
+                <a className="btn btn-secondary btn-floating d-block d-md-none " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                     <i className=" fas fa-bars fa-1x"></i>
                 </a>
 
-
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
-                    <div class="offcanvas-header">
-                        <h5 class="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    <div className="offcanvas-header">
+                        <h5 className="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
                     </div>
-                    <div class="offcanvas-body">
+                    <div className="offcanvas-body">
                         {store.userActive ? (
                             <>
-                                <button type="button" class="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
-                                <a class="dropdown-item" href="/demo">Home</a>
-                                <a class="dropdown-item" href="/blog">Blog</a>
-                                <a class="dropdown-item" href="/blog">Faqs</a>
-                                <div class="dropdown  mx-2">
-                                    <p class="p-2 dropdown-toggle" data-bs-toggle="dropdown">
+                                <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                                <a className="dropdown-item" href="/demo">Home</a>
+                                <a className="dropdown-item" href="/blog">Blog</a>
+                                <a className="dropdown-item" href="/blog">Faqs</a>
+                                <div className="dropdown  mx-2">
+                                    <p className="p-2 dropdown-toggle" data-bs-toggle="dropdown">
                                         Cachés
                                     </p>
-                                    <ul class="dropdown-menu">
-                                        <a class="dropdown-item" href="/tipos-de-caches">Tipos de Cachés</a>
-                                        <a class="dropdown-item" href="/reg_cache">crear Caché</a>
+                                    <ul className="dropdown-menu">
+                                        <a className="dropdown-item" href="/tipos-de-caches">Tipos de Cachés</a>
+                                        <a className="dropdown-item" href="/reg_cache">crear Caché</a>
                                     </ul>
                                 </div>
                                 <hr className="dropdown-divider" />
-                                <a class="dropdown-item" href="/mi-Perfil">Mi Perfil</a>
+                                <a className="dropdown-item" href="/mi-Perfil">Mi Perfil</a>
                                 <p className="nav-item mx-3 text-danger"
                                     onClick={async () => {
                                         if (await actions.logout()) {

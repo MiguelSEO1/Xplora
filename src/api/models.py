@@ -35,6 +35,8 @@ class User(db.Model):
             "city": self.city,
             "email": self.email,
             "profile_image_url": self.profile_image_url,
+            "caches_found": [x.serialize()for x in self.caches_found],
+            "is_admin": self.is_admin,
             "favorites" : [x.serialize() for x in self.favorites],
             "password": self.password,
 
@@ -48,6 +50,12 @@ class User(db.Model):
  
         }   
 
+    def rank(self):
+        return {
+            "id": self.id,
+            "name": self.name,
+            "caches": len(self.caches_found)
+        }
 
 class Blog(db.Model):
     id = db.Column(db.Integer, primary_key=True, unique=True)
@@ -61,6 +69,8 @@ class Cache(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(255), nullable=False)
     is_approved = db.Column(db.Boolean, nullable=False, default=False)
+    is_declined = db.Column(db.Boolean, nullable=False, default=False)
+    is_pending = db.Column(db.Boolean, nullable=False, default=True)
     description = db.Column(db.Text, nullable=False)
     country = db.Column(db.String(255), nullable=False)
     state = db.Column(db.String(255), nullable=False)
@@ -70,7 +80,7 @@ class Cache(db.Model):
     coordinates_x = db.Column(db.Float)
     difficulty = db.Column(db.String(255), nullable=False)
     size = db.Column(db.String(255), nullable=False)
-    qr_url = db.Column(db.String(255), nullable=False) 
+    qr_code = db.Column(db.String(1500), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comments = db.relationship('Comment', backref='cache')
     images = db.relationship('Image', backref='cache')
@@ -91,7 +101,7 @@ class Cache(db.Model):
             "size": self.size,
             "is_favorite": self.is_favorite,
             "difficulty": self.difficulty,
-            "qr_url": self.qr_url,
+            "qr_code": self.qr_code,
             "owner_id": self.owner_id,
             "comments": [x.serialize() for x in self.comments],
             "images" : [x.serialize() for x in self.images],

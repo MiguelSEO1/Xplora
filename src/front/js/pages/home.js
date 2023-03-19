@@ -5,10 +5,6 @@ import "../../styles/home.css";
 export const Home = () => {
   const { store, actions } = useContext(Context);
 
-  useEffect(() => {
-    actions.getCaches();
-  }, [])
-
   return (
     <div>
       <div className="card text-bg-dark">

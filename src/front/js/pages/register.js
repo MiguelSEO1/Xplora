@@ -7,6 +7,7 @@ export const Register = () => {
 	const { store, actions } = useContext(Context);
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [username, setUserName] = useState("");
 	const [error, setError] = useState("");
 
 	const sendRegisterCredential = async () => {
@@ -20,6 +21,7 @@ export const Register = () => {
 				body: JSON.stringify({
 					email: email,
 					password: password,
+					name: username,
 				}),
 			}
 		);
@@ -33,7 +35,24 @@ export const Register = () => {
 
 	return (
 		<div className="container col-6 mt-3 border rounded">
-			<h2 className="text-center m-3">Register </h2>
+			<h2 className="text-center m-3">Register</h2>
+			<div className="row my-3">
+				<label className="col-sm-2 col-form-label" htmlFor="email">
+					Username:{" "}
+				</label>
+				<div className="col-sm-10">
+					<input
+						className="form-control"
+						name="username"
+						placeholder="Username"
+						value={username}
+						onChange={(e) => {
+							setError(false);
+							setUserName(e.target.value);
+						}}
+					></input>
+				</div>
+			</div>
 			<div className="row my-3">
 				<label className="col-sm-2 col-form-label" htmlFor="email">
 					Email:{" "}
@@ -42,7 +61,8 @@ export const Register = () => {
 					<input
 						className="form-control"
 						name="email"
-						placeholder="email"
+						type="email"
+						placeholder="Email"
 						value={email}
 						onChange={(e) => {
 							setError(false);
@@ -59,7 +79,8 @@ export const Register = () => {
 					<input
 						className="form-control"
 						name="password"
-						placeholder="password"
+						type="password"
+						placeholder="Password"
 						value={password}
 						onChange={(e) => {
 							setError(false);
@@ -72,7 +93,11 @@ export const Register = () => {
 				<button
 					className="btn btn-success btn-lg"
 					onClick={() => {
-						sendRegisterCredential()
+						// const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+						// if (email && email.match(isValidEmail)) {
+						// 	sendRegisterCredential();
+						// }
+						sendRegisterCredential();
 					}}
 				>
 					Register

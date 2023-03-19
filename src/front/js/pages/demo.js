@@ -14,6 +14,11 @@ export const Demo = () => {
 	const [favoriteCaches, setfavoriteCaches] = useState([]);
 	const [id, setId] = useState("");
 
+	useEffect(() => {
+		setId(store.caches.id);
+		setName(store.caches.name);
+		setCity(store.caches.city);
+	}, [store.caches])
 
 	return (
 
@@ -30,7 +35,7 @@ export const Demo = () => {
 				<div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
 					<Cluster link="/tipos-de-caches" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Cachés" image="https://media.traveler.es/photos/613769fabf63e581e0100e3d/master/w_1600%2Cc_limit/150236.jpg" />
 					<Cluster link="/blog" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Blog" image="https://i.blogs.es/199e7b/simon-english-672450-unsplash/840_560.jpeg" />
-					<Cluster link="/blog" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Ranking" image="https://unomasunoteam.com/wp-content/uploads/2020/03/en-busca-del-tesoro-team-buildng-main-min.jpg" />
+					<Cluster link="/ranking-usuario" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Ranking" image="https://unomasunoteam.com/wp-content/uploads/2020/03/en-busca-del-tesoro-team-buildng-main-min.jpg" />
 				</div>
 			</div>
 
@@ -40,8 +45,8 @@ export const Demo = () => {
 				<div className="container mb-5 row row-cols-lg-4 mx-auto gx-3">
 					{store.caches.map((cache) => {
 						return (
-							<div className="card " key={cache.id}>
-								<img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
+							<div className="card" key={cache.id}>
+								<img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" className="card-img-top" alt="..." />
 								<div className="card-body">
 									<h4 className="card-title">{cache.state}</h4>
 									<h5 className="card-title">{cache.city}</h5>

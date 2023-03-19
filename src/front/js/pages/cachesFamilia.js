@@ -12,7 +12,7 @@ export const CachesFamilia = () => {
 
         <div className="container">
             <h1>Aventura en familia: Cómo involucrar a los niños en la búsqueda de cachés</h1>
-            <img src="https://news.americafirst.com/wp-content/uploads/2019/06/19_06_GeoCaching_NR.jpg" class="img-fluid mx-auto d-block my-5 " alt="..." />
+            <img src="https://news.americafirst.com/wp-content/uploads/2019/06/19_06_GeoCaching_NR.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
 
 
             <p>¿Quieres pasar tiempo de calidad en familia mientras disfrutas de la naturaleza y descubres lugares increíbles? La búsqueda de cachés es una actividad perfecta para hacer con tus hijos. En este artículo, te daremos algunos consejos para involucrar a los más pequeños en la búsqueda de cachés y hacer que la experiencia sea divertida y emocionante para todos.</p>
@@ -30,7 +30,7 @@ export const CachesFamilia = () => {
             <h2 className="my-4">3. Involucre a los niños en la planificación</h2>
 
             <p>Deje que los niños elijan los cachés que quieren buscar o ayuden a planificar la ruta para encontrarlos. Esto les dará una sensación de propiedad en la actividad y los mantendrá emocionados por la búsqueda.</p>
-            <img src="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2015/12/17180543/geocachemain.jpg" class="img-fluid mx-auto d-block my-5 " alt="..." />
+            <img src="https://trcaca.s3.ca-central-1.amazonaws.com/app/uploads/2015/12/17180543/geocachemain.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
 
             <h2 className="my-4" >4. Haga la búsqueda una aventura</h2>
 
@@ -43,7 +43,7 @@ export const CachesFamilia = () => {
             <h2 className="my-4">5.Premie a los niños</h2>
 
             <p>Cuando los niños encuentren un caché, asegúrese de que se sientan orgullosos y recompensados. Traiga un pequeño premio o un regalo para que puedan intercambiar con el objeto del caché. También es importante celebrar su éxito y motivarlos para buscar más cachés en el futuro.</p>
-            <img src="https://www.geocaching.com/blog/wp-content/uploads/2019/03/FavoritePointsBP_CacheCarnival.jpg" class="img-fluid mx-auto d-block my-5 " alt="..." />
+            <img src="https://www.geocaching.com/blog/wp-content/uploads/2019/03/FavoritePointsBP_CacheCarnival.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
 
             <p>La búsqueda de tesoros escondidos puede ser una actividad emocionante y divertida para toda la familia. Con estos consejos, puede involucrar a los niños y hacer que la búsqueda de cachés sea una aventura emocionante y segura para todos. ¡Así que toma tu GPS y sal a buscar algunos cachés en familia hoy!</p>
 

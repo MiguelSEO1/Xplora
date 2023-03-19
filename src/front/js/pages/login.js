@@ -23,13 +23,13 @@ export const Login = () => {
                 }),
             }
         );
+        const data = await response.json();
         if (response.ok) {
-            const data = await response.json();
             localStorage.setItem("token", data.token);
             await actions.validateUser();
             navigate("/demo");
         } else {
-            setError(true);
+            setError(data.response);
         }
     };
 
@@ -44,7 +44,7 @@ export const Login = () => {
                     <input
                         className="form-control"
                         name="email"
-                        placeholder="email"
+                        placeholder="Email"
                         value={email}
                         onChange={(e) => {
                             setError(false);
@@ -61,7 +61,8 @@ export const Login = () => {
                     <input
                         className="form-control"
                         name="password"
-                        placeholder="password"
+                        type="password"
+                        placeholder="Password"
                         value={password}
                         onChange={(e) => {
                             setError(false);
@@ -81,7 +82,7 @@ export const Login = () => {
                     Login
                 </button>
                 {error ? (
-                    <p className="alert alert-warning">Error en crendenciales</p>
+                    <p className="alert alert-warning">{error}</p>
                 ) : null}
             </div>
         </div>
