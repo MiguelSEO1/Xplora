@@ -43,6 +43,7 @@ export const MiPerfil = () => {
         getCachesPendingUser();
         getCachesApproved();
         getCachesDeclined();
+        setPassword(store.currentUser.password);
     }, [store.currentUser])
 
     useEffect(() => {
@@ -403,8 +404,9 @@ export const MiPerfil = () => {
                             <div className="d-flex justify-content-end">
                                 <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
                                     e.preventDefault();
-                                    actions.getUpdateUser(email, name, country, city);
+                                    actions.getUpdateUser(email, name, country, city)
                                 }}>Guardar Cambios </button>
+
                             </div>
                         </div>
                     ) : null}
@@ -437,6 +439,24 @@ export const MiPerfil = () => {
                     {showDiv4 ? (
                         <div>
                             <h2 className="text-center mb-5">Mis Cachés Favoritos</h2>
+                            {store.currentUser.favorites.map((favorites) => {
+                                return (
+                                    <div className="card" key={favorites.id}>
+                                        <img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
+                                        <div className="card-body text-center">
+                                            <h4 className="card-title">{favorites.cache.state}</h4>
+                                            <h5 className="card-title">{favorites.cache.city}</h5>
+                                            <p className="card-text">{favorites.cache.name}</p>
+                                            <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none">
+                                                <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
+                                            </Link>
+                                            <button onClick={() => {
+                                                actions.createFavoritesCaches(favorites.cache.id);
+                                            }} type="button" class="btn btn-outline-danger mx-1" >Delete</button>
+                                        </div>
+                                    </div>
+                                )
+                            })}
                         </div>
                     ) : null}
                     {showDiv5 ? (

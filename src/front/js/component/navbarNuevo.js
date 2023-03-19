@@ -12,12 +12,18 @@ export const NavbarNuevo = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [showSearch, setShowSearch] = useState(false);
+    const [showSearchMobile, setShowSearchMobile] = useState(false);
 
 
 
 
     const mostrarBuscador = () => {
         setShowSearch(!showSearch);
+
+    };
+
+    const mostrarBuscadorMobile = () => {
+        setShowSearchMobile(!showSearchMobile);
 
     };
 
@@ -144,93 +150,57 @@ export const NavbarNuevo = () => {
             {showSearch ? (
                 <Buscador />) : null}
 
-            <div className=" Orbital position-fixed end-0 mx-5 d-md-none">
-                <button type="button" className="  btn btn-secondary btn-floating d-block d-md-none " data-bs-toggle="dropdown" aria-expanded="false">
+            <div className="container Orbital position-fixed end-0 mx-5 d-block d-md-none">
+                <a className="btn btn-secondary btn-floating d-block d-md-none " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
                     <i className=" fas fa-bars fa-1x"></i>
-                </button>
+                </a>
 
-                <ul className="dropdown-menu">
-                    {store.userActive ? (
-                        <>
-                            <li className="nav-item">
-                                <Link to="/demo" className="nav-link active text-dark" aria-current="page">
-                                    Home
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/blog" className="nav-link active text-dark" aria-current="page">
-                                    Blog
-                                </Link>
-                            </li>
-                            <li className="nav-item">
-                                <Link to="/blog" className="nav-link active text-dark" aria-current="page">
-                                    Faqs
-                                </Link>
-                            </li>
-                            <li className="nav-item dropdown">
-                                <Link to="/" className="nav-link dropdown-toggle text-dark" data-bs-toggle="dropdown" role="button" aria-expanded="false">
-                                    cachés
-                                </Link>
-                                <ul className="dropdown-menu">
-                                    <li className="nav-item d-none d-lg-block">
-                                        <Link to="/tipos-de-caches" className="nav-link active text-dark" aria-current="page">
-                                            Tipos de Cachés
-                                        </Link>
-                                    </li>
-                                    <li className="nav-item d-none d-lg-block">
-                                        <Link to="/reg_cache" className="nav-link active text-dark" aria-current="page">
-                                            Registro de Cachés
-                                        </Link>
-                                    </li>
-                                </ul>
-                            </li>
-
-
-                            <li><hr className="dropdown-divider" /></li>
-                            <li className="nav-item">
-                                <Link to="mi-Perfil" className="nav-link active text-dark" aria-current="page">
-                                    Mi Perfil
-                                </Link>
-
-                            </li>
-                            <li className="nav-item mx-3 text-danger"
-                                onClick={async () => {
-                                    if (await actions.logout()) {
-                                        navigate("/");
-                                    }
-                                }}
-                            >
-                                Logout
-                            </li>
-                        </>)
-                        : (
+                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                    <div className="offcanvas-header">
+                        <h5 className="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
+                        <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                    </div>
+                    <div className="offcanvas-body">
+                        {store.userActive ? (
                             <>
-                                <li className="nav-item">
-                                    <Link to="/" className="nav-link active text-dark" aria-current="page">
-                                        Home
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/blog" className="nav-link active text-dark" aria-current="page">
-                                        Faqs
-                                    </Link>
-                                </li>
-                                <li><hr className="dropdown-divider" /></li>
-                                <li className="nav-item">
-                                    <Link to="/login" className="nav-link active text-primary" aria-current="page">
-                                        Login
-                                    </Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link to="/register" className="nav-link active text-success" aria-current="page">
-                                        Register
-                                    </Link>
-                                </li>
+                                <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                                <a className="dropdown-item" href="/demo">Home</a>
+                                <a className="dropdown-item" href="/blog">Blog</a>
+                                <a className="dropdown-item" href="/blog">Faqs</a>
+                                <div className="dropdown  mx-2">
+                                    <p className="p-2 dropdown-toggle" data-bs-toggle="dropdown">
+                                        Cachés
+                                    </p>
+                                    <ul className="dropdown-menu">
+                                        <a className="dropdown-item" href="/tipos-de-caches">Tipos de Cachés</a>
+                                        <a className="dropdown-item" href="/reg_cache">crear Caché</a>
+                                    </ul>
+                                </div>
+                                <hr className="dropdown-divider" />
+                                <a className="dropdown-item" href="/mi-Perfil">Mi Perfil</a>
+                                <p className="nav-item mx-3 text-danger"
+                                    onClick={async () => {
+                                        if (await actions.logout()) {
+                                            navigate("/");
+                                        }
+                                    }}
+                                >
+                                    Logout
+                                </p>
 
+                                {showSearchMobile ? (
+                <Buscador />) : null}
+                            </>) : (<>
+                                <a class="dropdown-item" href="/">Home</a>
+                                <a class="dropdown-item" href="/blog">Faqs</a>
+                                <hr className="dropdown-divider" />
+                                <a class="dropdown-item text-primary" href="/login">Login</a>
+                                <a class="dropdown-item text-success" href="/register">Register</a>
                             </>)}
-                </ul>
-            </div>
+                    </div>
+                </div>
 
+            </div>
 
         </div>
 

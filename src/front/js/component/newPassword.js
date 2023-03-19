@@ -8,7 +8,6 @@ export const NewPassword = () => {
     const [newPassword, setNewPassword] = useState("");
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [error, setError] = useState("");
-
     const sendPasswordChange = async () => {
         const response = await fetch(
             process.env.BACKEND_URL + "/api/change-password",
