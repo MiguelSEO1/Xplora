@@ -12,12 +12,18 @@ export const NavbarNuevo = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [showSearch, setShowSearch] = useState(false);
+    const [showSearchMobile, setShowSearchMobile] = useState(false);
 
 
 
 
     const mostrarBuscador = () => {
         setShowSearch(!showSearch);
+
+    };
+
+    const mostrarBuscadorMobile = () => {
+        setShowSearchMobile(!showSearchMobile);
 
     };
 
@@ -157,6 +163,7 @@ export const NavbarNuevo = () => {
                     <div class="offcanvas-body">
                         {store.userActive ? (
                             <>
+                                <button type="button" class="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                                 <a class="dropdown-item" href="/demo">Home</a>
                                 <a class="dropdown-item" href="/blog">Blog</a>
                                 <a class="dropdown-item" href="/blog">Faqs</a>
@@ -180,6 +187,9 @@ export const NavbarNuevo = () => {
                                 >
                                     Logout
                                 </p>
+
+                                {showSearchMobile ? (
+                <Buscador />) : null}
                             </>) : (<>
                                 <a class="dropdown-item" href="/">Home</a>
                                 <a class="dropdown-item" href="/blog">Faqs</a>

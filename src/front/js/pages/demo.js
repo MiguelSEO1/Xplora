@@ -40,14 +40,14 @@ export const Demo = () => {
 				<div className="container mb-5 row row-cols-lg-4 mx-auto gx-3">
 					{store.caches.map((cache) => {
 						return (
-							<div className="card" key={cache.id}>
+							<div className="card " key={cache.id}>
 								<img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" class="card-img-top" alt="..." />
 								<div className="card-body">
 									<h4 className="card-title">{cache.state}</h4>
 									<h5 className="card-title">{cache.city}</h5>
 									<p className="card-text">{cache.name}</p>
 									<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none">
-										<a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
+										<a href="#" className="btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
 									</Link>
 
 									<button onClick={() => {
