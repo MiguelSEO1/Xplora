@@ -66,13 +66,13 @@ def change_password():
     
     if len(new_password) < 8:
         return jsonify({"response": "Password must be at least 8 characters."}), 300
-    if not re.search(r'[A-Z]', body_password):
+    if not re.search(r'[A-Z]', new_password):
         return jsonify({"response": "Password must include at least one capital letter."}), 300
-    if not re.search(r'[a-z]', body_password):
+    if not re.search(r'[a-z]', new_password):
         return jsonify({"response": "Password must include at least one lowercase letter."}), 300
-    if not re.search(r'\d', body_password):
+    if not re.search(r'\d', new_password):
         return jsonify({"response": "Password must include at least one number."}), 300
-    if not re.search(r'[^\w\s]', body_password):
+    if not re.search(r'[^\w\s]', new_password):
         return jsonify({"response": "Password must include at least one special character."}), 300
 
     # Update the user's password in the database
@@ -104,43 +104,6 @@ def Update_user():
 
     # devolver una respuesta JSON que confirme que se han actualizado los datos
     return jsonify({"response": "Los datos se han actualizado correctamente", "user": user.serialize()}), 200
-
-@api.route('/updateUser-password', methods=['PUT'])
-@jwt_required()
-def Update_password():
-    user_id = get_jwt_identity()
-    user = User.query.get(user_id)
-    new_data = request.get_json()
-    user.password = new_data.get('password', user.password)    
-    db.session.commit()
-    return jsonify({"response": "password actualizado correctamente", "user": user.serialize()}), 200
-
-@api.route('/updateUser-pass', methods=['PUT'])
-@jwt_required()
-def Update_pass():
-    user_id = get_jwt_identity()
-    user = User.query.get(user_id)
-    new_data = request.get_json()
-
-    # Obtener la contraseña actual del usuario de la base de datos
-    current_password = user.password
-
-    # Verificar si la contraseña actual proporcionada en la solicitud coincide con la contraseña almacenada en la base de datos
-    if new_data.get('currentPassword') != current_password:
-        return jsonify({"error": "La contraseña actual no coincide."}), 400
-
-    # Verificar si la nueva contraseña y la confirmación de la contraseña son iguales
-    new_password = new_data.get('newPassword')
-    confirm_password = new_data.get('confirmPassword')
-    if new_password != confirm_password:
-        return jsonify({"error": "La nueva contraseña y la confirmación de la contraseña no coinciden."}), 400
-
-    # Actualizar la contraseña del usuario en la base de datos
-    user.password = new_password
-    db.session.commit()
-
-    # Devolver una respuesta exitosa
-    return jsonify({"response": "Contraseña actualizada correctamente", "user": user.serialize()}), 200
 
 @api.route('/upload', methods=['POST'])
 @jwt_required()
