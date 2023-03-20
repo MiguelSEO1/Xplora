@@ -128,7 +128,7 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-               <div className="row my-3">
+                    <div className="row my-3">
                         <label className="col-sm-2 col-form-label" htmlFor="description">
                             Descripción:{" "}
                         </label>
@@ -210,117 +210,118 @@ export const Cache = () => {
                                 ))
                             }
                         </select>
-                    <div className="row my-3">
-                        <label className="col-sm-2 col-form-label" htmlFor="postalCode">
-                            Postal code:{" "}
-                        </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="number"
-                                min="0"
-                                className="form-control"
-                                name="postalCode"
-                                placeholder="postalCode"
-                                value={postalCode}
-                                onChange={(e) => {
-                                    setError(false);
-                                    setPostalCode(e.target.value);
-                                }}
-                            ></input>
+                        <div className="row my-3">
+                            <label className="col-sm-2 col-form-label" htmlFor="postalCode">
+                                Postal code:{" "}
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="number"
+                                    min="0"
+                                    className="form-control"
+                                    name="postalCode"
+                                    placeholder="postalCode"
+                                    value={postalCode}
+                                    onChange={(e) => {
+                                        setError(false);
+                                        setPostalCode(e.target.value);
+                                    }}
+                                ></input>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row my-3">
-                        <label className="col-sm-2 col-form-label" htmlFor="coordinatesY">
-                            Latitud:{" "}
-                        </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="number"
-                                step="any"
-                                className="form-control"
-                                name="coordinatesY"
-                                placeholder="coordinatesY"
-                                value={data ? data.lat : ""}
-                                onChange={(e) => {
-                                    setError(false);
-                                    setData({ ...data, lat: e.target.value });
-                                }}
-                            ></input>
+                        <div className="row my-3">
+                            <label className="col-sm-2 col-form-label" htmlFor="coordinatesY">
+                                Latitud:{" "}
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="number"
+                                    step="any"
+                                    className="form-control"
+                                    name="coordinatesY"
+                                    placeholder="coordinatesY"
+                                    value={data ? data.lat : ""}
+                                    onChange={(e) => {
+                                        setError(false);
+                                        setData({ ...data, lat: e.target.value });
+                                    }}
+                                ></input>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row my-3">
-                        <label className="col-sm-2 col-form-label" htmlFor="coordinatesX">
-                            Longitud:{" "}
-                        </label>
-                        <div className="col-sm-10">
-                            <input
-                                type="number"
-                                step="any"
-                                className="form-control"
-                                name="coordinatesX"
-                                placeholder="coordinatesX"
-                                value={data ? data.lng : ""}
-                                onChange={(e) => {
-                                    setError(false);
-                                    setData({ ...data, lng: e.target.value });
-                                }}
-                            ></input>
+                        <div className="row my-3">
+                            <label className="col-sm-2 col-form-label" htmlFor="coordinatesX">
+                                Longitud:{" "}
+                            </label>
+                            <div className="col-sm-10">
+                                <input
+                                    type="number"
+                                    step="any"
+                                    className="form-control"
+                                    name="coordinatesX"
+                                    placeholder="coordinatesX"
+                                    value={data ? data.lng : ""}
+                                    onChange={(e) => {
+                                        setError(false);
+                                        setData({ ...data, lng: e.target.value });
+                                    }}
+                                ></input>
+                            </div>
                         </div>
-                    </div>
-                    <div className="row my-3">
-                        <label className="col-sm-2 col-form-label" htmlFor="difficulty">
-                            Difficulty:{" "}
-                        </label>
-                        <div className="col-sm-10">
-                            <select
-                                className="form-control"
-                                name="difficulty"
-                                placeholder="difficulty"
-                                value={difficulty}
-                                onChange={(e) => {
-                                    setError(false);
-                                    setDifficulty(e.target.value);
+                        <div className="row my-3">
+                            <label className="col-sm-2 col-form-label" htmlFor="difficulty">
+                                Difficulty:{" "}
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-control"
+                                    name="difficulty"
+                                    placeholder="difficulty"
+                                    value={difficulty}
+                                    onChange={(e) => {
+                                        setError(false);
+                                        setDifficulty(e.target.value);
+                                    }}
+                                >
+                                    <option value="-1">---</option>
+                                    <option value="Baja">Baja</option>
+                                    <option value="Media">Media</option>
+                                    <option value="Alta">Alta</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="row my-3">
+                            <label className="col-sm-2 col-form-label" htmlFor="size">
+                                Size:{" "}
+                            </label>
+                            <div className="col-sm-10">
+                                <select
+                                    className="form-control"
+                                    name="size"
+                                    placeholder="size"
+                                    value={size}
+                                    onChange={(e) => {
+                                        setError(false);
+                                        setSize(e.target.value);
+                                    }}
+                                >
+                                    <option value="-1">---</option>
+                                    <option value="Pequeño">Pequeño</option>
+                                    <option value="Mediano">Mediano</option>
+                                    <option value="Grande">Grande</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div className="text-center mt-2 p-3 ">
+                            <button
+                                className="btn btn-success btn-lg"
+                                onClick={() => {
+                                    sendCacheRegistral()
                                 }}
                             >
-                                <option value="-1">---</option>
-                                <option value="Baja">Baja</option>
-                                <option value="Media">Media</option>
-                                <option value="Alta">Alta</option>
-                            </select>
+                                Registro Caché
+                            </button>
+                            {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
                         </div>
-                    </div>
-                    <div className="row my-3">
-                        <label className="col-sm-2 col-form-label" htmlFor="size">
-                            Size:{" "}
-                        </label>
-                        <div className="col-sm-10">
-                            <select
-                                className="form-control"
-                                name="size"
-                                placeholder="size"
-                                value={size}
-                                onChange={(e) => {
-                                    setError(false);
-                                    setSize(e.target.value);
-                                }}
-                            >
-                                <option value="-1">---</option>
-                                <option value="Pequeño">Pequeño</option>
-                                <option value="Mediano">Mediano</option>
-                                <option value="Grande">Grande</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div className="text-center mt-2 p-3 ">
-                        <button
-                            className="btn btn-success btn-lg"
-                            onClick={() => {
-                                sendCacheRegistral()
-                            }}
-                        >
-                            Registro Caché
-                        </button>
-                        {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
                     </div>
                 </div>
             </div>
