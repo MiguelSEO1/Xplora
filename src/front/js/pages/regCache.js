@@ -9,16 +9,17 @@ export const Cache = () => {
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [country, setCountry] = useState("");
-    const [states, setStates] = useState([]);
-    const [stateid, setStateID] = useState(null);
-    const [city, setCity] = useState([]);
-    const [cityid, setCityID] = useState(null);
     const [postalCode, setPostalCode] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [size, setSize] = useState("");
     const [error, setError] = useState("");
     const [data, setData] = useState({});
+    const [comunidades, setComunidades] = useState([]);
+    const [comunidadID, setComunidadID] = useState(null);
+    const [provincias, setProvincias] = useState([]);
+    const [provinciaID, setProvinciaID] = useState(null);
+    const [municipios, setMunicipios] = useState([]);
+    const [municipioID, setMunicipioID] = useState(null);
 
     const sendCacheRegistral = async () => {
         const response = await fetch(
@@ -32,10 +33,10 @@ export const Cache = () => {
                 body: JSON.stringify({
                     name: name,
                     description: description,
-                    country: country,
-                    state: states.find(x => x.iso2 == stateid).name,
-                    city: city.find(x => x.name == cityid).name,
                     postal_code: postalCode,
+                    comunidad_autonoma: comunidades.find(x => x.CCOM == comunidadID).COM,
+                    provincia: provincias.find(x => x.CPRO == provinciaID).PRO,
+                    municipio: municipios.find(x => x.CMUM == municipioID).DMUN50,
                     coordinates_y: data.lat.toString(),
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
@@ -53,41 +54,54 @@ export const Cache = () => {
     };
 
     useEffect(() => {
-        const getStates = async () => {
-            const resStates = await fetch("https://api.countrystatecity.in/v1/countries/es/states",
+        const getComunidades = async () => {
+            const responseComunidades = await fetch("https://apiv1.geoapi.es/comunidades?type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8",
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resStates.json();
-            setStates(response);
+            const dataComunidades = await responseComunidades.json();
+            setComunidades(dataComunidades.data);
         }
-        getStates();
-    }, [])
-
-    const handleState = (event) => {
-        const getStateID = event.target.value;
-        setStateID(getStateID);
-    }
+        getComunidades();
+    }, []);
 
     useEffect(() => {
-        const getCity = async () => {
-            const resCity = await fetch(`https://api.countrystatecity.in/v1/countries/es/states/${stateid}/cities`,
+        const getProvincias = async () => {
+            const responseProvincias = await fetch(`https://apiv1.geoapi.es/provincias?CCOM=${comunidadID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resCity.json();
-            setCity(response);
+            const dataProvincias = await responseProvincias.json();
+            setProvincias(dataProvincias.data);
         }
-        getCity();
-    }, [stateid]);
+        getProvincias();
+    }, [comunidadID]);
+
+    useEffect(() => {
+        const getMunicipios = async () => {
+            const responseMunicipios = await fetch(`https://apiv1.geoapi.es/municipios?CPRO=${provinciaID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
+                {
+                    method: "GET"
+                }
+            );
+            const dataMunicipios = await responseMunicipios.json();
+            setMunicipios(dataMunicipios.data);
+        }
+        getMunicipios();
+    }, [provinciaID]);
+
+    const handleComunidad = (event) => {
+        const getComunidadID = event.target.value;
+        setComunidadID(getComunidadID);
+    };
+
+    const handleProvincia = (event) => {
+        const getProvinciaID = event.target.value;
+        setProvinciaID(getProvinciaID);
+    };
+
 
     return (
         <>
@@ -131,61 +145,66 @@ export const Cache = () => {
                     </div>
                 </div>
                 <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="country">
-                        Country:{" "}
+                    <label className="col-sm-2 col-form-label" htmlFor="ComunidadAutonoma">
+                        Comunidad Autonoma:{" "}
                     </label>
                     <div className="col-sm-10">
                         <select
                             className="form-select"
-                            name="Country"
-                            value={country}
+                            name="ComunidadAutonoma"
+                            value={comunidadID}
                             onChange={(e) => {
                                 setError(false);
-                                setCountry(e.target.value);
+                                handleComunidad(e);
                             }}>
-                            <option value="1">España</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="State">
-                        State:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            name="State"
-                            value={stateid}
-                            onChange={(e) => {
-                                setError(false);
-                                handleState(e);
-                            }}>
-                            <option value="">---</option>
+                            <option value="">Selecciona CCAA</option>
                             {
-                                states.map((state, index) => (
-                                    <option key={index} value={state.iso2}>{state.name}</option>
+                                comunidades.map((comunidad, index) => (
+                                    <option key={index} value={comunidad.CCOM}>{comunidad.COM}</option>
                                 ))
                             }
                         </select>
                     </div>
                 </div>
                 <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="City">
-                        City:{" "}
+                    <label className="col-sm-2 col-form-label" htmlFor="Provincia">
+                        Provincia:{" "}
                     </label>
                     <div className="col-sm-10">
                         <select
                             className="form-select"
-                            name="City"
-                            value={cityid}
+                            name="Provincia"
+                            value={provinciaID}
                             onChange={(e) => {
                                 setError(false);
-                                setCityID(e.target.value)
+                                handleProvincia(e);
                             }}>
-                            <option value="1">---</option>
+                            <option value="">Selecciona Provincia</option>
                             {
-                                city.map((city, index) => (
-                                    <option key={index} value={city.name}>{city.name}</option>
+                                provincias.map((provincia, index) => (
+                                    <option key={index} value={provincia.CPRO}>{provincia.PRO}</option>
+                                ))
+                            }
+                        </select>
+                    </div>
+                </div>
+                <div className="row my-3">
+                    <label className="col-sm-2 col-form-label" htmlFor="Ciudad">
+                        Ciudad:{" "}
+                    </label>
+                    <div className="col-sm-10">
+                        <select
+                            className="form-select"
+                            name="Ciudad"
+                            value={municipioID}
+                            onChange={(e) => {
+                                setError(false);
+                                setMunicipioID(e.target.value);
+                            }}>
+                            <option value="">Selecciona Ciudad</option>
+                            {
+                                municipios.map((municipio, index) => (
+                                    <option key={index} value={municipio.CMUM}>{municipio.DMUN50}</option>
                                 ))
                             }
                         </select>

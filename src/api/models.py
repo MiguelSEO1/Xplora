@@ -72,9 +72,9 @@ class Cache(db.Model):
     is_declined = db.Column(db.Boolean, nullable=False, default=False)
     is_pending = db.Column(db.Boolean, nullable=False, default=True)
     description = db.Column(db.Text, nullable=False)
-    country = db.Column(db.String(255), nullable=False)
-    state = db.Column(db.String(255), nullable=False)
-    city = db.Column(db.String(255), nullable=False)
+    comunidad_autonoma = db.Column(db.String(255), nullable=False)
+    provincia = db.Column(db.String(255), nullable=False)
+    municipio = db.Column(db.String(255), nullable=False)
     postal_code = db.Column(db.String(255), nullable=False)
     coordinates_y = db.Column(db.Float)
     coordinates_x = db.Column(db.Float)
@@ -92,9 +92,9 @@ class Cache(db.Model):
             "id": self.id,
             "name": self.name,
             "description": self.description,
-            "country": self.country,
-            "state": self.state,
-            "city": self.city,
+            "comunidad_autonoma": self.comunidad_autonoma,
+            "provincia": self.provincia,
+            "municipio": self.municipio,
             "postal_code": self.postal_code,
             "coordinates_y": self.coordinates_y,
             "coordinates_x": self.coordinates_x,
