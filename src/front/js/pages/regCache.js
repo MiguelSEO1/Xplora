@@ -91,217 +91,219 @@ export const Cache = () => {
 
     return (
         <>
-            <div className="MapGoo col-12 p-2">
-                <MapsGoogle setData={setData} />
-            </div>
-            <div className="container col-6 mt-3 border rounded">
-                <h2 className="text-center m-3">Register Cache</h2>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="name">
-                        Name:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            className="form-control"
-                            name="name"
-                            placeholder="name"
-                            value={name}
-                            onChange={(e) => {
-                                setError(false);
-                                setName(e.target.value);
-                            }}
-                        ></input>
-                    </div>
+            <div class="row m-2">
+                <div className="MapGoo col-6 mt-3">
+                    <MapsGoogle setData={setData} />
                 </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="description">
-                        Descripion:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            className="form-control"
-                            name="description"
-                            placeholder="description"
-                            value={description}
-                            onChange={(e) => {
-                                setError(false);
-                                setDescription(e.target.value);
-                            }}
-                        ></input>
+                <div className="container col-6">
+                    <h2 className="text-center m-3">Registro caché</h2>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="name">
+                            Name:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <input
+                                className="form-control"
+                                name="name"
+                                placeholder="name"
+                                value={name}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setName(e.target.value);
+                                }}
+                            ></input>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="country">
-                        Country:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            name="Country"
-                            value={country}
-                            onChange={(e) => {
-                                setError(false);
-                                setCountry(e.target.value);
-                            }}>
-                            <option value="1">España</option>
-                        </select>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="description">
+                            Descripción:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <input
+                                className="form-control"
+                                name="description"
+                                placeholder="description"
+                                value={description}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setDescription(e.target.value);
+                                }}
+                            ></input>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="State">
-                        State:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            name="State"
-                            value={stateid}
-                            onChange={(e) => {
-                                setError(false);
-                                handleState(e);
-                            }}>
-                            <option value="">---</option>
-                            {
-                                states.map((state, index) => (
-                                    <option key={index} value={state.iso2}>{state.name}</option>
-                                ))
-                            }
-                        </select>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="country">
+                            Country:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <select
+                                className="form-select"
+                                name="Country"
+                                value={country}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setCountry(e.target.value);
+                                }}>
+                                <option value="1">España</option>
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="City">
-                        City:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-select"
-                            name="City"
-                            value={cityid}
-                            onChange={(e) => {
-                                setError(false);
-                                setCityID(e.target.value)
-                            }}>
-                            <option value="1">---</option>
-                            {
-                                city.map((city, index) => (
-                                    <option key={index} value={city.name}>{city.name}</option>
-                                ))
-                            }
-                        </select>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="State">
+                            State:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <select
+                                className="form-select"
+                                name="State"
+                                value={stateid}
+                                onChange={(e) => {
+                                    setError(false);
+                                    handleState(e);
+                                }}>
+                                <option value="">---</option>
+                                {
+                                    states.map((state, index) => (
+                                        <option key={index} value={state.iso2}>{state.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="postalCode">
-                        Postal code:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            type="number"
-                            min="0"
-                            className="form-control"
-                            name="postalCode"
-                            placeholder="postalCode"
-                            value={postalCode}
-                            onChange={(e) => {
-                                setError(false);
-                                setPostalCode(e.target.value);
-                            }}
-                        ></input>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="City">
+                            City:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <select
+                                className="form-select"
+                                name="City"
+                                value={cityid}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setCityID(e.target.value)
+                                }}>
+                                <option value="1">---</option>
+                                {
+                                    city.map((city, index) => (
+                                        <option key={index} value={city.name}>{city.name}</option>
+                                    ))
+                                }
+                            </select>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="coordinatesY">
-                        Latitud:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            type="number"
-                            step="any"
-                            className="form-control"
-                            name="coordinatesY"
-                            placeholder="coordinatesY"
-                            value={data ? data.lat : ""}
-                            onChange={(e) => {
-                                setError(false);
-                                setData({ ...data, lat: e.target.value });
-                            }}
-                        ></input>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="postalCode">
+                            Postal code:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <input
+                                type="number"
+                                min="0"
+                                className="form-control"
+                                name="postalCode"
+                                placeholder="postalCode"
+                                value={postalCode}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setPostalCode(e.target.value);
+                                }}
+                            ></input>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="coordinatesX">
-                        Longitud:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <input
-                            type="number"
-                            step="any"
-                            className="form-control"
-                            name="coordinatesX"
-                            placeholder="coordinatesX"
-                            value={data ? data.lng : ""}
-                            onChange={(e) => {
-                                setError(false);
-                                setData({ ...data, lng: e.target.value });
-                            }}
-                        ></input>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="coordinatesY">
+                            Latitud:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <input
+                                type="number"
+                                step="any"
+                                className="form-control"
+                                name="coordinatesY"
+                                placeholder="coordinatesY"
+                                value={data ? data.lat : ""}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setData({ ...data, lat: e.target.value });
+                                }}
+                            ></input>
+                        </div>
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="difficulty">
-                        Difficulty:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-control"
-                            name="difficulty"
-                            placeholder="difficulty"
-                            value={difficulty}
-                            onChange={(e) => {
-                                setError(false);
-                                setDifficulty(e.target.value);
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="coordinatesX">
+                            Longitud:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <input
+                                type="number"
+                                step="any"
+                                className="form-control"
+                                name="coordinatesX"
+                                placeholder="coordinatesX"
+                                value={data ? data.lng : ""}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setData({ ...data, lng: e.target.value });
+                                }}
+                            ></input>
+                        </div>
+                    </div>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="difficulty">
+                            Difficulty:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <select
+                                className="form-control"
+                                name="difficulty"
+                                placeholder="difficulty"
+                                value={difficulty}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setDifficulty(e.target.value);
+                                }}
+                            >
+                                <option value="-1">---</option>
+                                <option value="Baja">Baja</option>
+                                <option value="Media">Media</option>
+                                <option value="Alta">Alta</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="row my-3">
+                        <label className="col-sm-2 col-form-label" htmlFor="size">
+                            Size:{" "}
+                        </label>
+                        <div className="col-sm-10">
+                            <select
+                                className="form-control"
+                                name="size"
+                                placeholder="size"
+                                value={size}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setSize(e.target.value);
+                                }}
+                            >
+                                <option value="-1">---</option>
+                                <option value="Pequeño">Pequeño</option>
+                                <option value="Mediano">Mediano</option>
+                                <option value="Grande">Grande</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div className="text-center mt-2 p-3 ">
+                        <button
+                            className="btn btn-success btn-lg"
+                            onClick={() => {
+                                sendCacheRegistral()
                             }}
                         >
-                            <option value="-1">---</option>
-                            <option value="Baja">Baja</option>
-                            <option value="Media">Media</option>
-                            <option value="Alta">Alta</option>
-                        </select>
+                            Registro Caché
+                        </button>
+                        {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
                     </div>
-                </div>
-                <div className="row my-3">
-                    <label className="col-sm-2 col-form-label" htmlFor="size">
-                        Size:{" "}
-                    </label>
-                    <div className="col-sm-10">
-                        <select
-                            className="form-control"
-                            name="size"
-                            placeholder="size"
-                            value={size}
-                            onChange={(e) => {
-                                setError(false);
-                                setSize(e.target.value);
-                            }}
-                        >
-                            <option value="-1">---</option>
-                            <option value="Pequeño">Pequeño</option>
-                            <option value="Mediano">Mediano</option>
-                            <option value="Grande">Grande</option>
-                        </select>
-                    </div>
-                </div>
-                <div className="text-center mt-2 p-3 ">
-                    <button
-                        className="btn btn-success btn-lg"
-                        onClick={() => {
-                            sendCacheRegistral()
-                        }}
-                    >
-                        Register Cache
-                    </button>
-                    {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
                 </div>
             </div>
         </>
