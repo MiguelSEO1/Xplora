@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint, json
-from api.models import db, User, Cache, Comment, Image, Favorite 
+from api.models import db, User, Cache, Comment, ImageGalery, Favorite 
 from api.utils import generate_sitemap, APIException
 from flask_jwt_extended import create_access_token
 from flask_jwt_extended import get_jwt_identity
@@ -141,7 +141,7 @@ def handle_upload_cache():
 @api.route('/cache', methods=['GET'])
 def get_caches():
     caches = Cache.query.all()
-    return jsonify({"results": [cache.serialize() for cache in caches]}), 200
+    return jsonify({"results": [cache.basicInfo() for cache in caches]}), 200
 
 @api.route('/ToShowcache', methods=['GET'])
 def get_ToShowCaches():
@@ -194,7 +194,7 @@ def create_galery():
     body= json.loads(request.form["galery"])
     cache = Cache.query.filter_by(id=body["id"]).first()
     result= cloudinary.uploader.upload(request.files['profile_image'])
-    new_galery = Image(title=body["title"], url=result['secure_url'], date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
+    new_galery = ImageGalery(title=body["title"], url=result['secure_url'], date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
     db.session.add(new_galery)
     db.session.commit() 
     return jsonify({"response": "Galery ok"}), 200  
@@ -202,7 +202,7 @@ def create_galery():
 @api.route('/perfil-cache-images/<int:id>', methods=['GET'])
 def get_images(id):
     cache = Cache.query.filter_by(id=id).first()
-    images = Image.query.filter_by(cache=cache).all()
+    images = ImageGalery.query.filter_by(cache=cache).all()
     serialized_images = [x.serialize() for x in images]
     return jsonify(serialized_images), 200
 
@@ -212,7 +212,7 @@ def get_images(id):
 def delete_image():
     user_id = get_jwt_identity()
     image_id= request.json.get("id") 
-    image= Image.query.get(image_id)
+    image= ImageGalery.query.get(image_id)
     if image:
         db.session.delete(image)
         db.session.commit() 

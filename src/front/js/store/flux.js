@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			caches: [],
 			cachesToShow: [],
 			userActive: null,
-			currentUser: {},
+			currentUser: {favorites:[]},
 			is_favorite: false,
 		},
 

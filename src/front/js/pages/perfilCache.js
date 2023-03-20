@@ -12,7 +12,6 @@ export const PerfilCache = () => {
     const params = useParams();
     const { store, actions } = useContext(Context);
     const [files, setFiles] = useState(null)
-    const [url, setUrl] = useState('');
     const [urlImage, seturlImage] = useState("https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280.jpg");
     const [selectedDiv1, setSelectedDiv1] = useState(true);
     const [selectedDiv2, setSelectedDiv2] = useState(false);
@@ -23,8 +22,8 @@ export const PerfilCache = () => {
     const [perfilComment, setPerfilComment] = useState({});
     const [perfilImages, setPerfilImages] = useState({});
 
-    const [comment, setComment] = useState({ title: undefined, text: undefined });
-    const [galery, setGalery] = useState({ id: params.id, title: undefined, url: undefined, date_of_Publication: undefined });
+    const [comment, setComment] = useState({ title: "", text: "" });
+    const [galery, setGalery] = useState({ id: params.id, title: "", url: "", date_of_Publication: "" });
 
 
     useEffect(() => {
@@ -33,10 +32,6 @@ export const PerfilCache = () => {
         getCacheImages();
 
     }, []);
-
-    useEffect(() => {
-        getCacheImages();
-    }, [url]); // solo llama a la función getCacheImages cuando se actualiza url
 
     const getCacheComments = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-comments/" + params.id)
@@ -100,22 +95,6 @@ export const PerfilCache = () => {
     };
 
 
-    const createGalery = async () => {
-        const response = await fetch(process.env.BACKEND_URL + "/api/perfil-galery/" + params.id, {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-                Authorization: "Bearer " + localStorage.getItem("token"),
-
-            },
-            body: JSON.stringify(galery),
-        });
-
-        if (response.ok) {
-            getCacheImages();
-        }
-
-    };
 
     const deleteImages = async (id) => {
         const response = await fetch(process.env.BACKEND_URL + "/api/delete-image", {
@@ -143,8 +122,9 @@ export const PerfilCache = () => {
         let body = new FormData();
         body.append("profile_image", files[0]);
         body.append("galery", JSON.stringify(galery))
-        const url = await actions.uploadImageCache(body)
-        setUrl(url)
+        await actions.uploadImageCache(body)
+        setFiles(null)
+        setGalery({ id: params.id, title: "", url: "", date_of_Publication: "" })
         await getCacheImages(); // llamada a la función getCacheImages después de uploadImage
 
     };
@@ -305,8 +285,8 @@ export const PerfilCache = () => {
                                 </div>
 
                                 <div className=" d-flex justify-content-end mt-2 mb-5">
-                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={() => {
-                                        createComments()
+                                    <button type="button" class="btn btn-primary btn-sm mx-1" onClick={async() => {
+                                        await createComments()
                                         setComment({ title: "", text: "" })
                                     }}>Enviar</button>
                                 </div>

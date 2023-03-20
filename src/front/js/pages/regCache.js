@@ -46,7 +46,8 @@ export const Cache = () => {
         );
         const responsetoJson = await response.json();
         if (response.ok) {
-            navigate("/");
+            navigate("/demo");
+            actions.getCaches()
         } else {
             setError(responsetoJson.response);
         }

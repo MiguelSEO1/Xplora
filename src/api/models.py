@@ -24,7 +24,7 @@ class User(db.Model):
     caches_found = db.relationship('Cache', secondary=cache_found, backref=db.backref('users_found'))
     caches = db.relationship('Cache', backref='user_creator')
     comments = db.relationship('Comment', backref='user')
-    images = db.relationship('Image', backref='user')
+    images = db.relationship('ImageGalery', backref='user')
     favorites = db.relationship('Favorite', backref='user')
 
     def serialize(self):
@@ -80,10 +80,10 @@ class Cache(db.Model):
     coordinates_x = db.Column(db.Float)
     difficulty = db.Column(db.String(255), nullable=False)
     size = db.Column(db.String(255), nullable=False)
-    qr_code = db.Column(db.String(1500), nullable=False)
+    qr_code = db.Column(db.String(5000), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comments = db.relationship('Comment', backref='cache')
-    images = db.relationship('Image', backref='cache')
+    images = db.relationship('ImageGalery', backref='cache')
     favorites = db.relationship('Favorite', backref='cache')
     is_favorite = db.Column(db.Boolean, nullable=False, default=False)
     
@@ -125,7 +125,7 @@ class Cache(db.Model):
         }  
     
 
-class Image(db.Model):
+class ImageGalery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(100), nullable=False)

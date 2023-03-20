@@ -2,23 +2,13 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
-import { Buscador } from "../component/buscador";
 
 
 
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
-	const [city, setCity] = useState("");
-	const [name, setName] = useState("");
-	const [favoriteCaches, setfavoriteCaches] = useState([]);
-	const [id, setId] = useState("");
 
-	useEffect(() => {
-		setId(store.caches.id);
-		setName(store.caches.name);
-		setCity(store.caches.city);
-	}, [store.caches])
 
 	return (
 
