@@ -41,20 +41,23 @@ export const Footer = () => (
           </div>
           <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <h6 className="text-uppercase fw-bold mb-4">Redes Sociales</h6>
-            <p>
-              <a href="" className="me-4 link-secondary">
-                <i className="fab fa-facebook-f"></i>
-              </a>
-            </p>
+
+            <a href="" className="me-4 link-secondary">
+              <i className="fab fa-facebook-f"></i>
+            </a>
+
             <a href="" className="me-4 link-secondary">
               <i className="fab fa-twitter"></i>
             </a>
+
             <a href="" className="me-4 link-secondary">
               <i className="fab fa-instagram"></i>
             </a>
+
             <a href="" className="me-4 link-secondary">
               <i className="fab fa-linkedin"></i>
             </a>
+
           </div>
           <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <h6 className="text-uppercase fw-bold mb-4">Contacto</h6>
