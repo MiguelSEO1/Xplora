@@ -25,7 +25,7 @@
 }
 
 .nav-link:hover {
-  background: #29100d;
+  background: #f15f1b;
   color: #f8f6d7;
 }
 .nav-link {
@@ -38,12 +38,12 @@
 }
 
 .altaRegister:hover {
-  background: #119639;
+  background: #f15f1b;
   color: #f8f6d7;
 }
 
 .altaLogin:hover {
-  background: #597ae6;
+  background: #f15f1b;
   color: #f8f6d7;
 }
 
@@ -59,4 +59,10 @@
 
 .alert-primary {
   background-color: #cebea3;
+}
+
+.alert-secondary {
+  color: #41464b;
+  background-color: #cebea3;
+  border-color: #cebea3;
 }
