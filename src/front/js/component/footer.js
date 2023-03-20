@@ -9,7 +9,7 @@ export const Footer = () => (
             <div className="row text-start d-flex">
               <h6 className="text-uppercase fw-bold mb-4">
 
-                <i className="fas fa-gem me-2 text-secondary justify-content-start"></i>GeoCaching
+                <i className="fas fa-gem me-2 text-secondary justify-content-start"></i>XPLORA
               </h6>
             </div>
             <div className="row ps-3 pe-2">
@@ -19,9 +19,9 @@ export const Footer = () => (
             </div>
 
           </div>
-          <div className="col-3 col-lg-2 col-xl-2 mx-auto mb-4 alert alert-secondary">
+          <div className="col-3  mx-auto mb-4">
             <div className="row">
-              <h6 className="text-uppercase fw-bold mb-4">Sobre Geocahing</h6>
+              <h6 className="text-uppercase fw-bold mb-4">Sobre Xplora</h6>
             </div>
             <div className="row">
               <a href="#!" className="text-reset">

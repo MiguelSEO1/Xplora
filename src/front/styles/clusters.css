@@ -60,3 +60,9 @@
 .alert-primary {
   background-color: #cebea3;
 }
+
+.alert-secondary {
+  color: #41464b;
+  background-color: #cebea3;
+  border-color: #cebea3;
+}
