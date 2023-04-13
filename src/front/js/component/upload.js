@@ -18,9 +18,12 @@ export const UploadImage = props => {
     };
 
     return (
-        <>
-            <img src={url} className="img-thumbnail w-25" alt="..." />
-            <div className="m-3">
+        <div>
+            <div className="">
+                <img src={url} className="img-thumbnail w-25" alt="..." />
+            </div >            
+            
+            <div className="mt-2">
                 <p>Puede cargar un archivo JPG, GIF o PNG. El límite de tamaño de archivo es de 4 MB.</p>
                 <form onSubmit={uploadImage}>
                     <div className="form-group">
@@ -29,7 +32,7 @@ export const UploadImage = props => {
                     <button className="btn btn-danger btn-sm mt-3">Subir Foto</button>
                 </form>
             </div>
-        </>
+        </div>
     )
 };
 

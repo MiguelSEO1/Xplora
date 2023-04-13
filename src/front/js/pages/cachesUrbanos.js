@@ -10,7 +10,7 @@ export const CachesUrbanos = () => {
 
     return (
 
-        <div className="container">
+        <div className="cuerpo container mb-5 text-center">
             <h1>Buscar cachés en la ciudad: Cómo encontrarlos en entornos urbanos</h1>
             <img src="https://blogger.googleusercontent.com/img/a/AVvXsEjPtOzYB3Otdv0EGrEm5VqyGsgNaoZtN4suPi39wlgdF0Z8eoyzJ9F1odY6hcXJTYf1FjBu47p54dH0WQwgp9vyDd2dspd4gYqh9FQwuKl1GW2qnns4WdCe4A3v6jOlxNm4wqiCzo5iPn8ucMwDfYS2OBCuxjKjNUIA5k5YGx5JDIXoS3u2I0Q0XwTwVA=w1200-h630-p-k-no-nu" className="img-fluid mx-auto d-block my-5 " alt="..." />
             <p>La búsqueda de cachés es una actividad emocionante que puede realizarse en cualquier parte del mundo, incluso en entornos urbanos. La ciudad ofrece una gran cantidad de cachés ocultos, desde pequeñas cajas escondidas en callejones hasta contenedores creativos camuflados en plazas y parques. En este post te ofrecemos algunos consejos para encontrar cachés en entornos urbanos.</p>

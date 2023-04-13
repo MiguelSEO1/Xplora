@@ -8,51 +8,71 @@ import { Cluster } from "../component/cluster";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
+	const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+
+	const mostrarMasTarjetas = () => {
+		setMostrarTarjetas(mostrarTarjetas + 3);
+	};
+
 
 
 	return (
 
 
-		<div>
+		<div className="container cuerpo">
 
-			<div className="container">
-				<h1 className="text-center mt-4 mb-3">Geocaching: Descubre tesoros alrededor del Mundo </h1>
+			<div className="text-center">
+				<h1 className=" mt-5 mb-3">Geocaching: Descubre tesoros alrededor del Mundo </h1>
 				<p>Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
 			</div>
-			<div className="container">
-				<h2 className="text-center mb-3 mt-4">Comienza a Explorar</h2>
+			<div className="text-center">
+				<h2 className="text-center mb-3 mt-5">Comienza a Explorar</h2>
 				<p>Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
 				<div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
-					<Cluster link="/tipos-de-caches" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Cachés" image="https://media.traveler.es/photos/613769fabf63e581e0100e3d/master/w_1600%2Cc_limit/150236.jpg" />
-					<Cluster link="/blog" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Blog" image="https://i.blogs.es/199e7b/simon-english-672450-unsplash/840_560.jpeg" />
-					<Cluster link="/ranking-usuario" classboton="d-none" cardBorder="card border-2 border-dark" cardTitle="Ranking" image="https://unomasunoteam.com/wp-content/uploads/2020/03/en-busca-del-tesoro-team-buildng-main-min.jpg" />
+					<Cluster link="/tipos-de-caches" classboton="d-none" cardTitle="Cachés" image="https://media.traveler.es/photos/613769fabf63e581e0100e3d/master/w_1600%2Cc_limit/150236.jpg" onClick={() => window(0, 0)} />
+					<Cluster link="/blog" classboton="d-none" cardTitle="Blog" image="https://i.blogs.es/199e7b/simon-english-672450-unsplash/840_560.jpeg" onClick={() => window(0, 0)} />
+					<Cluster link="/ranking-usuario" classboton="d-none" cardTitle="Ranking" image="https://unomasunoteam.com/wp-content/uploads/2020/03/en-busca-del-tesoro-team-buildng-main-min.jpg" onClick={() => window(0, 0)} />
 				</div>
 			</div>
 
-			<div className="container mx-auto text-center">
-				<h2 className="text-center mb-3 mt-4">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
+			<div className=" mx-auto text-center">
+				<h2 className="text-center mb-3 mt-5">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
 				<p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
-				<div className="container mb-5 row row-cols-lg-4 mx-auto gx-3">
-					{store.caches.map((cache) => {
+				<div className="container mb-5 mt-3 row row-cols-lg-3  mx-auto gx-4, gy-4">
+					{store.caches.slice(0, mostrarTarjetas).map((cache) => {
 						return (
-							<div className="card" key={cache.id}>
-								<img src="https://thumbs.dreamstime.com/z/ciudad-de-mapas-con-ruta-gps-y-geo-navegaci%C3%B3n-para-entrega-en-la-calle-ubicaci%C3%B3n-app-map-road-town-park-river-cartograf%C3%ADa-229179316.jpg" className="card-img-top" alt="..." />
-								<div className="card-body">
-									<h4 className="card-title">{cache.state}</h4>
-									<h5 className="card-title">{cache.city}</h5>
-									<p className="card-text">{cache.name}</p>
-									<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none">
-										<a href="#" className="btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
-									</Link>
+							<div className="col-sm-1 col-md-4 ">
+								<div className=" esquinaCarta card " key={cache.id}>
+									<img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+									<div className="card-body">
+										<h4 className="card-title">{cache.state}</h4>
+										<h5 className="card-title">{cache.city}</h5>
+										<p className="card-text">{cache.name}</p>
+										<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
+											<a href="#" className="botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
+										</Link>
 
-									<button onClick={() => {
-										actions.createFavoritesCaches(cache.id);
-									}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1" : "btn btn-outline-warning mx-1"} ><i class="fa-solid fa-heart"></i></button>
+
+										<button onClick={() => {
+											actions.createFavoritesCaches(cache.id);
+										}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
+									</div>
 								</div>
 							</div>
 						)
-					})}
+
+
+					}
+
+
+					)}
 				</div>
+				<Link to="/tipos-de-caches" className=" altaLogin nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+					<button className="btn btn-primary mb-5">
+						Mostrar más tarjetas
+					</button>
+				</Link>
+
 
 			</div>
 

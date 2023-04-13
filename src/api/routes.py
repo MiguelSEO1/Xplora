@@ -174,7 +174,16 @@ def get_comments(id):
     comments = Comment.query.filter_by(cache=cache).all()
     serialized_comments = [x.serialize() for x in comments]
     return jsonify(serialized_comments), 200
-   
+
+@api.route('/perfil-cache-comment', methods=['GET'])
+def get_comments_news():
+    caches = Cache.query.all()
+    serialized_comments = []
+    for cache in caches:
+        comments = Comment.query.filter_by(cache=cache).all()
+        serialized_comments += [x.serialize() for x in comments]
+    return jsonify(serialized_comments), 200
+  
 
 @api.route('/delete-comments/', methods=['DELETE'])
 @jwt_required()
@@ -185,7 +194,63 @@ def delete_comments():
     db.session.delete(comment)
     db.session.commit() 
     return jsonify({"response": "Comment delete ok"}), 200
-  
+
+@api.route('/reported-comments', methods=['PUT'])
+@jwt_required()
+def reported_comments_Spam():
+    user_id = get_jwt_identity()
+    comment_id= request.json.get("id")
+    comment = Comment.query.get(comment_id)
+    if comment:
+        if comment.is_spam:
+            comment.is_spam = False
+        else:
+            comment.is_spam = True
+    db.session.commit()
+    return jsonify(comment.serialize()), 200
+    return jsonify({"error": "Comment not found"}), 404
+ 
+@api.route('/reported-comments-violence', methods=['PUT'])
+@jwt_required()
+def reported_comments_violence():
+    user_id = get_jwt_identity()
+    comment_id= request.json.get("id")
+    comment = Comment.query.get(comment_id)
+    if comment:
+        if comment.is_violence:
+            comment.is_violence = False
+        else:
+            comment.is_violence = True
+    db.session.commit()
+    return jsonify(comment.serialize()), 200
+    return jsonify({"error": "Comment not found"}), 404
+
+
+
+
+
+
+
+
+
+@api.route('/update-comments/', methods=['PUT'])
+@jwt_required()
+def update_comments():
+    user_id = get_jwt_identity()
+    comment_id = request.json.get("id")
+    updated_comment = request.json['updatedComment']
+    comment = Comment.query.get(comment_id)
+
+    if comment:
+        comment.title = updated_comment["title"]
+        comment.text = updated_comment["text"]
+        db.session.commit() 
+        return jsonify({"response": "Comentario editado correctamente"}), 200
+    else:
+        return jsonify({"error": "Comentario no encontrado"}), 404
+
+
+
 
 @api.route('/perfil-galery', methods=['POST'])
 @jwt_required()
@@ -219,20 +284,6 @@ def delete_image():
         return jsonify({"response": "Imagen eliminada correctamente"}), 200
 
 
-@api.route('/favorites-caches', methods=['PUT'])
-@jwt_required()
-def favorites():
-    user_id = get_jwt_identity()
-    cache_id = request.json.get("id")
-    cache = Cache.query.get(cache_id)
-    if cache:
-        if cache.is_favorite:
-            cache.is_favorite = False
-        else:
-            cache.is_favorite = True
-    db.session.commit()
-    return jsonify(cache.serialize()), 200
-    return jsonify({"error": "Cache not found"}), 404
 
 @api.route('/create-user-favorites', methods=['POST'])
 @jwt_required()

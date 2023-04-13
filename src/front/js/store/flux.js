@@ -89,9 +89,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) setStore({ currentUser: data.user });
 			},
 
-			favoritesCaches: async (id) => {
+			reportedComments: async (id, getCacheComment) => {
 				const response = await fetch(
-					process.env.BACKEND_URL + "/api/favorites-caches",
+					process.env.BACKEND_URL + "/api/reported-comments",
 					{
 						method: "PUT",
 						headers: {
@@ -104,9 +104,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				);
 				const responsetoJson = await response.json();
-				if (response.ok) {
-					getActions().getCaches();
-				} else {
+				if (response.status == 200) { 
+					await getCacheComment()
+					return response.json()
+
+				}else {
+					setError(responsetoJson.response);
+				}
+			},
+
+			reportedCommentsviolence: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/reported-comments-",
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.status == 200) { return response.json() 
+				}else {
 					setError(responsetoJson.response);
 				}
 			},

@@ -10,7 +10,7 @@ export const ComoCrearUnCache = () => {
 
     return (
 
-        <div className="container">
+        <div className="cuerpo container mb-5 text-center">
             <h1>Cómo crear un caché: Consejos y trucos para crear tu propio caché</h1>
             <p>Si eres un ávido cazador de cachés y estás buscando dar un paso más allá, crear tu propio caché puede ser una excelente manera de agregar algo nuevo al juego. Aquí tienes algunos consejos y trucos para crear tu propio caché.</p>
             <img src="https://www.geocaching.com/blog/wp-content/uploads/2017/04/GC29F60-800x450.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />

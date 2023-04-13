@@ -10,7 +10,7 @@ export const ResolverCaches = () => {
 
     return (
 
-        <div className="container">
+        <div className="cuerpo container mb-5 text-center">
             <h1>Cómo resolver enigmas en cachés: Consejos y trucos</h1>
             <img src="https://www.geocaching.com/blog/wp-content/uploads/2018/04/MailerSuite_103117_Geo-Checker_vFINAL_3_Mailer_Blog-800x450.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
             <p>Si eres un apasionado de la búsqueda de cachés, probablemente ya te habrás encontrado con cachés que contienen enigmas y acertijos que debes resolver para poder encontrar la ubicación final. Estos cachés pueden ser especialmente emocionantes y desafiantes, pero también pueden ser frustrantes si no sabes cómo resolver los acertijos. A continuación, te ofrecemos algunos consejos y trucos que te ayudarán a resolver los enigmas más complicados.</p>
