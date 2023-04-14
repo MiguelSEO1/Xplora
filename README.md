@@ -96,11 +96,11 @@ To update with all yours tables you can edit the file app.py and go to the line 
 
 ### Dependencies
 
-`Pillow`
-`QRCode`
-`Pypng` (it automatically installs with qrcode)
+- `Pillow`
+- `QRCode`
+- `Pypng` (it automatically installs with qrcode)
 
-####To install you need to type in the terminal:
+###To install you need to type in the terminal:
 
 `pip install qrcode pillow`
 
