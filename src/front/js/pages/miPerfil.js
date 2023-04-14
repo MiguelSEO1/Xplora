@@ -436,7 +436,7 @@ export const MiPerfil = () => {
 
 
         <div className="container cuerpo">
-            <h1 className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13 ? "mb-5" : "text-center  mb-5 "}`}>GeoCaching - My Profile</h1>
+            <h1 className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13 ? "text-center mb-5" : "text-center  mb-5 "}`}>GeoCaching - My Profile</h1>
             <div className=" row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
 
                 <div className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13} mx-auto`}>

@@ -4,7 +4,7 @@ import { ClustersCaches } from "../component/clustersCaches";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
 import Alta from "../../img/alta.png";;
-import Mediana from "../../img/mediana.png";
+import Media from "../../img/media.png";
 import Baja from "../../img/baja.png";
 
 
@@ -29,7 +29,7 @@ export const CachesDificultad = () => {
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
                 <div className="container row row-cols-lg-3 g-3 mx-auto mb-5">
                     <ClustersCaches link="/caches/Alta" image={Alta} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Media" image={Mediana} onClick={() => window(0, 0)}/>
+                    <ClustersCaches link="/caches/Media" image={Media} onClick={() => window(0, 0)}/>
                     <ClustersCaches link="/caches/Baja" image={Baja} onClick={() => window(0, 0)}/>
                 </div>
             </div>

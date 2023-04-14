@@ -1,25 +1,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
-import { ClustersCaches } from "../component/clustersCaches";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
-import Andalucia from "../../img/andalucia.png";;
-import Aragon from "../../img/aragon.png";
-import Canarias from "../../img/canarias.png";
-import Cantabria from "../../img/cantabria.png";
-import CastillaLeon from "../../img/castillaLeon.png";
-import CastillaMancha from "../../img/castillaMancha.png";
-import Cataluna from "../../img/cataluna.png";
-import ComunidadNavarra from "../../img/comunidadNavarra.png";
-import ComunidadValenciana from "../../img/comunidadValenciana.png";
-import Extremadura from "../../img/extremadura.png";
-import Galicia from "../../img/galicia.png";
-import IslasBaleares from "../../img/islasBaleares.png";
-import LaRioja from "../../img/laRioja.png";
-import Madrid from "../../img/madrid.png";
-import PaisVasco from "../../img/paisVasco.png";
-import RegionMurcia from "../../img/regionMurcia.png";
-import PrincipadoAsturias from "../../img/principadoAsturias.png";
 
 
 export const CachesSegmentacionProvincias = () => {

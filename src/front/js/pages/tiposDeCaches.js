@@ -2,9 +2,9 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
-import CachesUbicacion from "../../img/cachesUbicacion.png"
-import CachesDificultad from "../../img/cahesDificultad.png"
-import CachestTamano from "../../img/cachestTamano.png"
+import Ubicacion from "../../img/ubicacion.png"
+import Dificultad from "../../img/dificultad.png"
+import Tamano from "../../img/tamano.png"
 
 export const TiposDeCaches = () => {
     const { store, actions } = useContext(Context);
@@ -25,23 +25,11 @@ export const TiposDeCaches = () => {
             <div className=" container mx-auto text-center">
                 <h2 className="text-center my-4">Comienza a Explorar</h2>
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
-                <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
-                    <div className=" ju card text-bg-dark border-0 ">
-                        <Link to="/caches-ubicacion" className="text-decoration-none" onClick={() => window(0, 0)}>
-                            <img src={CachesUbicacion} className="card-img border-dark border border-1" alt="..." />
-                        </Link>
-                    </div>
-                    <div className=" card text-bg-dark border-0 rounded-4">
-                        <Link to="/caches-dificultad" className="text-decoration-none" onClick={() => window(0, 0)}>
-                            <img src={CachesDificultad} className="card-img border-dark border border-1 " alt="..." />
-                        </Link>
-                    </div>
-                    <div className=" card text-bg-dark border-0 ">
-                        <Link to="/caches-tamano" className="text-decoration-none" onClick={() => window(0, 0)}>
-                            <img src={CachestTamano} className="card-img border border-dark border border-1 " alt="..." />
-                        </Link>
-                    </div>
-                </div>
+                <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
+					<Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
+					<Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
+					<Cluster link="/caches-tamano" classboton="d-none" cardTitle="Tamaño" image={Tamano} onClick={() => window(0, 0)} />
+				</div>
             </div>
             <div className="container mx-auto text-center mt-5">
                 <h2 className="text-center mb-4 ">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>

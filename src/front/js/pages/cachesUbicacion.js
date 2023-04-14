@@ -19,7 +19,9 @@ import LaRioja from "../../img/laRioja.png";
 import Madrid from "../../img/madrid.png";
 import PaisVasco from "../../img/paisVasco.png";
 import RegionMurcia from "../../img/regionMurcia.png";
+import Ceuta from "../../img/ceuta.png";
 import PrincipadoAsturias from "../../img/principadoAsturias.png";
+import Melilla from "../../img/melilla.png";
 
 
 export const CachesUbicacion = () => {
@@ -41,7 +43,7 @@ export const CachesUbicacion = () => {
             <div className=" container mx-auto text-center">
                 <h2 className="text-center mt-5 my-4">Comienza a Explorar</h2>
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
-                <div className="container row row-cols-lg-3 g-3 mx-auto mb-5">
+                <div className="container row row-cols-lg-3 gx-3 mx-auto mb-5">
                     <ClustersCaches link="/caches/Andalucía" image={Andalucia} onClick={() => window(0, 0)}/>
                     <ClustersCaches link="/caches/Aragón" image={Aragon} onClick={() => window(0, 0)}/>
                     <ClustersCaches link="/caches/Islas Canarias" image={Canarias} onClick={() => window(0, 0)}/>
@@ -59,8 +61,8 @@ export const CachesUbicacion = () => {
                     <ClustersCaches link="/caches/País Vasco" image={PaisVasco} onClick={() => window(0, 0)}/>
                     <ClustersCaches link="/caches/Region de Murcia" image={RegionMurcia} onClick={() => window(0, 0)}/>
                     <ClustersCaches link="/caches/Principado de Asturias" image={PrincipadoAsturias}  onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Ciudad Autónoma de Ceuta" image={PrincipadoAsturias} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Ciudad Autónoma de Melilla" image={PrincipadoAsturias} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Ciudad Autónoma de Ceuta" image={Ceuta} onClick={() => window(0, 0)}/>
+                    <ClustersCaches link="/caches/Ciudad Autónoma de Melilla" image={Melilla} onClick={() => window(0, 0)} />
 
 
                 </div>

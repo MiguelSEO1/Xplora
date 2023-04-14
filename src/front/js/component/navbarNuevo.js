@@ -182,10 +182,14 @@ export const NavbarNuevo = () => {
             {showSearch ? (
                 <Buscador />) : null}
 
-            <div className="container Orbital position-fixed end-0 mx-5 ">
-                <a className="text-danger me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
-                </a>
+            <div className="container Orbital position-fixed end-0 mx-4 ">
+                {store.userActive ? (
+
+                    <a className=" text-danger me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                    </a>) : (<a className=" text-dark me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                    </a>)}
 
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                     <div className="offcanvas-header">
