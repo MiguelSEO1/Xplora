@@ -259,14 +259,7 @@ def create_galery():
     body= json.loads(request.form["galery"])
     cache = Cache.query.filter_by(id=body["id"]).first()
     result= cloudinary.uploader.upload(request.files['profile_image'])
-    
-    new_galery = ImageGalery(
-        title=body["title"], 
-        url=result['secure_url'], 
-        date_of_Publication=body["date_of_Publication"], 
-        user_id=user_id, 
-        cache=cache)
-
+    new_galery = ImageGalery(title=body["title"], url=result['secure_url'], date_of_Publication=body["date_of_Publication"], user_id=user_id, cache=cache)
     db.session.add(new_galery)
     db.session.commit() 
     return jsonify({"response": "Galery ok"}), 200  
@@ -426,7 +419,7 @@ def cache_register():
         )
     db.session.add(new_cache)
     db.session.commit()
-    return jsonify({"response": "Cache registered successfully"}), 200     
+    return jsonify({"response": "Cache registered successfully"}), 200   
  
 @api.route('/ranking_users', methods=['GET'])
 @jwt_required()

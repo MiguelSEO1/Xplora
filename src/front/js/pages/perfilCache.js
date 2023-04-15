@@ -301,7 +301,7 @@ export const PerfilCache = () => {
                             </div>
                             <h2 className="text-center mb-5 mt-5">Sección de Comentarios</h2>
                             <div className=" cajacomentario container border mb-4 mt-4">
-                                <h2 className="text-center text-danger my-5 text-decoration-underline">Deja tu Comentario</h2>
+                            <h2 className="text-center text-danger my-5 text-decoration-underline">Deja tu Comentario</h2>
                                 <div className="mb-3 mt-5">
                                     <input name="title" value={comment.title} onChange={(e) => setComment({ ...comment, [e.target.name]: e.target.value })} type="email" class="form-control bg-light p-2 text-dark  border border-dark border border-2 " id="exampleFormControlInput1" placeholder="Título" />
                                 </div>
@@ -401,7 +401,7 @@ export const PerfilCache = () => {
                             <h2 className="text-center mb-4 mt-5">Galería de fotos</h2>
                             <div className=" mb-5 mx-auto">
                                 <div className="cajafotos1 border p-3 mb-5">
-                                    <h2 className="text-center mb-4 mt-3 text-danger text-decoration-underline">Sube tus mejores fotos</h2>
+                                <h2 className="text-center mb-4 mt-3 text-danger text-decoration-underline">Sube tus mejores fotos</h2>
                                     <div className=" mt-5 mb-5 p-2 mx-auto">
                                         <div className="d-flex row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 align-items-center ">
                                             <img src={files ? URL.createObjectURL(files[0]) : urlImagePhoto} className=" imgenescachespremium  mx-2 img-thumbnail mb-3 border border-dark border border-2" alt="..." />
@@ -414,7 +414,7 @@ export const PerfilCache = () => {
                                         <input type="text" name="title" value={galery.title} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " id="floatingInputInvalid" placeholder="Título Foto" />
                                     </div>
                                     <div class="mb-3 px-2">
-                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " type="date" id="formFileMultiple" multiple />
+                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " type="text" id="formFileMultiple" multiple placeholder="Fecha Foto - dd-mm-aa" />
                                     </div>
                                     <div class=" d-flex justify-content-end mb-4 p-2">
                                         <button type="button" class="btn btn-dark btn-sm mx-1" onClick={() => {
