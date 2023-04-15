@@ -10,7 +10,7 @@ export const PostGuiaPrincipiantes = () => {
 
     return (
 
-        <div className=" container">
+        <div className=" cuerpo container mb-5 text-center">
             <h1>Cómo empezar a buscar cachés: Guía para Principiantes</h1>
 
 

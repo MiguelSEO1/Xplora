@@ -1,59 +1,66 @@
 .Orbital {
   margin: 0 auto;
   position: fixed;
-  bottom: 3rem;
+  bottom: 4rem;
   z-index: 1000000000;
   width: 70px;
   height: 70px;
   border: 0;
   border-radius: 50%;
   opacity: 1;
-  padding: 1rem;
-  box-shadow: 0px 5px 10px 0px rgb(0 0 0 / 50%);
-  background-color: white;
+  padding-top: 1rem;
+  padding-left: 1.19rem;
+  box-shadow: 0px 5px 10px 0px rgba(20, 19, 19, 0.5);
+  background-color: #f5edc6;
   transition: 300ms ease all;
+  font-family: "Seaweed Script", cursive;
+  font-size: 18px;
+  
+  ;
 }
 
 .btn-secondary {
-  color: #0a0a0a;
-  background-color: #fdfeff;
-  border-color: #fcfcfc;
+  border-color: #c40b11;
+  color: #c40b11;
+  border-color: #f5edc6;
+  background-color: #f5edc6;
+}
+
+.btn-secondary:hover {
+  color: transparent;
+  background-color: #f5edc6;
+  border-color: #f5edc6;
+}
+
+.btn-check:focus+.btn-secondary, .btn-secondary:focus {
+  color: #fff;
+  background-color: #f5edc6;
+  border-color: #f5edc6;
+  box-shadow: 0 0 0 0.25rem #f5edc6;
 }
 
 .alert {
   margin-bottom: 0rem;
 }
 
-.nav-link:hover {
-  background: #f15f1b;
-  color: #f8f6d7;
-}
-.nav-link {
-  color: #f15f1b;
-}
-
-.desplegable:hover {
-  background: #dfdfdf;
-  color: #0a0a0a;
-}
-
-.altaRegister:hover {
-  background: #f15f1b;
-  color: #f8f6d7;
-}
-
-.altaLogin:hover {
-  background: #f15f1b;
-  color: #f8f6d7;
-}
-
 @media (max-width: 991px) {
   .tamano {
-    font-size: 7px;
+    font-size: 25px;
   }
 
   .imgtamn {
     size: 15px;
+  }
+
+  .navbar {
+    width: 97%;
+  }
+
+  .cuerpo {
+    margin-top: 130px;
+  }
+  .infocache {
+    margin-top: 50px;
   }
 }
 
@@ -61,8 +68,401 @@
   background-color: #cebea3;
 }
 
-.alert-secondary {
-  color: #41464b;
-  background-color: #cebea3;
-  border-color: #cebea3;
+.buscador {
+  background-image: url("https://viajes.nationalgeographic.com.es/medio/2015/05/12/rub_al_khali_emiratos_arabes_1000x664.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.parallax {
+  background-image: url("https://viajes.nationalgeographic.com.es/medio/2015/05/12/rub_al_khali_emiratos_arabes_1000x664.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.esquinaCarta {
+  border-radius: 20px 0 20px 0; /* redondear las esquinas superior izquierda y inferior derecha */
+  background-image: url("https://www.roc21.com/blog/wp-content/uploads/2018/10/mapas-del-tesoro-en-vectores.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 10px;
+}
+
+.esquinaCarta {
+  color: white; /* color de texto claro */
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(5, 39, 192, 0.5);
+  transition: transform 0.4s;
+}
+
+.clusters {
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.5);
+  border-radius: 0px;
+  transition: transform 0.4s;
+  border: 1px solid rgb(151, 149, 144);
+}
+
+.imgcluster {
+  border-top-left-radius: 0px;
+  border-top-right-radius: 0px;
+  border-bottom-left-radius: 0;
+  border-bottom-right-radius: 0;
+}
+
+
+.clusterscaches {
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  border-radius: 0px;
+  transition: transform 0.4s;
+  border: 2px solid rgb(51, 50, 50);
+  border-radius: 10px;
+
+}
+
+.imgclustercaches {
+  border-radius: 10px;
+}
+
+.imageCard {
+  border: 2px solid black; /* borde oscuro */
+  border-radius: 0px 20px 0px 20px;
+}
+
+.Cartabuscador {
+  color: white; /* color de texto claro */
+  border-radius: 0px 20px 0px 20px;
+  border-radius: 20px 0 20px 0; /* redondear las esquinas superior izquierda y inferior derecha */
+  background-image: url("https://www.roc21.com/blog/wp-content/uploads/2018/10/mapas-del-tesoro-en-vectores.jpg");
+  background-repeat: repeat;
+  background-size: cover;
+  background-position: center;
+  padding: 10px;
+}
+
+.botonBonito {
+  box-shadow: 0 0 10px 2px rgba(255, 193, 7, 0.5);
+  border: 2px solid rgb(0, 0, 0); /* borde oscuro */
+}
+
+.navbar {
+  position: fixed;
+  z-index: 1000000000;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: transparent;
+  transition: background-color 0.5s ease-in-out;
+  font-family: "Seaweed Script", cursive;
+  font-size: 20px;
+}
+
+.banner {
+  height: 100vh;
+  background-position: center 1%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerlogin {
+  height: 100vh;
+  background-position: center 1%;
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.bannerlogin > div {
+  max-width: 600px;
+  text-align: center;
+  color: rgb(68, 68, 68);
+}
+
+.banner > div {
+  max-width: 600px;
+  text-align: center;
+  color: rgb(68, 68, 68);
+}
+
+.contenido {
+  padding: 50px;
+}
+
+.navbar.fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #444444;
+  color: white;
+  transition: all 0.5s ease-in-out;
+}
+
+.nav-link {
+  color: #050505;
+}
+
+.navbar.fixed .nav-link {
+  color: rgb(247, 243, 243);
+}
+
+h1 {
+  font-family: "Seaweed Script", cursive;
+  font-size: 50px;
+}
+
+h2 {
+  font-family: "Seaweed Script", cursive;
+  font-size: 30px;
+}
+
+h4,
+h3,
+h6 {
+  font-family: "Seaweed Script", cursive;
+}
+
+.xplora {
+  font-size: 100px;
+}
+
+.pxplora {
+  font-size: 25px;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5); /* sombra de texto */
+}
+
+.scroll-animation {
+  opacity: 0;
+}
+
+.scroll-animation.scroll-triggered {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.scroll-animation.left {
+  transform: translateX(-50px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+.scroll-animation.right {
+  transform: translateX(70px);
+  transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+}
+
+@media screen and (min-width: 1200px) {
+  .Orbital {
+    display: none;
+  }
+
+  .esquinaCarta:hover {
+    transform: scale(0.9);
+  }
+
+  .clusters:hover {
+    transform: scale(1.1);
+  }
+
+  .imgcluster:hover {
+    filter: opacity(0.5);
+  }
+
+  .bodycluster:hover {
+    background: #f5edc6;
+    color: #c40b11;
+  }
+
+  .tamano {
+    font-size: 25px;
+  }
+
+  .bannerlogin {
+    height: 115vh;
+    background-position: center 1%;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .imgenescaches {
+    width: 25%;
+  }
+
+  .imgenescachespremium {
+    width: 20%;
+  }
+
+  .imagenfotos {
+    width: 40%;
+  }
+
+  .margenfoto {
+    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 600px) {
+  .animaciones {
+    display: none;
+  }
+
+  .imgenescachespremium {
+    width: 50%;
+  }
+
+  .imagenfotos {
+    width: 25%;
+  }
+}
+
+@media only screen and (min-width: 800px) {
+  .imgenescaches {
+    width: 25%;
+  }
+
+  .imgenescachespremium {
+    width: 20%;
+  }
+
+  .imagenfotos {
+    width: 40%;
+  }
+
+  .margenfoto {
+    margin-top: 50px;
+  }
+}
+
+@media only screen and (max-width: 800px) {
+  .scroll-animation {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  .scroll-animation.scroll-triggered {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  .navbar-logo {
+    margin-right: auto;
+  }
+}
+
+.elemento {
+  position: relative;
+}
+
+.elemento::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 3px;
+  background-color: #e79613;
+  transition: all 0.9s ease;
+}
+
+.elemento:hover::before {
+  width: 100%;
+}
+
+.cuerpo {
+  margin-top: 130px;
+}
+
+.buscador {
+  margin-top: 70px;
+}
+
+.login {
+  background-color: #f5edc6;
+  font-family: "Seaweed Script", cursive;
+  font-size: 20px;
+}
+
+.btn {
+  font-family: "Seaweed Script", cursive;
+}
+
+.input.pac-target-input {
+  margin-bottom: 15px;
+}
+
+
+.comentario {
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+  background-color: #e2eeee;
+  height: 50vh;
+
+
+}
+
+.cajacomentario{
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+  background-color: #f5edc6;
+  border-radius: 10px;
+  font-family: "Seaweed Script", cursive;
+
+}
+
+.infocachecaja {
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.clustertop {
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+
+.cajafotos1 {
+  font-family: "Seaweed Script", cursive;
+  font-size: 17px;
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+  background-color: #f5edc6;
+  border-radius: 10px;  
+
+}
+
+.file {
+  font-size: medium;
+}
+
+.cajafotosespecifica {
+  box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
+    5px 5px 10px rgba(0, 0, 0, 0.5);
+  height: 55vh;
+  background-color: #e2eeee;
+
+}
+
+.registro {
+  background-color: #f5edc6;
+}
+
+
+
+.sombrasnabvar {
+  box-shadow: 0px -5px 10px rgba(255, 255, 255, 0.5),
+    0px 5px 10px rgba(0, 0, 0, 0.5);
+}
+
+.tbody, td, tfoot, th, thead, tr {
+  border-color: inherit; 
+  border: 1px solid #676766;
+  border-width: 2px;
+  padding: 10px;
+  font-family: "Seaweed Script", cursive;    
 }

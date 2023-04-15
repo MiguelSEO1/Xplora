@@ -24,7 +24,7 @@ class User(db.Model):
     caches_found = db.relationship('Cache', secondary=cache_found, backref=db.backref('users_found'))
     caches = db.relationship('Cache', backref='user_creator')
     comments = db.relationship('Comment', backref='user')
-    images = db.relationship('Image', backref='user')
+    images = db.relationship('ImageGalery', backref='user')
     favorites = db.relationship('Favorite', backref='user')
 
     def serialize(self):
@@ -80,10 +80,10 @@ class Cache(db.Model):
     coordinates_x = db.Column(db.Float)
     difficulty = db.Column(db.String(255), nullable=False)
     size = db.Column(db.String(255), nullable=False)
-    qr_code = db.Column(db.String(1500), nullable=False)
+    qr_code = db.Column(db.String(5000), nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     comments = db.relationship('Comment', backref='cache')
-    images = db.relationship('Image', backref='cache')
+    images = db.relationship('ImageGalery', backref='cache')
     favorites = db.relationship('Favorite', backref='cache')
     is_favorite = db.Column(db.Boolean, nullable=False, default=False)
     
@@ -125,7 +125,7 @@ class Cache(db.Model):
         }  
     
 
-class Image(db.Model):
+class ImageGalery(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     url = db.Column(db.String(255), nullable=False)
     title = db.Column(db.String(100), nullable=False)
@@ -151,14 +151,25 @@ class Comment(db.Model):
      url_image = db.Column(db.String(255))
      cache_id = db.Column(db.Integer, db.ForeignKey('cache.id'), nullable=False)
      user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+     complaint = db.relationship('Complaint', backref='comment')
+     is_spam = db.Column(db.Boolean, nullable=False, default=False)
+     is_sexual_content = db.Column(db.Boolean, nullable=False, default=False)
+     is_violence = db.Column(db.Boolean, nullable=False, default=False)
+     is_child_abuse = db.Column(db.Boolean, nullable=False, default=False)
 
      def serialize(self):
         user= User.query.get(self.user_id)
         return {
             "id": self.id,
             "title": self.title,
+            "is_spam": self.is_spam,
+            "is_sexual_content": self.is_sexual_content,
+            "is_violence": self.is_violence,
+            "is_child_abuse": self.is_child_abuse,
             "text": self.text,
-            "user": user.serialize()
+            "user": user.serialize(),
+            "complaint": [x.serialize() for x in self.complaint],
+
         }
 
 class Favorite(db.Model):
@@ -175,5 +186,23 @@ class Favorite(db.Model):
              "id": self.id,
              "user": user.basicInfo(),
              "cache":cache.basicInfo(),
+
+        }
+
+class Complaint(db.Model):
+     id = db.Column(db.Integer, primary_key=True)
+     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+     title = db.Column(db.String(100), nullable=False)
+     text = db.Column(db.Text, nullable=False)
+     comment_id = db.Column(db.Integer, db.ForeignKey('comment.id'), nullable=False)
+
+     def serialize(self):
+         user= User.query.get(self.user_id)
+         comment= Comment.query.get(self.comment_id)
+         return {
+             "id": self.id,
+             "title": self.id,
+             "text": self.id,
+             "user": user.basicInfo(),
 
         }

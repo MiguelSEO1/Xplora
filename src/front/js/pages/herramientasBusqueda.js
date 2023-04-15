@@ -11,7 +11,7 @@ export const HerramientasBusqueda = () => {
     return (
 
 
-        <div className="container">
+        <div className="cuerpo container mb-5 text-center">
             <h1>Las mejores herramientas para la búsqueda de cachés</h1>
             <img src="https://comika.es/wp-content/uploads/2020/03/KitGeocaching-640x350.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
             <p>Buscar cachés puede ser una actividad emocionante, pero también puede ser desafiante. Por suerte, hay muchas herramientas disponibles que pueden ayudarte a encontrar los cachés con mayor facilidad. Aquí te presentamos algunas de las mejores herramientas para la búsqueda de cachés:</p>

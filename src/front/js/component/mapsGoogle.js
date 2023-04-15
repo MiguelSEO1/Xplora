@@ -39,8 +39,8 @@ export const MapsGoogle = (props) => {
             googleMapsApiKey={`${process.env.GoogleMapsApiKey}`}
             libraries={["places"]}
         >
-            <StandaloneSearchBox onLoad={ref => inputRef.current = ref} onPlacesChanged={handlePlace} className="search">
-                <input type="text" />
+            <StandaloneSearchBox  onLoad={ref => inputRef.current = ref} onPlacesChanged={handlePlace} className="search">
+                <input  type="text" />
             </StandaloneSearchBox>
             <GoogleMap
                 mapContainerStyle={containerStyle}

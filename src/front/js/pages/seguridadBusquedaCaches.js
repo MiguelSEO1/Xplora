@@ -10,7 +10,7 @@ export const SeguridadBusquedaCaches = () => {
 
     return (
 
-        <div className="container">
+        <div className="cuerpo container mb-5 text-center">
             <h1>Los peligros de la Búsqueda de Cachés: Cómo mantenerse seguro durante la misma</h1>
             <img src="https://www.geocaching.com/blog/wp-content/uploads/2019/09/Mailer_Suite_100119_Reaching_New_Heights_vFINAL_Mailer_Blog-800x450.jpg" className="img-fluid mx-auto d-block my-5 " alt="..." />
             <p>La búsqueda de cachés es una actividad emocionante y divertida, pero como cualquier actividad al aire libre, puede presentar ciertos peligros. Aquí hay algunos consejos para ayudarte a mantenerte seguro mientras buscas cachés.</p>

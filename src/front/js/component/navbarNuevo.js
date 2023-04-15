@@ -3,6 +3,11 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import logonuevo from "../../img/logonuevo.png"
+import NuevoLogo from "../../img/nuevoLogo.png"
+import logoregistro from "../../img/logoregistro.png"
+
+
+
 import person from "../../img/person.png"
 import { Buscador } from "../component/buscador";
 
@@ -28,54 +33,83 @@ export const NavbarNuevo = () => {
     };
 
     return (
-        <div>
-            <ul className="nav justify-content-center alert alert-primary p-1 border-0">
-                {store.userActive ? (
-                    <>
-                        <div className="navbar-logo col-6 me-auto">
-                            <a href="/">
-                                <img src={logonuevo} alt="Descripción del logo" />
+        <div className="">
+
+            {store.userActive ? (
+                <>
+                    <ul className=" container-fluid login mb-5 fixed-top nav justify-content-center p-3 sombrasnabvar border-none ">
+
+                        <div className=" navbar-logo col-lg-6 mx-auto me-auto d-none d-lg-block d-md-block">
+                            <a href="/demo" onClick={() => window(0, 0)} >
+                                <img src={logoregistro} alt="Descripción del logo" />
+                            </a>
+                        </div>
+
+                        <div className=" navbar-logo mx-auto pe-4 d-block d-md-none">
+                            <a href="/demo" onClick={() => window(0, 0)}>
+                                <img src={logoregistro} alt="Descripción del logo" />
                             </a>
                         </div>
                         <li className="nav-item d-none d-lg-block">
-                            <Link to="/demo" className="nav-link active " onClick={() => setShowSearch(false)} aria-current="page">
+                            <Link to="/demo" className="elemento nav-link active" onClick={() => {
+                                setShowSearch(false); // Este es el evento original
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }} aria-current="page">
                                 Home
                             </Link>
                         </li>
-                        <li className="nav-item d-none d-lg-block" onClick={() => setShowSearch(false)}>
-                            <Link to="/mi-Perfil" className="nav-link active" aria-current="page">
+                        <li className="nav-item d-none d-lg-block">
+                            <Link to="/mi-perfil" className="elemento nav-link active" onClick={() => {
+                                setShowSearch(false); // Este es el evento original
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }} aria-current="page">
                                 Faqs
                             </Link>
                         </li>
-                        <li className="nav-item d-none d-lg-block" onClick={() => setShowSearch(false)}>
-                            <Link to="/blog" className="nav-link active " aria-current="page">
+                        <li className="nav-item d-none d-lg-block">
+                            <Link to="/blog" className="elemento nav-link active" onClick={() => {
+                                setShowSearch(false); // Este es el evento original
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }} aria-current="page">
                                 Blog
                             </Link>
                         </li>
                         <li className="nav-item dropdown d-none d-lg-block" onClick={() => setShowSearch(false)}>
-                            <Link to="/" className="nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <Link to="/" className="elemento nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                 cachés
                             </Link>
                             <ul className="dropdown-menu ">
-                                <li className="nav-item d-none d-lg-block " onClick={() => setShowSearch(false)}>
-                                    <Link to="/tipos-de-caches" className="  nav-link active desplegable" aria-current="page">
+                                <li className="nav-item d-none d-lg-block">
+                                    <Link to="/tipos-de-caches" className="nav-link active desplegable" onClick={() => {
+                                        setShowSearch(false); // Este es el evento original
+                                        window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                                    }} aria-current="page">
                                         Tipos de Cachés
                                     </Link>
                                 </li>
-                                <li className="nav-item d-none d-lg-block de" onClick={() => setShowSearch(false)}>
-                                    <Link to="/reg_cache" className="  nav-link active desplegable" aria-current="page">
-                                        Registro de Cachés
+
+                                <li className="nav-item d-none d-lg-block">
+                                    <Link to="/reg_cache" className="nav-link active desplegable" onClick={() => {
+                                        setShowSearch(false); // Este es el evento original
+                                        window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                                    }} aria-current="page">
+                                        Crea tu Caché
                                     </Link>
                                 </li>
                             </ul>
                         </li>
                         <div className="dropdown-center ">
-                            <button className="btn btn-secondary dropdown-toggle d-none d-lg-block" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i className="fa-solid fa-user"></i>
+                                {store.currentUser.favorites.length === 0 ? null :
+                                    <span class=" mt-3 mx-3 position-absolute translate-middle badge rounded-pill bg-danger">
+                                        {store.currentUser.favorites.length}+
+                                    </span>}
                             </button>
+
                             <ul className="dropdown-menu">
 
-                                <Link to="/mi-Perfil" className="text-decoration-none">
+                                <Link to="/mi-Perfil" className="text-decoration-none" onClick={() => window(0, 0)}>
                                     <button className="dropdown-item" href="#">Mi perfil</button>
                                 </Link>
 
@@ -84,6 +118,7 @@ export const NavbarNuevo = () => {
                                     onClick={async () => {
                                         if (await actions.logout()) {
                                             navigate("/");
+                                            window.scrollTo(0, 0);
                                         }
                                     }}>Logout</button>
 
@@ -91,56 +126,70 @@ export const NavbarNuevo = () => {
                             </ul>
                         </div>
                         <li className="nav-item d-none d-lg-block ">
-                            <Link to="/mi-Perfil" className="nav-link active text-danger" aria-current="page">
+                            <Link to="/mi-Perfil" className="nav-link active text-danger" aria-current="page" onClick={() => window(0, 0)}>
                                 Hola {store.currentUser.name}
                             </Link>
                         </li>
-                        <li className="nav-item d-none d-lg-block">
-                            <button type="button" className="btn btn-light" onClick={mostrarBuscador}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                        <li className="nav-item d-none d-lg-block me-auto">
+                            <button type="button btn-sm mt-1 " className="btn btn-light" onClick={() => { mostrarBuscador(); window(0, 0) }}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                         </li>
+                    </ul>
+                </>
+            ) : (
+                <>
+                    <ul className=" navbar nav p-3 ">
 
-                    </>
-                ) : (
-                    <>
-                        <div className="navbar-logo col-6 me-auto">
-                            <a href="/">
-                                <img src={logonuevo} alt="Descripción del logo" />
+                        <div className=" navbar-logo mx-lg-5 mx-md-auto d-none d-lg-block d-md-block">
+                            <a href="/" onClick={() => window(0, 0)}>
+                                <img src={NuevoLogo} alt="Descripción del logo" />
                             </a>
                         </div>
-                        <li className="nav-item d-none d-lg-block">
-                            <Link to="/" className="nav-link active" aria-current="page">
-                                Home
-                            </Link>
-                        </li>
-                        <li className="nav-item d-none d-lg-block">
-                            <Link to="/" className="nav-link active" aria-current="page">
-                                Faqs
-                            </Link>
-                        </li>
-                        <li className="nav-item d-none d-lg-block">
-                            <Link to="/login" className=" altaLogin nav-link active" aria-current="page">
-                                Login
-                            </Link>
-                        </li>
-                        <li className="nav-item d-none d-lg-block">
-                            <Link to="/register" className="altaRegister nav-link active" aria-current="page">
-                                Register
-                            </Link>
-                        </li>
+                        <div className="  logo navbar-logo mx-auto pe-4 d-block d-md-none">
+                            <a href="/" onClick={() => window(0, 0)} >
+                                <img src={NuevoLogo} alt="Descripción del logo" />
+                            </a>
+                        </div>
+                        <div className=" d-lg-flex me-lg-5 d-none d-lg-block">
+                            <li className="nav-item d-none d-lg-block">
+                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                    Home
+                                </Link>
+                            </li>
+                            <li className="nav-item d-none d-lg-block">
+                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                    Faqs
+                                </Link>
+                            </li>
+                            <li className="nav-item d-none d-lg-block">
+                                <Link to="/login" className=" elemento altaLogin nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                    Login
+                                </Link>
+                            </li>
+                            <li className="nav-item d-none d-lg-block">
+                                <Link to="/register" className="elemento altaRegister nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                    Register
+                                </Link>
+                            </li>
+                        </div>
 
-                    </>
-                )}
+                    </ul>
+                </>
+            )}
 
 
-            </ul>
+
 
             {showSearch ? (
                 <Buscador />) : null}
 
-            <div className="container Orbital position-fixed end-0 mx-5 d-block d-md-none">
-                <a className="btn btn-secondary btn-floating d-block d-md-none " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                    <i className=" fas fa-bars fa-1x"></i>
-                </a>
+            <div className="container Orbital position-fixed end-0 mx-4 ">
+                {store.userActive ? (
+
+                    <a className=" text-danger me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                    </a>) : (<a className=" text-dark me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
+                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                    </a>)}
 
                 <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                     <div className="offcanvas-header">
@@ -151,24 +200,30 @@ export const NavbarNuevo = () => {
                         {store.userActive ? (
                             <>
                                 <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
-                                <a className="dropdown-item" href="/demo">Home</a>
-                                <a className="dropdown-item" href="/blog">Blog</a>
-                                <a className="dropdown-item" href="/blog">Faqs</a>
+                                <a className="dropdown-item" href="/demo" onClick={() => window(0, 0)}>Home</a>
+                                <a className="dropdown-item" href="/blog" onClick={() => window(0, 0)} >Blog</a>
+                                <a className="dropdown-item" href="/blog" onClick={() => window(0, 0)}>Faqs</a>
                                 <div className="dropdown  mx-2">
                                     <p className="p-2 dropdown-toggle" data-bs-toggle="dropdown">
                                         Cachés
                                     </p>
                                     <ul className="dropdown-menu">
-                                        <a className="dropdown-item" href="/tipos-de-caches">Tipos de Cachés</a>
-                                        <a className="dropdown-item" href="/reg_cache">crear Caché</a>
+                                        <a className="dropdown-item" href="/tipos-de-caches" onClick={() => window(0, 0)}>Tipos de Cachés</a>
+                                        <a className="dropdown-item" href="/reg_cache" onClick={() => window(0, 0)}>crear Caché</a>
                                     </ul>
                                 </div>
                                 <hr className="dropdown-divider" />
-                                <a className="dropdown-item" href="/mi-Perfil">Mi Perfil</a>
+
+                                <a className="dropdown-item" href="/mi-Perfil" >Mi Perfil
+                                    {store.currentUser.favorites.length === 0 ? null :
+                                        <span class=" mx-4 mt-1  translate-middle badge rounded-pill bg-danger">
+                                            {store.currentUser.favorites.length}+
+                                        </span>}</a>
                                 <p className="nav-item mx-3 text-danger"
                                     onClick={async () => {
                                         if (await actions.logout()) {
                                             navigate("/");
+                                            window.scrollTo(0, 0);
                                         }
                                     }}
                                 >
@@ -178,11 +233,11 @@ export const NavbarNuevo = () => {
                                 {showSearchMobile ? (
                                     <Buscador />) : null}
                             </>) : (<>
-                                <a class="dropdown-item" href="/">Home</a>
-                                <a class="dropdown-item" href="/blog">Faqs</a>
+                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
+                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
                                 <hr className="dropdown-divider" />
-                                <a class="dropdown-item text-primary" href="/login">Login</a>
-                                <a class="dropdown-item text-success" href="/register">Register</a>
+                                <a class="dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
+                                <a class="dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>
                             </>)}
                     </div>
                 </div>
