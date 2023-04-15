@@ -460,22 +460,22 @@ export const MiPerfil = () => {
                             <div className=" d-flex ">
                                 <UploadImage urlImage={urlImage} apiURL="/api/upload" />
                             </div>
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-4 fw-bold">Nombre</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" value={name}
+                            <label htmlFor="name" className="form-label mt-4 fw-bold">Nombre</label>
+                            <input type="text" className="form-control" id="name" value={name}
                                 onChange={(e) => { setName(e.target.value); }} placeholder={store.currentUser.name} />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3 fw-bold">Email</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" value={email}
+                            <label htmlFor="email" className="form-label mt-3 fw-bold">Email</label>
+                            <input type="email" className="form-control" id="email" value={email}
                                 onChange={(e) => { setEmail(e.target.value); }} placeholder={store.currentUser.email} />
                             <label htmlFor="disabledTextInput" className="form-label mt-3 fw-bold">Password</label>
-                            <input className="form-control text-dark" type="text" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={"..................."} />
+                            <input className="form-control text-dark" type="password" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={"..................."} />
                             <div className="d-flex justify-content-end my-3">
                                 <NewPassword />
                             </div>
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-1 fw-bold">País</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" value={country}
+                            <label htmlFor="country" className="form-label mt-1 fw-bold">País</label>
+                            <input type="text" className="form-control" id="country" value={country}
                                 onChange={(e) => { setCountry(e.target.value); }} placeholder={store.currentUser.country} />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3 fw-bold">City</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" value={city}
+                            <label htmlFor="city" className="form-label mt-3 fw-bold">City</label>
+                            <input type="text" className="form-control" id="city" value={city}
                                 onChange={(e) => { setCity(e.target.value); }} placeholder={store.currentUser.city} />
                             <div className="d-flex justify-content-end">
                                 <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
@@ -523,13 +523,13 @@ export const MiPerfil = () => {
                                         return (
                                             <div className="col-sm-1 col-md-4 ">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
                                                         <p className="card-text">{favorites.cache.name}</p>
                                                         <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
-                                                            <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
+                                                            <button href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></button>
                                                         </Link>
                                                         <button onClick={() => {
                                                             actions.createFavoritesCaches(favorites.cache.id);
@@ -555,7 +555,7 @@ export const MiPerfil = () => {
                                         return (
                                             <div className="col-sm-1 col-md-4 ">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
@@ -766,12 +766,12 @@ export const MiPerfil = () => {
                             <div>
                                 <h2 className="text-center mb-5">Cambiar contraseña</h2>
                             </div>
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Contraseña Actual</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Cambiar contraseña</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3">Confirmar contraseña</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" />
+                            <label htmlFor="passwActual" className="form-label mt-3">Contraseña Actual</label>
+                            <input type="password" className="form-control" id="passwActual" />
+                            <label htmlFor="changePasswd" className="form-label mt-3">Cambiar contraseña</label>
+                            <input type="password" className="form-control" id="changePasswd" />
+                            <label htmlFor="confirmPasswd" className="form-label mt-3">Confirmar contraseña</label>
+                            <input type="password" className="form-control" id="confirmPasswd" />
                             <div className="d-flex justify-content-end my-3">
                                 <button type="button" className="btn btn-danger btn-sm">Actualizar Cambios</button>
                             </div>
