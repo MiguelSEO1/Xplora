@@ -38,7 +38,6 @@ class User(db.Model):
             "caches_found": [x.serialize()for x in self.caches_found],
             "is_admin": self.is_admin,
             "favorites" : [x.serialize() for x in self.favorites],
-            "password": self.password,
 
         }
 

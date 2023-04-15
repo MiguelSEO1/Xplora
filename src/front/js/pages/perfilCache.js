@@ -200,6 +200,9 @@ export const PerfilCache = () => {
         <div className=" container cuerpo">
             <div className="row ">
                 <div >
+                    <div className="col-lg-12 col-md-12 mb-3">
+                        <h1 className=" text-center mt-2 align-self-start">Datos Caché "{perfilDetails.name}"</h1>
+                    </div>
                     <div className="btn-group container my-5" aria-label="Basic checkbox toggle button group" >
                         <label className="btn btn-outline-primary mx-auto " onClick={mostrarDatosCache}>Información Caché</label>
                         <label className="btn btn-outline-primary mx-auto " onClick={mostrarComentariosCache}> Comentarios y Fotos</label>
@@ -214,15 +217,12 @@ export const PerfilCache = () => {
 
 
                         <div className=" container mx-auto row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 " >
-                            <div className="col-lg-12 col-md-12 mb-5">
-                                <h2 className=" text-center mt-2 align-self-start">Datos Caché {perfilDetails.name}</h2>
-                            </div>
                             <div className="col-lg-5 align-items-center" >
-                                <h3 className="text-start  text-decoration-underline align-items-start mb-5">Ubicación</h3>
+                                <h2 className="text-start text-danger text-decoration-underline align-items-start mb-5">Ubicación</h2>
                                 <MapsGoogle setData={setData} />
                             </div>
                             <div className="  col-lg-7" >
-                                <h3 className="infocache text-start mb-5 mt-lg-1 mt-md-1 text-decoration-underline">Información</h3>
+                                <h2 className="infocache text-start text-danger mb-5 mt-lg-1 mt-md-1 text-decoration-underline">Información</h2>
                                 <ul className="infocachecaja list-group mb-5">
                                     <li className="list-group-item list-group-item-warning"><strong>Nombre:</strong> {perfilDetails.name}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>Coordenadas:</strong> {perfilDetails.coordinates_x}/ {perfilDetails.coordinates_y} </li>
@@ -414,7 +414,7 @@ export const PerfilCache = () => {
                                         <input type="text" name="title" value={galery.title} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " id="floatingInputInvalid" placeholder="Título Foto" />
                                     </div>
                                     <div class="mb-3 px-2">
-                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " type="text" id="formFileMultiple" multiple placeholder="Fecha Foto - dd-mm-aa" />
+                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " type="date" id="formFileMultiple" multiple placeholder="Fecha Foto - dd-mm-aa" />
                                     </div>
                                     <div class=" d-flex justify-content-end mb-4 p-2">
                                         <button type="button" class="btn btn-dark btn-sm mx-1" onClick={() => {

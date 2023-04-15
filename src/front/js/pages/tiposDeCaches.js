@@ -34,10 +34,10 @@ export const TiposDeCaches = () => {
             <div className="container mx-auto text-center mt-5">
                 <h2 className="text-center mb-4 ">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
                 <p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
-                <div className="container mt-3 mb-5 row row-cols-lg-3 mx-auto gx-4, gy-4">
+                <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.slice(0, mostrarTarjetas).map((cache) => {
                         return (
-                            <div className="col-sm-1 col-md-4 ">
+                            <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                     <div className="card-body">
