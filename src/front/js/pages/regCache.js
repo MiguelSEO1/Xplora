@@ -10,16 +10,17 @@ export const Cache = () => {
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [country, setCountry] = useState("");
-    const [states, setStates] = useState([]);
-    const [stateid, setStateID] = useState(null);
-    const [city, setCity] = useState([]);
-    const [cityid, setCityID] = useState(null);
     const [postalCode, setPostalCode] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [size, setSize] = useState("");
     const [error, setError] = useState("");
     const [data, setData] = useState({});
+    const [comunidades, setComunidades] = useState([]);
+    const [comunidadID, setComunidadID] = useState(null);
+    const [provincias, setProvincias] = useState([]);
+    const [provinciaID, setProvinciaID] = useState(null);
+    const [municipios, setMunicipios] = useState([]);
+    const [municipioID, setMunicipioID] = useState(null);
 
     const sendCacheRegistral = async () => {
         const response = await fetch(
@@ -33,10 +34,10 @@ export const Cache = () => {
                 body: JSON.stringify({
                     name: name,
                     description: description,
-                    country: country,
-                    state: states.find(x => x.iso2 == stateid).name,
-                    city: city.find(x => x.name == cityid).name,
                     postal_code: postalCode,
+                    comunidad_autonoma: comunidades.find(x => x.CCOM == comunidadID).COM,
+                    provincia: provincias.find(x => x.CPRO == provinciaID).PRO,
+                    municipio: municipios.find(x => x.CMUM == municipioID).DMUN50,
                     coordinates_y: data.lat.toString(),
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
@@ -55,41 +56,54 @@ export const Cache = () => {
     };
 
     useEffect(() => {
-        const getStates = async () => {
-            const resStates = await fetch("https://api.countrystatecity.in/v1/countries/es/states",
+        const getComunidades = async () => {
+            const responseComunidades = await fetch("https://apiv1.geoapi.es/comunidades?type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8",
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resStates.json();
-            setStates(response);
+            const dataComunidades = await responseComunidades.json();
+            setComunidades(dataComunidades.data);
         }
-        getStates();
-    }, [])
-
-    const handleState = (event) => {
-        const getStateID = event.target.value;
-        setStateID(getStateID);
-    }
+        getComunidades();
+    }, []);
 
     useEffect(() => {
-        const getCity = async () => {
-            const resCity = await fetch(`https://api.countrystatecity.in/v1/countries/es/states/${stateid}/cities`,
+        const getProvincias = async () => {
+            const responseProvincias = await fetch(`https://apiv1.geoapi.es/provincias?CCOM=${comunidadID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resCity.json();
-            setCity(response);
+            const dataProvincias = await responseProvincias.json();
+            setProvincias(dataProvincias.data);
         }
-        getCity();
-    }, [stateid]);
+        getProvincias();
+    }, [comunidadID]);
+
+    useEffect(() => {
+        const getMunicipios = async () => {
+            const responseMunicipios = await fetch(`https://apiv1.geoapi.es/municipios?CPRO=${provinciaID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
+                {
+                    method: "GET"
+                }
+            );
+            const dataMunicipios = await responseMunicipios.json();
+            setMunicipios(dataMunicipios.data);
+        }
+        getMunicipios();
+    }, [provinciaID]);
+
+    const handleComunidad = (event) => {
+        const getComunidadID = event.target.value;
+        setComunidadID(getComunidadID);
+    };
+
+    const handleProvincia = (event) => {
+        const getProvinciaID = event.target.value;
+        setProvinciaID(getProvinciaID);
+    };
+
 
     const styles = {
         backgroundImage: `url(${mapaPirata})`,

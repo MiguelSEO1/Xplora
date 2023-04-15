@@ -355,15 +355,17 @@ def cache_register():
 
     body_description = request.json.get("description")
 
-    body_country = request.json.get("country")
+    body_comunidad_autonoma = request.json.get("comunidad_autonoma")
+    if not body_comunidad_autonoma or not isinstance(body_comunidad_autonoma, str):
+        return jsonify({"response": "Invalid or missing 'comunidad autonoma' parameter"}), 400
 
-    body_state = request.json.get("state")
-    if not body_state or not isinstance(body_state, str):
-        return jsonify({"response": "Invalid or missing 'state' parameter"}), 400
+    body_provincia = request.json.get("provincia")
+    if not body_provincia or not isinstance(body_provincia, str):
+        return jsonify({"response": "Invalid or missing 'provincia' parameter"}), 400
 
-    body_city = request.json.get("city")
-    if not body_city or not isinstance(body_city, str):
-        return jsonify({"response": "Invalid or missing 'city' parameter"}), 400
+    body_municipio = request.json.get("municipio")
+    if not body_municipio or not isinstance(body_municipio, str):
+        return jsonify({"response": "Invalid or missing 'municipio' parameter"}), 400
 
     body_postal_code = request.json.get("postal_code")
     if not body_postal_code or not isinstance(body_postal_code, str):
@@ -391,7 +393,7 @@ def cache_register():
         return jsonify({"response": "Cache already created, choose another name"}), 300
 
     # Generating the QR code image
-    qr_data = f"{body_name}, {body_description}, {body_country}, {body_state}, {body_city}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
+    qr_data = f"{body_name}, {body_description}, {body_comunidad_autonoma}, {body_provincia}, {body_municipio}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
     qr_img = qrcode.make(qr_data)
 
     # Store the Qr code as binary data in the database
@@ -406,9 +408,9 @@ def cache_register():
     new_cache = Cache(
         name=body_name,
         description=body_description,
-        country="España",
-        state=body_state,
-        city=body_city,
+        comunidad_autonoma=body_comunidad_autonoma,
+        provincia=body_provincia,
+        municipio=body_municipio,
         postal_code=body_postal_code,
         coordinates_y=body_coordinates_y,
         coordinates_x=body_coordinates_x,
