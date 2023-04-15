@@ -3,9 +3,6 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
 
-
-
-
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
 	const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
@@ -49,13 +46,13 @@ export const Demo = () => {
 										<h5 className="card-title">{cache.city}</h5>
 										<p className="card-text">{cache.name}</p>
 										<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
-											<a href="#" className="botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
+											<button href="#" className="botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></button>
 										</Link>
 
 
 										<button onClick={() => {
 											actions.createFavoritesCaches(cache.id);
-										}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
+										}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i className="fa-solid fa-heart"></i></button>
 									</div>
 								</div>
 							</div>

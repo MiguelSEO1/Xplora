@@ -102,7 +102,7 @@ export const NavbarNuevo = () => {
                             <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i className="fa-solid fa-user"></i>
                                 {store.currentUser.favorites.length === 0 ? null :
-                                    <span class=" mt-3 mx-3 position-absolute translate-middle badge rounded-pill bg-danger">
+                                    <span className=" mt-3 mx-3 position-absolute translate-middle badge rounded-pill bg-danger">
                                         {store.currentUser.favorites.length}+
                                     </span>}
                             </button>
@@ -186,12 +186,12 @@ export const NavbarNuevo = () => {
                 {store.userActive ? (
 
                     <a className=" text-danger me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                        <i className=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
                     </a>) : (<a className=" text-dark me-2 btn-secondary btn-floating " data-bs-toggle="offcanvas" href="#offcanvasExample" role="button" aria-controls="offcanvasExample">
-                        <i class=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
+                        <i className=" calavera fa-solid fa-skull-crossbones fa-2x "></i>
                     </a>)}
 
-                <div class="offcanvas offcanvas-start" tabindex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
+                <div className="offcanvas offcanvas-start" tabIndex="-1" id="offcanvasExample" aria-labelledby="offcanvasExampleLabel">
                     <div className="offcanvas-header">
                         <h5 className="offcanvas-title" id="offcanvasExampleLabel">Menú</h5>
                         <button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -199,7 +199,7 @@ export const NavbarNuevo = () => {
                     <div className="offcanvas-body">
                         {store.userActive ? (
                             <>
-                                <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                                <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
                                 <a className="dropdown-item" href="/demo" onClick={() => window(0, 0)}>Home</a>
                                 <a className="dropdown-item" href="/blog" onClick={() => window(0, 0)} >Blog</a>
                                 <a className="dropdown-item" href="/blog" onClick={() => window(0, 0)}>Faqs</a>
@@ -216,7 +216,7 @@ export const NavbarNuevo = () => {
 
                                 <a className="dropdown-item" href="/mi-Perfil" >Mi Perfil
                                     {store.currentUser.favorites.length === 0 ? null :
-                                        <span class=" mx-4 mt-1  translate-middle badge rounded-pill bg-danger">
+                                        <span className=" mx-4 mt-1  translate-middle badge rounded-pill bg-danger">
                                             {store.currentUser.favorites.length}+
                                         </span>}</a>
                                 <p className="nav-item mx-3 text-danger"
@@ -233,11 +233,11 @@ export const NavbarNuevo = () => {
                                 {showSearchMobile ? (
                                     <Buscador />) : null}
                             </>) : (<>
-                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
-                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
+                                <a className="dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
+                                <a className="dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
                                 <hr className="dropdown-divider" />
-                                <a class="dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
-                                <a class="dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>
+                                <a className="dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
+                                <a className="dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>
                             </>)}
                     </div>
                 </div>

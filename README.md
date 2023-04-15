@@ -94,6 +94,16 @@ To update with all yours tables you can edit the file app.py and go to the line 
 1. Install the packages: `$ npm install`
 2. Start coding! start the webpack dev server `$ npm run start`
 
+### Dependencies
+
+- `Pillow`
+- `QRCode`
+- `Pypng` (it automatically installs with qrcode)
+
+#### To install you need to type in the terminal:
+
+`pip install qrcode pillow`
+
 ### Reset db
 
 1. `pipenv run reset_db`
@@ -102,6 +112,10 @@ To update with all yours tables you can edit the file app.py and go to the line 
 4. `pipenv run start`
 
 If it doesn't work call Mattia :)
+
+Or you can do:
+
+`pipenv run reset_db && pipenv run migrate && pipenv run upgrade && pipenv run start`
 
 ## Publish your website!
 
