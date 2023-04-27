@@ -437,7 +437,7 @@ export const MiPerfil = () => {
 
         <div className="container cuerpo">
             <h1 className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13 ? "text-center mb-5" : "text-center  mb-5 "}`}>GeoCaching - My Profile</h1>
-            <div className=" row row-cols-lg-2 row-cols-md-2 row-cols-sm-1">
+            <div className=" row row-cols-lg-2 row-cols-md-1 row-cols-sm-1">
 
                 <div className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13} mx-auto`}>
 
@@ -467,7 +467,7 @@ export const MiPerfil = () => {
                             <input type="email" className="form-control" id="exampleFormControlInput1" value={email}
                                 onChange={(e) => { setEmail(e.target.value); }} placeholder={store.currentUser.email} />
                             <label htmlFor="disabledTextInput" className="form-label mt-3 fw-bold">Password</label>
-                            <input className="form-control text-dark" type="text" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={"..................."} />
+                            <input className="form-control text-dark" type="password" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={".........................."} />
                             <div className="d-flex justify-content-end my-3">
                                 <NewPassword />
                             </div>
@@ -515,15 +515,15 @@ export const MiPerfil = () => {
                     {showDiv4 ? (
                         <div className="border border-dark border border-2 rounded registro container my-5">
                             <h2 className="text-center text-danger my-5">Mis Cachés Favoritos</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto g-3 text-center">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
 
                                 {store.currentUser.favorites <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     store.currentUser.favorites.map((favorites) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
+                                            <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
@@ -547,15 +547,15 @@ export const MiPerfil = () => {
                     {showDiv5 ? (
                         <div className="border border-dark border border-2 rounded registro container my-5">
                             <h2 className="text-center text-danger my-5">Mis Posts Favoritos</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto g-3 text-center">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
 
                                 {store.currentUser.favorites <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     store.currentUser.favorites.map((favorites) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
+                                            <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
@@ -580,13 +580,13 @@ export const MiPerfil = () => {
                     {showDiv6 ? (
                         <div className=" bg-light border border-dark border border-2 rounded container my-5">
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Enviados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto g-3 text-center">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {getPendingCaches <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     getPendingCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className="text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -611,13 +611,13 @@ export const MiPerfil = () => {
                     {showDiv7 ? (
                         <div className=" bg-light border border-dark border border-2 rounded container my-5 " >
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Aprobados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {approvedCaches <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     approvedCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className=" text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -642,13 +642,13 @@ export const MiPerfil = () => {
                     {showDiv8 ? (
                         <div className="bg-light  border-dark border border-2 rounded container my-5">
                             <h2 className="text-center my-5 text-decoration-underline ">Mis Cachés Rechazados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {declinedCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     declinedCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className=" text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -672,13 +672,13 @@ export const MiPerfil = () => {
                     {showDiv9 ? (
                         <div className=" bg-light border border-dark border border-2 rounded container my-5">
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Enviados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {getPendingCaches <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     getPendingCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className="  text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -703,13 +703,13 @@ export const MiPerfil = () => {
                     {showDiv10 ? (
                         <div className=" bg-light border border-dark border border-2 rounded container my-5 " >
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Aprobados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {approvedCaches <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     approvedCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className="text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -734,13 +734,13 @@ export const MiPerfil = () => {
                     {showDiv11 ? (
                         <div className="bg-light  border-dark border border-2 rounded container my-5">
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Rechazados</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {declinedCaches <= 0 ?
                                     <h2 className="mx-auto text-primary "> No tienes nada</h2> :
                                     declinedCaches.map((caches) => {
                                         return (
-                                            <div className="col-sm-1 col-md-4 ">
-                                                <div className=" esquinaCarta card " key={caches.id}>
+                                            <div className="">
+                                                <div className="text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
                                                         <h4 className="card-title">{caches.state}</h4>
@@ -781,11 +781,11 @@ export const MiPerfil = () => {
                         <div className="border border-dark border border-2 rounded registro container my-5">
                             <h2 className="text-center text-danger my-5">Admin Panel</h2>
                             <h2 className="text-center mb-5 text-decoration-underline">Nuevos caches</h2>
-                            <div className="container mb-5 row row-cols-lg-2 mx-auto gx-3 text-center g-3">
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {pendingCaches.map((caches) => {
                                     return (
-                                        <div className="col-sm-1 col-md-4 ">
-                                            <div className=" esquinaCarta card " key={caches.id}>
+                                        <div className="">
+                                            <div className=" text-center esquinaCarta card " key={caches.id}>
                                                 <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                 <div className="card-body">
                                                     <h4 className="card-title">{caches.state}</h4>
@@ -820,19 +820,22 @@ export const MiPerfil = () => {
                             <div className="container mb-5 row row-cols-lg-1 mx-auto gx-3 text-center">
                                 {perfilComment.filter(comment => comment.is_spam).map((comment, i) => {
                                     return (
-                                        <div key={i} class="container row border-bottom-0 border-dark border-top border-top-2 mt- mb-3 mx-auto ">
-                                            <div className="tamn col-lg-2 col-md-2 col-sm-3 border-bottom border-end border-primary my-2 justify-content-start align-items-start">
-                                                <h6 className="tamano">{comment.user.name}</h6>
-                                                <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
-                                                <div className="mb-3" >
-                                                    <button type="button" class="btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
-                                                    <button type="button" class="btn btn-danger btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
+                                        <div key={i} class=" comentario card my-4">
+                                            <div className="  card-body ">
+                                                <div class="">
+                                                    <h6 className="card-title text-danger fw-bold text">{comment.user.name}</h6>
+                                                    <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="card-img-topcomment card-img-top img-fluid rounded-circle border border border-dark border border-2 mb-2" />
+                                                </div>
+
+                                                <div className="m-3" >
+                                                    <button type="button" class="btn btn-danger btn-sm mx-1" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
+                                                    <button type="button" class="btn btn-success btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
 
                                                 </div>
                                             </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 my-2">
-                                                <h6 className="tamano">{comment.title}</h6>
-                                                <p className="tamano">{comment.text}</p>
+                                            <div className="card-body mb-4">
+                                                <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
+                                                <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                                 {comment.is_spam ? <p className="tamano text-danger">Motivo: Spam</p> : null}
                                             </div>
                                         </div>

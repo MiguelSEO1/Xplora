@@ -89,7 +89,7 @@ export const CachesSegmentacion = () => {
                 </h1>
                 <p className="text-center mb-3">Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
             </div>
-            <div className="container mb-5 row row-cols-lg-3 mt-4 mx-auto gx-3 gy-4">
+            <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                 {store.caches.filter(
                     cache =>
                         cache.state === params.tipos ||
@@ -97,7 +97,7 @@ export const CachesSegmentacion = () => {
                         cache.difficulty === params.tipos
                 ).slice(0, mostrarTarjetas).map((cache) => {
                     return (
-                        <div className="col-sm-1 col-md-4 ">
+                        <div className="">
                             <div className=" esquinaCarta card text-center" key={cache.id}>
                                 <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                 <div className="card-body">
@@ -265,7 +265,7 @@ export const CachesSegmentacion = () => {
 
                 </h2>
                 <p className="text-center mb-4 mt-4">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
-                <div className="container mb-5 row row-cols-lg-3 mx-auto gx-3 gy-4">
+                <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(
                         cache =>
                             cache.state === params.tipos ||
@@ -273,7 +273,7 @@ export const CachesSegmentacion = () => {
                             cache.difficulty === params.tipos
                     ).slice(0, mostrarTarjetas2).map((cache) => {
                         return (
-                            <div className="col-sm-1 col-md-4 ">
+                            <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                     <div className="card-body">

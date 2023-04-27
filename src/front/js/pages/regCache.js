@@ -89,18 +89,18 @@ export const Cache = () => {
 
     return (
         <section className="mx-auto cuerpo" >
-            <div className="text-center my-5">
+            <div className=" container text-center my-3">
                 <h1 className="text-center">Crea y Registra tú Caché</h1>
+                <p className="mt-5">¡Bienvenido a la sección de creación y registro de caches de nuestra web! Aquí podrás dar rienda suelta a tu creatividad y diseñar tu propio tesoro. Comienza a crear tu propio caché hoy mismo y deja tu huella en la nuestra comunidad. ¡Buena Suerte!</p>
             </div>
-            <div className=" container mx-auto row row-cols-lg-2 row-cols-md-2 row-cols-sm-1  ">
+            <div className=" container mx-auto row row-cols-lg-1 row-cols-md-1 row-cols-sm-1  ">
+                    <div className=" mx-auto MapGoo my-5 ">
+                        <MapsGoogle setData={setData} />
+                    </div> 
 
-                <div className=" MapGoo mt-4 ">
-                    <MapsGoogle setData={setData} />
-                </div>
-
-                <div className=" registro border border-dark border border-2 rounded p-2  mt-3 border rounded mb-5">
+                <div className=" RegistroCache container registro border border-dark border border-2 rounded p-2  mt-3 border rounded mb-5">
                     <h2 className="text-center my-4 text-danger">Crea y Registra tú Caché</h2>
-                    <div className=" row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className=" row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="name">
                             Name:{" "}
                         </label>
@@ -117,7 +117,7 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Descripion:{" "}
                         </label>
@@ -134,7 +134,7 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Country:{" "}
                         </label>
@@ -150,7 +150,7 @@ export const Cache = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             CCAA:{" "}
                         </label>
@@ -172,7 +172,7 @@ export const Cache = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Provincia:{" "}
                         </label>
@@ -194,7 +194,7 @@ export const Cache = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div id="mi-elemento" className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Postal code:{" "}
                         </label>
@@ -213,11 +213,21 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div id="mi-elemento" className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3 ">
+                        <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
+                            Coordenadas
+                        </label>
+                        <div className="text-center mx-auto">
+                            <button type="button" class="btn btn-info text-danger m-1" onClick={() => {
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }}><i class="fa-solid fa-location-dot"></i></button>
+                        </div>
+                    </div>
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3 ">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Latitud:{" "}
                         </label>
-                        <div className="col-sm-10">
+                        <div className=" col-sm-10">
                             <input
                                 type="number"
                                 step="any"
@@ -232,7 +242,7 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Longitud:{" "}
                         </label>
@@ -251,7 +261,7 @@ export const Cache = () => {
                             ></input>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Difficulty:{" "}
                         </label>
@@ -273,7 +283,7 @@ export const Cache = () => {
                             </select>
                         </div>
                     </div>
-                    <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
+                    <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
                             Size:{" "}
                         </label>

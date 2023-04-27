@@ -3,6 +3,9 @@ import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
 
+
+
+
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
 	const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
@@ -35,10 +38,10 @@ export const Demo = () => {
 			<div className=" mx-auto text-center">
 				<h2 className="text-center mb-3 mt-5">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
 				<p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
-				<div className="container mb-5 mt-3 row row-cols-lg-3  mx-auto gx-4, gy-4">
+				<div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
 					{store.caches.slice(0, mostrarTarjetas).map((cache) => {
 						return (
-							<div className="col-sm-1 col-md-4 ">
+							<div className=" ">
 								<div className=" esquinaCarta card " key={cache.id}>
 									<img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
 									<div className="card-body">
@@ -55,7 +58,9 @@ export const Demo = () => {
 										}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
 									</div>
 								</div>
+								
 							</div>
+							
 						)
 
 
@@ -72,8 +77,6 @@ export const Demo = () => {
 
 
 			</div>
-
-
 		</div>
 	);
 };

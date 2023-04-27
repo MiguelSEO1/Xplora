@@ -105,6 +105,15 @@ def Update_user():
     # devolver una respuesta JSON que confirme que se han actualizado los datos
     return jsonify({"response": "Los datos se han actualizado correctamente", "user": user.serialize()}), 200
 
+
+
+
+
+
+
+
+
+
 @api.route('/upload', methods=['POST'])
 @jwt_required()
 def handle_upload():
@@ -162,6 +171,12 @@ def create_comments(id):
     db.session.add(new_comment)
     db.session.commit() 
     return jsonify({"response": "Comment ok"}), 200
+
+
+
+
+
+
 
 @api.route('/perfil-cache-comments/<int:id>', methods=['GET'])
 def get_comments(id):
@@ -338,17 +353,16 @@ def cache_register():
     body_comunidad_autonoma = request.json.get("comunidad_autonoma")
     if not body_comunidad_autonoma or not isinstance(body_comunidad_autonoma, str):
         return jsonify({"response": "Invalid or missing 'comunidad autonoma' parameter"}), 400
-
+    body_comunidad_autonoma = body_comunidad_autonoma.capitalize()
+    
     body_provincia = request.json.get("provincia")
     if not body_provincia or not isinstance(body_provincia, str):
         return jsonify({"response": "Invalid or missing 'provincia' parameter"}), 400
-    body_comunidad_autonoma = body_comunidad_autonoma.capitalize()
-
+    body_provincia = body_provincia.capitalize()
 
     body_postal_code = request.json.get("postal_code")
     if not body_postal_code or not isinstance(body_postal_code, str):
         return jsonify({"response": "Invalid or missing 'postal_code' parameter"}), 400
-    body_provincia = body_provincia.capitalize()
 
     body_coordinates_y = request.json.get("coordinates_y")
     if not body_coordinates_y or not isinstance(body_coordinates_y, str):
