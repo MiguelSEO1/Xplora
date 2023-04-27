@@ -10,17 +10,15 @@ export const Cache = () => {
     const { store, actions } = useContext(Context);
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
-    const [country, setCountry] = useState("");
-    const [states, setStates] = useState([]);
-    const [stateid, setStateID] = useState(null);
-    const [city, setCity] = useState([]);
-    const [cityid, setCityID] = useState(null);
     const [postalCode, setPostalCode] = useState("");
     const [difficulty, setDifficulty] = useState("");
     const [size, setSize] = useState("");
     const [error, setError] = useState("");
     const [data, setData] = useState({});
-
+    const [comunidades, setComunidades] = useState([]);
+    const [comunidadID, setComunidadID] = useState(null);
+    const [provincias, setProvincias] = useState([]);
+    const [provinciaID, setProvinciaID] = useState(null);
 
     const sendCacheRegistral = async () => {
         const response = await fetch(
@@ -34,10 +32,9 @@ export const Cache = () => {
                 body: JSON.stringify({
                     name: name,
                     description: description,
-                    country: country,
-                    state: states.find(x => x.iso2 == stateid).name,
-                    city: city.find(x => x.name == cityid).name,
                     postal_code: postalCode,
+                    comunidad_autonoma: comunidades.find(x => x.CCOM == comunidadID).COM,
+                    provincia: provincias.find(x => x.CPRO == provinciaID).PRO,
                     coordinates_y: data.lat.toString(),
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
@@ -56,45 +53,39 @@ export const Cache = () => {
     };
 
     useEffect(() => {
-        const getStates = async () => {
-            const resStates = await fetch("https://api.countrystatecity.in/v1/countries/es/states",
+        const getComunidades = async () => {
+            const responseComunidades = await fetch("https://apiv1.geoapi.es/comunidades?type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8",
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resStates.json();
-            setStates(response);
+            const dataComunidades = await responseComunidades.json();
+            setComunidades(dataComunidades.data);
         }
-        getStates();
-    }, [])
-
-    const handleState = (event) => {
-        const getStateID = event.target.value;
-        setStateID(getStateID);
-    }
+        getComunidades();
+    }, []);
 
     useEffect(() => {
-        const getCity = async () => {
-            const resCity = await fetch(`https://api.countrystatecity.in/v1/countries/es/states/${stateid}/cities`,
+        const getProvincias = async () => {
+            const responseProvincias = await fetch(`https://apiv1.geoapi.es/provincias?CCOM=${comunidadID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
                 {
-                    method: "GET",
-                    headers: {
-                        "X-CSCAPI-KEY": "THBaNTRWWnhYTHJYdkZLWkxobWJYVEhLMnBEQWt4dkJ4MFRVTDN1TQ=="
-                    }
+                    method: "GET"
                 }
             );
-            const response = await resCity.json();
-            setCity(response);
+            const dataProvincias = await responseProvincias.json();
+            setProvincias(dataProvincias.data);
         }
-        getCity();
-    }, [stateid]);
+        getProvincias();
+    }, [comunidadID]);
 
-    
+    const handleComunidad = (event) => {
+        const getComunidadID = event.target.value;
+        setComunidadID(getComunidadID);
+    };
 
-
+    const styles = {
+        backgroundImage: `url(${mapaPirata})`,
+    };
 
     return (
         <section className="mx-auto cuerpo" >
@@ -151,10 +142,9 @@ export const Cache = () => {
                             <select
                                 className="form-select"
                                 name="Country"
-                                value={country}
+                                value="España"
                                 onChange={(e) => {
                                     setError(false);
-                                    setCountry(e.target.value);
                                 }}>
                                 <option value="1">España</option>
                             </select>
@@ -162,21 +152,21 @@ export const Cache = () => {
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            State:{" "}
+                            CCAA:{" "}
                         </label>
                         <div className="col-sm-10">
                             <select
                                 className="form-select"
                                 name="State"
-                                value={stateid}
+                                value={comunidadID}
                                 onChange={(e) => {
                                     setError(false);
-                                    handleState(e);
+                                    handleComunidad(e);
                                 }}>
-                                <option value="">---</option>
+                                <option value="">Selecciona Comunidad Autonoma</option>
                                 {
-                                    states.map((state, index) => (
-                                        <option key={index} value={state.iso2}>{state.name}</option>
+                                    comunidades.map((comunidad, index) => (
+                                        <option key={index} value={comunidad.CCOM}>{comunidad.COM}</option>
                                     ))
                                 }
                             </select>
@@ -184,21 +174,21 @@ export const Cache = () => {
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            City:{" "}
+                            Provincia:{" "}
                         </label>
                         <div className="col-sm-10">
                             <select
                                 className="form-select"
                                 name="City"
-                                value={cityid}
+                                value={provinciaID}
                                 onChange={(e) => {
                                     setError(false);
-                                    setCityID(e.target.value)
+                                    setProvinciaID(e.target.value)
                                 }}>
-                                <option value="1">---</option>
+                                <option value="">Selecciona Povincia</option>
                                 {
-                                    city.map((city, index) => (
-                                        <option key={index} value={city.name}>{city.name}</option>
+                                    provincias.map((provincia, index) => (
+                                        <option key={index} value={provincia.CPRO}>{provincia.PRO}</option>
                                     ))
                                 }
                             </select>

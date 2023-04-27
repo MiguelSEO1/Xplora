@@ -44,25 +44,25 @@ export const CachesUbicacion = () => {
                 <h2 className="text-center mt-5 my-4">Comienza a Explorar</h2>
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
                 <div className="container row row-cols-lg-3 gx-3 mx-auto mb-5">
-                    <ClustersCaches link="/caches/Andalucía" image={Andalucia} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Aragón" image={Aragon} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Islas Canarias" image={Canarias} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Comunidad de Cantabria" image={Cantabria} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Castilla y Leon" image={CastillaLeon} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Castilla y La Mancha" image={CastillaMancha} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Cataluña" image={Cataluna} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Comunidad Foral de Navarra" image={ComunidadNavarra} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Comunidad Valenciana" image={ComunidadValenciana} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Extremadura" image={Extremadura} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Galicia" image={Galicia} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Islas Baleares" image={IslasBaleares} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Comunidad de La Rioja" image={LaRioja} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Madrid" image={Madrid} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/País Vasco" image={PaisVasco} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Region de Murcia" image={RegionMurcia} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Principado de Asturias" image={PrincipadoAsturias}  onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Ciudad Autónoma de Ceuta" image={Ceuta} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Ciudad Autónoma de Melilla" image={Melilla} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Andalucía" image={Andalucia} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Aragón" image={Aragon} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Islas canarias" image={Canarias} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Cantabria" image={Cantabria} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Castilla y león" image={CastillaLeon} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Castilla-la mancha" image={CastillaMancha} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Cataluña" image={Cataluna} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Navarra" image={ComunidadNavarra} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Comunidad valenciana" image={ComunidadValenciana} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Extremadura" image={Extremadura} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Galicia" image={Galicia} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Islas baleares" image={IslasBaleares} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/La rioja" image={LaRioja} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Madrid" image={Madrid} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/País vasco" image={PaisVasco} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Murcia" image={RegionMurcia} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Principado de asturias" image={PrincipadoAsturias} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Ceuta" image={Ceuta} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Melilla" image={Melilla} onClick={() => window(0, 0)} />
 
 
                 </div>
@@ -80,7 +80,7 @@ export const CachesUbicacion = () => {
                                         <h4 className="card-title">{cache.state}</h4>
                                         <h5 className="card-title">{cache.city}</h5>
                                         <p className="card-text">{cache.name}</p>
-                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0,0)}>
+                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                         </Link>
 
