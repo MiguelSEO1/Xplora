@@ -26,10 +26,10 @@ export const TiposDeCaches = () => {
                 <h2 className="text-center my-4">Comienza a Explorar</h2>
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
                 <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
-					<Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
-					<Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
-					<Cluster link="/caches-tamano" classboton="d-none" cardTitle="Tamaño" image={Tamano} onClick={() => window(0, 0)} />
-				</div>
+                    <Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
+                    <Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
+                    <Cluster link="/caches-tamano" classboton="d-none" cardTitle="Tamaño" image={Tamano} onClick={() => window(0, 0)} />
+                </div>
             </div>
             <div className="container mx-auto text-center mt-5">
                 <h2 className="text-center mb-4 ">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
@@ -44,7 +44,7 @@ export const TiposDeCaches = () => {
                                         <h4 className="card-title">{cache.state}</h4>
                                         <h5 className="card-title">{cache.city}</h5>
                                         <p className="card-text">{cache.name}</p>
-                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0,0)}>
+                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                         </Link>
 

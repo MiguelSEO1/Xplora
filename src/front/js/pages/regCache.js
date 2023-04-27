@@ -19,8 +19,6 @@ export const Cache = () => {
     const [comunidadID, setComunidadID] = useState(null);
     const [provincias, setProvincias] = useState([]);
     const [provinciaID, setProvinciaID] = useState(null);
-    const [municipios, setMunicipios] = useState([]);
-    const [municipioID, setMunicipioID] = useState(null);
 
     const sendCacheRegistral = async () => {
         const response = await fetch(
@@ -37,7 +35,6 @@ export const Cache = () => {
                     postal_code: postalCode,
                     comunidad_autonoma: comunidades.find(x => x.CCOM == comunidadID).COM,
                     provincia: provincias.find(x => x.CPRO == provinciaID).PRO,
-                    municipio: municipios.find(x => x.CMUM == municipioID).DMUN50,
                     coordinates_y: data.lat.toString(),
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
@@ -81,29 +78,10 @@ export const Cache = () => {
         getProvincias();
     }, [comunidadID]);
 
-    useEffect(() => {
-        const getMunicipios = async () => {
-            const responseMunicipios = await fetch(`https://apiv1.geoapi.es/municipios?CPRO=${provinciaID}&type=JSON&key=3ee9e9f2d898f2fd4c7343693f8fb18ec64ecee21d7e31c84bf49d2ba1bd8ca8`,
-                {
-                    method: "GET"
-                }
-            );
-            const dataMunicipios = await responseMunicipios.json();
-            setMunicipios(dataMunicipios.data);
-        }
-        getMunicipios();
-    }, [provinciaID]);
-
     const handleComunidad = (event) => {
         const getComunidadID = event.target.value;
         setComunidadID(getComunidadID);
     };
-
-    const handleProvincia = (event) => {
-        const getProvinciaID = event.target.value;
-        setProvinciaID(getProvinciaID);
-    };
-
 
     const styles = {
         backgroundImage: `url(${mapaPirata})`,
@@ -164,10 +142,9 @@ export const Cache = () => {
                             <select
                                 className="form-select"
                                 name="Country"
-                                value={country}
+                                value="España"
                                 onChange={(e) => {
                                     setError(false);
-                                    setCountry(e.target.value);
                                 }}>
                                 <option value="1">España</option>
                             </select>
@@ -175,21 +152,21 @@ export const Cache = () => {
                     </div>
                     <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            State:{" "}
+                            CCAA:{" "}
                         </label>
                         <div className="col-sm-10">
                             <select
                                 className="form-select"
                                 name="State"
-                                value={stateid}
+                                value={comunidadID}
                                 onChange={(e) => {
                                     setError(false);
-                                    handleState(e);
+                                    handleComunidad(e);
                                 }}>
-                                <option value="">---</option>
+                                <option value="">Selecciona Comunidad Autonoma</option>
                                 {
-                                    states.map((state, index) => (
-                                        <option key={index} value={state.iso2}>{state.name}</option>
+                                    comunidades.map((comunidad, index) => (
+                                        <option key={index} value={comunidad.CCOM}>{comunidad.COM}</option>
                                     ))
                                 }
                             </select>
@@ -197,21 +174,21 @@ export const Cache = () => {
                     </div>
                     <div className="row row-cols-lg-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            City:{" "}
+                            Provincia:{" "}
                         </label>
                         <div className="col-sm-10">
                             <select
                                 className="form-select"
                                 name="City"
-                                value={cityid}
+                                value={provinciaID}
                                 onChange={(e) => {
                                     setError(false);
-                                    setCityID(e.target.value)
+                                    setProvinciaID(e.target.value)
                                 }}>
-                                <option value="1">---</option>
+                                <option value="">Selecciona Povincia</option>
                                 {
-                                    city.map((city, index) => (
-                                        <option key={index} value={city.name}>{city.name}</option>
+                                    provincias.map((provincia, index) => (
+                                        <option key={index} value={provincia.CPRO}>{provincia.PRO}</option>
                                     ))
                                 }
                             </select>

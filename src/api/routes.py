@@ -134,10 +134,6 @@ def handle_upload_cache():
 
     return jsonify(images.url), 200
 
-
-
-     
-
 @api.route('/cache', methods=['GET'])
 def get_caches():
     caches = Cache.query.all()
@@ -154,7 +150,6 @@ def get_details(id):
     if not cache:
         return jsonify({"error": "Cache no encontrada"}), 404
     return jsonify(cache.serialize()), 200
-
 
 @api.route('/perfil-comments/<int:id>', methods=['POST'])
 @jwt_required()
@@ -225,14 +220,6 @@ def reported_comments_violence():
     return jsonify(comment.serialize()), 200
     return jsonify({"error": "Comment not found"}), 404
 
-
-
-
-
-
-
-
-
 @api.route('/update-comments/', methods=['PUT'])
 @jwt_required()
 def update_comments():
@@ -248,9 +235,6 @@ def update_comments():
         return jsonify({"response": "Comentario editado correctamente"}), 200
     else:
         return jsonify({"error": "Comentario no encontrado"}), 404
-
-
-
 
 @api.route('/perfil-galery', methods=['POST'])
 @jwt_required()
@@ -271,7 +255,6 @@ def get_images(id):
     serialized_images = [x.serialize() for x in images]
     return jsonify(serialized_images), 200
 
-
 @api.route('/delete-image/', methods=['DELETE'])
 @jwt_required()
 def delete_image():
@@ -282,8 +265,6 @@ def delete_image():
         db.session.delete(image)
         db.session.commit() 
         return jsonify({"response": "Imagen eliminada correctamente"}), 200
-
-
 
 @api.route('/create-user-favorites', methods=['POST'])
 @jwt_required()
@@ -299,8 +280,7 @@ def new():
     print(favorite)
     print("@@@@@@@@@")
     db.session.commit()
-    return jsonify({"response": "Cache is favorite"}), 200    
-   
+    return jsonify({"response": "Cache is favorite"}), 200  
 
 @api.route('/register', methods=['POST'])
 def user_register():
@@ -362,14 +342,13 @@ def cache_register():
     body_provincia = request.json.get("provincia")
     if not body_provincia or not isinstance(body_provincia, str):
         return jsonify({"response": "Invalid or missing 'provincia' parameter"}), 400
+    body_comunidad_autonoma = body_comunidad_autonoma.capitalize()
 
-    body_municipio = request.json.get("municipio")
-    if not body_municipio or not isinstance(body_municipio, str):
-        return jsonify({"response": "Invalid or missing 'municipio' parameter"}), 400
 
     body_postal_code = request.json.get("postal_code")
     if not body_postal_code or not isinstance(body_postal_code, str):
         return jsonify({"response": "Invalid or missing 'postal_code' parameter"}), 400
+    body_provincia = body_provincia.capitalize()
 
     body_coordinates_y = request.json.get("coordinates_y")
     if not body_coordinates_y or not isinstance(body_coordinates_y, str):
@@ -393,7 +372,7 @@ def cache_register():
         return jsonify({"response": "Cache already created, choose another name"}), 300
 
     # Generating the QR code image
-    qr_data = f"{body_name}, {body_description}, {body_comunidad_autonoma}, {body_provincia}, {body_municipio}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
+    qr_data = f"{body_name}, {body_description}, {body_comunidad_autonoma}, {body_provincia}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
     qr_img = qrcode.make(qr_data)
 
     # Store the Qr code as binary data in the database
@@ -408,9 +387,9 @@ def cache_register():
     new_cache = Cache(
         name=body_name,
         description=body_description,
+        country="España",
         comunidad_autonoma=body_comunidad_autonoma,
         provincia=body_provincia,
-        municipio=body_municipio,
         postal_code=body_postal_code,
         coordinates_y=body_coordinates_y,
         coordinates_x=body_coordinates_x,
