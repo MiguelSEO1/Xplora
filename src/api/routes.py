@@ -105,6 +105,15 @@ def Update_user():
     # devolver una respuesta JSON que confirme que se han actualizado los datos
     return jsonify({"response": "Los datos se han actualizado correctamente", "user": user.serialize()}), 200
 
+
+
+
+
+
+
+
+
+
 @api.route('/upload', methods=['POST'])
 @jwt_required()
 def handle_upload():
@@ -167,6 +176,12 @@ def create_comments(id):
     db.session.add(new_comment)
     db.session.commit() 
     return jsonify({"response": "Comment ok"}), 200
+
+
+
+
+
+
 
 @api.route('/perfil-cache-comments/<int:id>', methods=['GET'])
 def get_comments(id):

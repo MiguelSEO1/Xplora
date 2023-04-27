@@ -58,7 +58,9 @@ export const Demo = () => {
 										}} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
 									</div>
 								</div>
+								
 							</div>
+							
 						)
 
 
@@ -75,8 +77,6 @@ export const Demo = () => {
 
 
 			</div>
-
-
 		</div>
 	);
 };

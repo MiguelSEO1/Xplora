@@ -15,8 +15,6 @@
   transition: 300ms ease all;
   font-family: "Seaweed Script", cursive;
   font-size: 18px;
-  
-  ;
 }
 
 .btn-secondary {
@@ -32,7 +30,8 @@
   border-color: #f5edc6;
 }
 
-.btn-check:focus+.btn-secondary, .btn-secondary:focus {
+.btn-check:focus + .btn-secondary,
+.btn-secondary:focus {
   color: #fff;
   background-color: #f5edc6;
   border-color: #f5edc6;
@@ -110,14 +109,12 @@
   border-bottom-right-radius: 0;
 }
 
-
 .clusterscaches {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
   border-radius: 0px;
   transition: transform 0.4s;
   border: 2px solid rgb(51, 50, 50);
   border-radius: 10px;
-
 }
 
 .imgclustercaches {
@@ -255,6 +252,13 @@ h6 {
 }
 
 @media screen and (min-width: 1200px) {
+  
+  .card-img-topcomment{
+    width: 10%;
+  }
+  
+  
+  
   .Orbital {
     display: none;
   }
@@ -304,9 +308,19 @@ h6 {
   .margenfoto {
     margin-top: 50px;
   }
+
+  .RegistroCache {
+    width: 75%;
+  }
 }
 
-@media only screen and (max-width: 600px) {
+@media only screen and (max-width: 480px) {
+  
+  .card-img-topcomment{
+    width: 20%;
+  }
+  
+  
   .animaciones {
     display: none;
   }
@@ -318,9 +332,17 @@ h6 {
   .imagenfotos {
     width: 25%;
   }
+
+  .tamanocomentario{
+    font-size:small
+    
+  }
 }
 
-@media only screen and (min-width: 800px) {
+@media only screen and (min-width: 1100px) {
+  
+  
+  
   .imgenescaches {
     width: 25%;
   }
@@ -338,7 +360,12 @@ h6 {
   }
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 768px) {
+  
+  .card-img-topcomment{
+    width: 20%;
+  }
+
   .scroll-animation {
     opacity: 0;
     transform: translateX(-50px);
@@ -396,23 +423,25 @@ h6 {
   margin-bottom: 15px;
 }
 
-
 .comentario {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
     5px 5px 10px rgba(0, 0, 0, 0.5);
   background-color: #e2eeee;
-  height: 50vh;
-
-
+  
 }
 
-.cajacomentario{
+.cajacomentario {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
     5px 5px 10px rgba(0, 0, 0, 0.5);
   background-color: #f5edc6;
   border-radius: 10px;
   font-family: "Seaweed Script", cursive;
+}
 
+.bordecomment{
+  
+  border-radius: 10px;
+  
 }
 
 .infocachecaja {
@@ -425,15 +454,13 @@ h6 {
     5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-
 .cajafotos1 {
   font-family: "Seaweed Script", cursive;
   font-size: 17px;
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
     5px 5px 10px rgba(0, 0, 0, 0.5);
   background-color: #f5edc6;
-  border-radius: 10px;  
-
+  border-radius: 10px;
 }
 
 .file {
@@ -445,24 +472,31 @@ h6 {
     5px 5px 10px rgba(0, 0, 0, 0.5);
   height: 55vh;
   background-color: #e2eeee;
-
 }
 
 .registro {
   background-color: #f5edc6;
 }
 
-
-
 .sombrasnabvar {
   box-shadow: 0px -5px 10px rgba(255, 255, 255, 0.5),
     0px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
-.tbody, td, tfoot, th, thead, tr {
-  border-color: inherit; 
+.tbody,
+td,
+tfoot,
+th,
+thead,
+tr {
+  border-color: inherit;
   border: 1px solid #676766;
   border-width: 2px;
   padding: 10px;
-  font-family: "Seaweed Script", cursive;    
+  font-family: "Seaweed Script", cursive;
 }
+
+.h2map {
+  margin-bottom: 15%;
+}
+

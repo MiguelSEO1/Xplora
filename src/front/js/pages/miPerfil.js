@@ -523,7 +523,7 @@ export const MiPerfil = () => {
                                         return (
                                             <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
@@ -555,7 +555,7 @@ export const MiPerfil = () => {
                                         return (
                                             <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
                                                         <h4 className="card-title">{favorites.cache.state}</h4>
                                                         <h5 className="card-title">{favorites.cache.city}</h5>
@@ -820,19 +820,22 @@ export const MiPerfil = () => {
                             <div className="container mb-5 row row-cols-lg-1 mx-auto gx-3 text-center">
                                 {perfilComment.filter(comment => comment.is_spam).map((comment, i) => {
                                     return (
-                                        <div key={i} class="container row border-bottom-0 border-dark border-top border-top-2 mt- mb-3 mx-auto ">
-                                            <div className="tamn col-lg-2 col-md-2 col-sm-3 border-bottom border-end border-primary my-2 justify-content-start align-items-start">
-                                                <h6 className="tamano">{comment.user.name}</h6>
-                                                <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="img-fluid w-25 pb-3" />
-                                                <div className="mb-3" >
-                                                    <button type="button" class="btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
-                                                    <button type="button" class="btn btn-danger btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
+                                        <div key={i} class=" comentario card my-4">
+                                            <div className="  card-body ">
+                                                <div class="">
+                                                    <h6 className="card-title text-danger fw-bold text">{comment.user.name}</h6>
+                                                    <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="card-img-topcomment card-img-top img-fluid rounded-circle border border border-dark border border-2 mb-2" />
+                                                </div>
+
+                                                <div className="m-3" >
+                                                    <button type="button" class="btn btn-danger btn-sm mx-1" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
+                                                    <button type="button" class="btn btn-success btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
 
                                                 </div>
                                             </div>
-                                            <div className="col-lg-10 col-md-10 col-sm-8 my-2">
-                                                <h6 className="tamano">{comment.title}</h6>
-                                                <p className="tamano">{comment.text}</p>
+                                            <div className="card-body mb-4">
+                                                <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
+                                                <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                                 {comment.is_spam ? <p className="tamano text-danger">Motivo: Spam</p> : null}
                                             </div>
                                         </div>

@@ -1,6 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
+import {MapsGooglecopy} from "./component/mapsGooglecopy";
 
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
@@ -17,6 +18,7 @@ import { SeguridadBusquedaCaches } from "./pages/seguridadBusquedaCaches";
 import { ResolverCaches } from "./pages/resolverCaches";
 import { CachesUrbanos } from "./pages/cachesUrbanos";
 import { PaginaEnhorabuena } from "./pages/paginaEnhorabuena";
+
 
 import { CachesFamilia } from "./pages/cachesFamilia";
 import { Blog } from "./pages/blog";
@@ -49,6 +51,8 @@ const Layout = () => {
           <NavbarNuevo />
           <Routes>
             <Route element={<Demo />} path="/demo" />
+            <Route element={<MapsGooglecopy />} path="/Maps" />
+
             <Route element={<Home />} path="/" />
             <Route element={<Login />} path="/login" />
             <Route element={<PerfilCache />} path="/perfil-cache/:id" />
