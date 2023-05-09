@@ -58,6 +58,11 @@ export const Register = () => {
 							setError(false);
 							setUserName(e.target.value);
 						}}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								e.preventDefault();
+								sendRegisterCredential();
+							}}}
 					></input>
 				</div>
 			</div>
@@ -76,6 +81,11 @@ export const Register = () => {
 							setError(false);
 							setEmail(e.target.value);
 						}}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								e.preventDefault();
+								sendRegisterCredential();
+							}}}
 					></input>
 				</div>
 			</div>
@@ -94,6 +104,11 @@ export const Register = () => {
 							setError(false);
 							setPassword(e.target.value);
 						}}
+						onKeyDown={(e) => {
+							if (e.key === 'Enter') {
+								e.preventDefault();
+								sendRegisterCredential();
+							}}}
 					></input>
 				</div>
 			</div>
@@ -110,7 +125,7 @@ export const Register = () => {
 				>
 					Register
 				</button>
-				{error ? <p className="alert alert-warning mt-2">{error}</p> : null}
+				{error ? <p className="alert alert-danger mt-2">{error}</p> : null}
 			</div>
 			<div className="fw-bold">
                     Or

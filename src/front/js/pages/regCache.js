@@ -20,6 +20,9 @@ export const Cache = () => {
     const [provincias, setProvincias] = useState([]);
     const [provinciaID, setProvinciaID] = useState(null);
 
+
+
+
     const sendCacheRegistral = async () => {
         const response = await fetch(
             process.env.BACKEND_URL + "/api/reg_cache",
@@ -94,9 +97,9 @@ export const Cache = () => {
                 <p className="mt-5">¡Bienvenido a la sección de creación y registro de caches de nuestra web! Aquí podrás dar rienda suelta a tu creatividad y diseñar tu propio tesoro. Comienza a crear tu propio caché hoy mismo y deja tu huella en la nuestra comunidad. ¡Buena Suerte!</p>
             </div>
             <div className=" container mx-auto row row-cols-lg-1 row-cols-md-1 row-cols-sm-1  ">
-                    <div className=" mx-auto MapGoo my-5 ">
-                        <MapsGoogle setData={setData} />
-                    </div> 
+                <div className=" mx-auto MapGoo my-5 ">
+                    <MapsGoogle setData={setData} />
+                </div>
 
                 <div className=" RegistroCache container registro border border-dark border border-2 rounded p-2  mt-3 border rounded mb-5">
                     <h2 className="text-center my-4 text-danger">Crea y Registra tú Caché</h2>
@@ -114,6 +117,13 @@ export const Cache = () => {
                                     setError(false);
                                     setName(e.target.value);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        sendCacheRegistral();
+                                    }
+                                }
+                                }
                             ></input>
                         </div>
                     </div>
@@ -184,7 +194,8 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setProvinciaID(e.target.value)
-                                }}>
+                                }}
+                            >
                                 <option value="">Selecciona Povincia</option>
                                 {
                                     provincias.map((provincia, index) => (
@@ -309,12 +320,12 @@ export const Cache = () => {
                         <button
                             className="btn btn-dark btn-lg"
                             onClick={() => {
-                                sendCacheRegistral()
+                                sendCacheRegistral();
                             }}
                         >
                             Registra tu Caché
                         </button>
-                        {error ? <p className="alert alert-warning mt-2 ">{error}</p> : null}
+                        {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
                     </div>
                 </div>
             </div>

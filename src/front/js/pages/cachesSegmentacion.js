@@ -92,17 +92,18 @@ export const CachesSegmentacion = () => {
             <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                 {store.caches.filter(
                     cache =>
-                        cache.state === params.tipos ||
-                        cache.size === params.tipos ||
-                        cache.difficulty === params.tipos
+                        cache.is_approved === true &&
+                        (cache.state === params.tipos ||
+                            cache.size === params.tipos ||
+                            cache.difficulty === params.tipos)
                 ).slice(0, mostrarTarjetas).map((cache) => {
                     return (
                         <div className="">
                             <div className=" esquinaCarta card text-center" key={cache.id}>
                                 <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                 <div className="card-body">
-                                    <h4 className="card-title">{cache.state}</h4>
-                                    <h5 className="card-title">{cache.city}</h5>
+                                    <h3 className="card-title">{cache.state}</h3>
+                                    <h4 className="card-title">{cache.city}</h4>
                                     <p className="card-text">{cache.name}</p>
                                     <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                         <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -268,17 +269,19 @@ export const CachesSegmentacion = () => {
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(
                         cache =>
-                            cache.state === params.tipos ||
-                            cache.size === params.tipos ||
-                            cache.difficulty === params.tipos
+                            cache.is_approved === true &&
+                            (cache.state === params.tipos ||
+                                cache.size === params.tipos ||
+                                cache.difficulty === params.tipos)
+
                     ).slice(0, mostrarTarjetas2).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                     <div className="card-body">
-                                        <h4 className="card-title">{cache.state}</h4>
-                                        <h5 className="card-title">{cache.city}</h5>
+                                        <h3 className="card-title">{cache.state}</h3>
+                                        <h4 className="card-title">{cache.city}</h4>
                                         <p className="card-text">{cache.name}</p>
                                         <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>

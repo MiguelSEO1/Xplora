@@ -99,6 +99,7 @@ class Cache(db.Model):
             "coordinates_x": self.coordinates_x,
             "size": self.size,
             "is_favorite": self.is_favorite,
+            "is_approved": self.is_approved,
             "difficulty": self.difficulty,
             "qr_code": self.qr_code,
             "owner_id": self.owner_id,
@@ -120,6 +121,7 @@ class Cache(db.Model):
             "city": self.provincia,
             "size": self.size,
             "difficulty": self.difficulty,
+            "is_approved": self.is_approved,
         }  
     
 

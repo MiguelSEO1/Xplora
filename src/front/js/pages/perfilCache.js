@@ -2,7 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
-import Comentario from "../../img/comentario.png";
+import Skull from "../../img/skull.svg";
 import QRCode from "react-qr-code";
 import Mapa from "../../img/mapa.png"
 import { UploadImage } from "../component/upload";
@@ -13,7 +13,7 @@ export const PerfilCache = () => {
     const params = useParams();
     const { store, actions } = useContext(Context);
     const [files, setFiles] = useState(null)
-    const [urlImage, seturlImage] = useState("https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280.jpg");
+    const [urlImage, seturlImage] = useState("https://thumbs.dreamstime.com/b/cr%C3%A1neo-e-icono-de-la-bandera-pirata-aislado-50307817.jpg");
     const [urlImagePhoto, seturlImagePhoto] = useState("https://img.freepik.com/vector-gratis/plantilla-etiqueta-cofre-tesoro-cerrado-aislado_1308-61882.jpg");
     const [selectedDiv1, setSelectedDiv1] = useState(true);
     const [selectedDiv2, setSelectedDiv2] = useState(false);
@@ -25,9 +25,14 @@ export const PerfilCache = () => {
     const [perfilImages, setPerfilImages] = useState({});
     const [data, setData] = useState({});
     const [comment, setComment] = useState({ title: "", text: "" });
-
+    const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+    const [showCloseButton, setShowCloseButton] = useState(false);
     const [galery, setGalery] = useState({ id: params.id, title: "", url: "", date_of_Publication: "" });
     const [updatedComment, setUpdatedComment] = useState({ title: "", text: "" });
+    const [alertMessage, setAlertMessage] = useState("");
+    const [alertMessageFotos, setAlertMessageFotos] = useState("");
+    const [alertMessageEdit, setAlertMessageEdits] = useState("");
+    const [shouldCloseModal, setShouldCloseModal] = useState(false);
 
 
     useEffect(() => {
@@ -36,8 +41,8 @@ export const PerfilCache = () => {
         getCacheImages();
 
     }, []);
-    
-    
+
+
 
     const getCacheComments = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-comments/" + params.id)
@@ -63,7 +68,7 @@ export const PerfilCache = () => {
         setPerfilDetails({ ...data, qr_code_url: qrCodeUrl });
     };
 
-    
+
 
     const createComments = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-comments/" + params.id, {
@@ -154,6 +159,21 @@ export const PerfilCache = () => {
 
     };
 
+    const handleHover = (index) => {
+        setSelectedImageIndex(index);
+        setShowCloseButton(true)
+
+
+    };
+
+
+    const closedHover = () => {
+        setSelectedImageIndex(null);
+        setShowCloseButton(false)
+    };
+
+
+
     const mostrarDatosCache = () => {
         setSelectedDiv1(true);
         setSelectedDiv2(false);
@@ -229,12 +249,12 @@ export const PerfilCache = () => {
                                 <ul className="infocachecaja list-group mb-5">
                                     <li className="list-group-item list-group-item-warning"><strong>Nombre:</strong> {perfilDetails.name}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>Coordenadas:</strong> {perfilDetails.coordinates_x}/ {perfilDetails.coordinates_y} </li>
-                                    <li className="list-group-item list-group-item-warning"><strong>Country:</strong> {perfilDetails.country}</li>
-                                    <li className="list-group-item list-group-item-warning"><strong>State:</strong> {perfilDetails.state}</li>
-                                    <li className="list-group-item list-group-item-warning"><strong>City:</strong> {perfilDetails.city}</li>
-                                    <li className="list-group-item list-group-item-warning"><strong>difficulty:</strong> {perfilDetails.difficulty} </li>
-                                    <li className="list-group-item list-group-item-warning"><strong>Size:</strong> {perfilDetails.size} </li>
-                                    <li className="list-group-item list-group-item-warning"><strong>Description:</strong> {perfilDetails.description}</li>
+                                    <li className="list-group-item list-group-item-warning"><strong>País:</strong> {perfilDetails.country}</li>
+                                    <li className="list-group-item list-group-item-warning"><strong>C. Autónoma:</strong> {perfilDetails.comunidad_autonoma}</li>
+                                    <li className="list-group-item list-group-item-warning"><strong>Provincia:</strong> {perfilDetails.provincia}</li>
+                                    <li className="list-group-item list-group-item-warning"><strong>Dificultad:</strong> {perfilDetails.difficulty} </li>
+                                    <li className="list-group-item list-group-item-warning"><strong>Tamaño:</strong> {perfilDetails.size} </li>
+                                    <li className="list-group-item list-group-item-warning"><strong>Descripción:</strong> {perfilDetails.description}</li>
                                     <li className="list-group-item"><strong>QR Code:</strong> <img src={perfilDetails.qr_code_url} width="200" alt="QR code" /></li>
 
                                 </ul>
@@ -273,12 +293,12 @@ export const PerfilCache = () => {
                     {selectedDiv3 ? (
                         <div className="container text-center">
                             <h2 className="text-center my-3">Registra Hallazgo de este Caché</h2>
-                            <img src={perfilDetails.qr_code_url} width="300" height= "auto" alt="QR code" />
-                                <div className="text-center my-4">
-                                    <button type="button" class="btn btn-danger" onClick={() => {
-                                    }}>Registrar el hallazgo de este Caché <i className="fa-regular fa-star"></i></button>
-                                </div>
+                            <img src={perfilDetails.qr_code_url} width="300" height="auto" alt="QR code" />
+                            <div className="text-center my-4">
+                                <button type="button" class="btn btn-danger" onClick={() => {
+                                }}>Registrar el hallazgo de este Caché <i className="fa-regular fa-star"></i></button>
                             </div>
+                        </div>
                     ) : null}
                     {selectedDiv4 ? (
 
@@ -292,36 +312,92 @@ export const PerfilCache = () => {
                             <h2 className="text-center mb-5 mt-5">Sección de Comentarios</h2>
                             <div className=" cajacomentario container border mb-4 mt-4 ">
                                 <h2 className="text-center text-danger my-5 text-decoration-underline">Deja tu Comentario</h2>
-                                <div className="mb-3 mt-5">
-                                    <input name="title" value={comment.title} onChange={(e) => setComment({ ...comment, [e.target.name]: e.target.value })} type="email" class="form-control bg-light p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" placeholder="Título" />
+                                <div className="mb-3 mt-5 text-center">
+                                    <label className="mb-2 fw-bold" htmlFor="formFileMultiple">Selecciona un Título:</label>
+                                    <input name="title" value={comment.title} onChange={(e) => {
+                                        setComment({ ...comment, [e.target.name]: e.target.value });
+                                        setAlertMessage(false);
+                                    }}
+                                        onKeyDown={async (e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (comment.title.trim().length > 0 && comment.text.trim().length > 0) {
+                                                    await createComments();
+                                                    setComment({ title: "", text: "" });
+                                                } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
+                                                } else if (comment.title.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa el campo del título antes de enviar tu comentario.");
+                                                } else if (comment.text.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa el campo del comentario antes de enviar tu comentario.");
+                                                }
+                                            }
+                                        }} type="email" class="form-control bg-light p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" />
                                 </div>
 
-                                <div className="my-3">
-                                    <textarea name="text" value={comment.text} onChange={(e) => setComment({ ...comment, [e.target.name]: e.target.value })} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" placeholder="Dejar Comentario" rows="3"></textarea>
+                                <div className="my-3 text-center">
+                                    <label className="mb-2 fw-bold" htmlFor="formFileMultiple">Deja tu Comentario:</label>
+                                    <textarea name="text" value={comment.text} onChange={(e) => {
+                                        setComment({ ...comment, [e.target.name]: e.target.value });
+                                        setAlertMessage(false);
+                                    }}
+                                        onKeyDown={async (e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (comment.title.trim().length > 0 && comment.text.trim().length > 0) {
+                                                    await createComments();
+                                                    setComment({ title: "", text: "" });
+                                                    setAlertMessage(false);
+                                                } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
+                                                } else if (comment.title.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa el campo del título antes de enviar tu comentario.");
+                                                } else if (comment.text.trim().length === 0) {
+                                                    setAlertMessage("Por favor, completa el campo del comentario antes de enviar tu comentario.");
+                                                }
+                                            }
+                                        }} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" rows="3" ></textarea>
                                 </div>
-
+                                {alertMessage ? (
+                                    <div className="alert alert-danger" role="alert">
+                                        {alertMessage}
+                                    </div>
+                                ) : null}
                                 <div className=" d-flex justify-content-end mt-2 mb-5">
                                     <button type="button" class="btn btn-dark btn-sm mx-1" onClick={async () => {
-                                        await createComments()
-                                        setComment({ title: "", text: "" })
+                                        if (comment.title.trim().length > 0 && comment.text.trim().length > 0) {
+                                            await createComments();
+                                            setComment({ title: "", text: "" });
+                                        } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
+                                            setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
+                                        } else if (comment.title.trim().length === 0) {
+                                            setAlertMessage("Por favor, completa el campo del título antes de enviar tu comentario.");
+                                        } else if (comment.text.trim().length === 0) {
+                                            setAlertMessage("Por favor, completa el campo del comentario antes de enviar tu comentario.");
+                                        }
                                     }}>Enviar</button>
+                                    <button type="button" class="btn btn-danger btn-sm mx-1" onClick={async () => {
+                                        setComment({ title: "", text: "" });
+                                        setAlertMessage(false);
+
+                                    }}>Cancelar</button>
                                 </div>
                             </div>
 
                             {perfilComment.map((comment, i) => {
                                 return <div key={i} class=" comentario card my-4">
                                     <div className="  card-body ">
-                                        <div class="">
-                                            <h6 className="card-title text-danger fw-bold text">{comment.user.name}</h6>
-                                            <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="card-img-topcomment card-img-top img-fluid rounded-circle border border border-dark border border-2 mb-2" />
+                                        <div class="d-flex justify-content-center bg-light p-1">
+                                            <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
+                                            <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                         </div>
-                                        <div className=" d-flex ">
+                                        <div className=" d-flex justify-content-center ">
 
-                                            <div className=" ">
+                                            <div className="d-flex justify-content-center ">
                                                 {store.currentUser.id === comment.user.id ? (
-                                                    <button type="button" class="my-1 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}><i class="fa-solid fa-trash"></i></button>
+                                                    <button type="button" class="my-2 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
                                                 ) : (
-                                                    <button type="button" class="my-1 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}><i class="fa-solid fa-bug"></i></button>
+                                                    <button type="button" class="my-2 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>Denunciar <i class="fa-solid fa-bug"></i></button>
                                                 )}
                                             </div>
 
@@ -330,31 +406,96 @@ export const PerfilCache = () => {
 
 
                                                     <div className="  ">
-                                                        <button type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                                            <i class="fa-solid fa-pen-to-square"></i>
+                                                        <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                            Editar  <i class="fa-solid fa-pen-to-square"></i>
                                                         </button>
 
-                                                        <div className="modal fade" key={i} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        <div className=" modal fade" key={i} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                                             <div className="modal-dialog">
-                                                                <div className="modal-content">
-                                                                    <div className="modal-header">
-                                                                        <h1 className="modal-title fs-5" id="exampleModalLabel">Editar Comentario</h1>
-                                                                        <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                <div className=" comentarioeditado modal-content">
+                                                                    <div className="text-center mx-auto border-danger modal-header">
+                                                                        <h1 className=" mx-1 modal-title fs-5" id="exampleModalLabel">Editar Comentario</h1>
+                                                                        <button type="button" className=" btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
+                                                                            setAlertMessageEdits(false);
+                                                                        }}></button>
                                                                     </div>
-                                                                    <div className="container mt-5 " key={i} >
-                                                                        <div className="mb-3">
-                                                                            <input name="title" value={updatedComment.title} onChange={(e) => setUpdatedComment({ ...updatedComment, [e.target.name]: e.target.value })} type="email" class="form-control bg-secondary  p-2 text-dark bg-opacity-10 border border-danger" id="exampleFormControlInput1" placeholder="Título" />
-                                                                        </div>
+                                                                    <div className="  container mt-5 my-3 text-center" key={i} >
+                                                                        <label className="label mb-2 fw-bold" htmlFor="formFileMultiple">Título:</label>
+                                                                        <input name="title" value={updatedComment.title} onChange={(e) => {
+                                                                            setUpdatedComment({ ...updatedComment, [e.target.name]: e.target.value });
+                                                                            setAlertMessageEdits(false);
 
-                                                                        <div className="my-3">
-                                                                            <textarea name="text" value={updatedComment.text} onChange={(e) => setUpdatedComment({ ...updatedComment, [e.target.name]: e.target.value })} className="form-control bg-secondary  p-2 text-dark bg-opacity-10 border border-danger" id="exampleFormControlTextarea1" placeholder="Dejar Comentario" rows="3"></textarea>
+                                                                        }}
+
+                                                                            onKeyUp={async (e) => {
+                                                                                if (e.key === 'Enter') {
+                                                                                    e.preventDefault();
+                                                                                    if (updatedComment.title.trim().length > 0 && updatedComment.text.trim().length > 0) {
+                                                                                        await editComments(comment.id, updatedComment);
+                                                                                        setAlertMessageEdits("Comentario editado correctamente.");
+                                                                                        
+                                                                                    } else if (updatedComment.title.trim().length === 0 && updatedComment.text.trim().length === 0) {
+                                                                                        setAlertMessageEdits("Por favor, completa ambos campos antes de editar tu comentario.");
+                                                                                    } else if (updatedComment.title.trim().length === 0) {
+                                                                                        setAlertMessageEdits("Por favor, completa el campo del título antes de editar tu comentario.");
+                                                                                    } else if (updatedComment.text.trim().length === 0) {
+                                                                                        setAlertMessageEdits("Por favor, completa el campo del comentario antes de editar tu comentario.");
+                                                                                    }
+                                                                                }
+                                                                            }}
+
+
+                                                                            type="email" class="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" placeholder="Título" />
+
+
+                                                                        <div className="my-3 text-center">
+                                                                            <label className=" label mb-2 fw-bold" htmlFor="formFileMultiple">Edita Tu Comentario:</label>
+                                                                            <textarea name="text" value={updatedComment.text} onChange={(e) => {
+                                                                                setUpdatedComment({ ...updatedComment, [e.target.name]: e.target.value });
+                                                                                setAlertMessageEdits(false);
+                                                                            }}
+                                                                                onKeyUp={async (e) => {
+                                                                                    if (e.key === 'Enter') {
+                                                                                        e.preventDefault();
+                                                                                        if (updatedComment.title.trim().length > 0 && updatedComment.text.trim().length > 0) {
+                                                                                            await editComments(comment.id, updatedComment);
+                                                                                            setAlertMessageEdits("Comentario editado correctamente.");
+                                                                                        } else if (updatedComment.title.trim().length === 0 && updatedComment.text.trim().length === 0) {
+                                                                                            setAlertMessageEdits("Por favor, completa ambos campos antes de editar tu comentario.");
+                                                                                        } else if (updatedComment.title.trim().length === 0) {
+                                                                                            setAlertMessageEdits("Por favor, completa el campo del título antes de editar tu comentario.");
+                                                                                        } else if (updatedComment.text.trim().length === 0) {
+                                                                                            setAlertMessageEdits("Por favor, completa el campo del comentario antes de editar tu comentario.");
+                                                                                        }
+                                                                                    }
+                                                                                }} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" placeholder="Dejar Comentario" rows="3"></textarea>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="modal-footer mb-3" key={i} >
-                                                                        <button type="button" className="btn btn-success btn-sm " data-bs-dismiss="modal">Cerrar</button>
-                                                                        <button className=" btn btn-danger btn-sm" onClick={() => {
-                                                                            editComments(comment.id, updatedComment);
-                                                                        }}>Guardar Cambios </button>
+                                                                    <div className="border-dark modal-footer mb-3" key={i} >
+                                                                        <button type="button"
+                                                                            className="btn btn-dark btn-sm"
+                                                                            onClick={() => {
+                                                                                if (updatedComment.title.trim().length > 0 && updatedComment.text.trim().length > 0) {
+                                                                                    editComments(comment.id, updatedComment);
+                                                                                    setAlertMessageEdits("Comentario editado correctamente.");
+                                                                                } else if (updatedComment.title.trim().length === 0 && updatedComment.text.trim().length === 0) {
+                                                                                    setAlertMessageEdits("Por favor, completa ambos campos antes de editar tu comentario.");
+                                                                                } else if (updatedComment.title.trim().length === 0) {
+                                                                                    setAlertMessageEdits("Por favor, completa el campo del título antes de editar tu comentario.");
+                                                                                } else if (updatedComment.text.trim().length === 0) {
+                                                                                    setAlertMessageEdits("Por favor, completa el campo del comentario antes de editar tu comentario.");
+                                                                                }
+                                                                            }}>Guardar cambios</button>
+
+                                                                        <button type="button" className="btn btn-success btn-sm " data-bs-dismiss="modal" onClick={() => {
+                                                                            setAlertMessageEdits(false);
+                                                                        }}>Cerrar</button>
+                                                                        {alertMessageEdit ? (
+                                                                            <div className=" label alert alert-danger" role="alert">
+                                                                                {alertMessageEdit}
+                                                                            </div>
+                                                                        ) : null}
+
 
                                                                     </div>
                                                                 </div>
@@ -397,46 +538,115 @@ export const PerfilCache = () => {
                             <div className=" mb-5 mx-auto">
                                 <div className="cajafotos1 border p-3 mb-5">
                                     <h2 className="text-center mb-4 mt-3 text-danger text-decoration-underline">Sube tus mejores fotos</h2>
-                                    <div className=" mt-5 mb-5 p-2 mx-auto">
-                                        <div className="d-flex row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 align-items-center ">
-                                            <img src={files ? URL.createObjectURL(files[0]) : urlImagePhoto} className=" imgenescachespremium  mx-2 img-thumbnail mb-3 border border-dark border border-2" alt="..." />
-                                            <p className=" ">Puede cargar un archivo JPG, GIF o PNG. El límite de tamaño de archivo es de 4 MB.</p>
-                                        </div>
-                                        <input type="file" className="  file form-control-file" onChange={(e) => setFiles(e.target.files)} />
+
+                                    <div className=" text-center justify-content-center my-4 ">
+                                        <img src={files ? URL.createObjectURL(files[0]) : urlImagePhoto} className=" imgenescachessubirfoto  mx-2 img-thumbnail mb-3 " alt="..." />
+                                        <p className=" text-center ">Puede cargar un archivo JPG, GIF o PNG. El límite de tamaño de archivo es de 4 MB.</p>
+                                    </div>
+                                    <div className="text-center justify-content-center mx-auto  my-4">
+                                        <input type="file" className=" form-control-file" onChange={(e) => setFiles(e.target.files)} />
                                     </div>
 
-                                    <div class="mb-3 px-2 text-center">
-                                        <input type="text" name="title" value={galery.title} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " id="floatingInputInvalid" placeholder="Título Foto" />
+
+                                    <div className="mb-3 px-2 text-center">
+                                        <label className="mb-2 fw-bold" htmlFor="formFileMultiple">Selecciona un Título:</label>
+                                        <input type="text" name="title" value={galery.title} onChange={(e) => {
+                                            setGalery({ ...galery, [e.target.name]: e.target.value });
+                                            setAlertMessageFotos(false);
+                                        }} onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
+                                                    uploadImage()();
+                                                    setAlertMessageFotos(false);
+                                                } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu imagen.");
+                                                } else if (galery.title.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa el campo del título antes de enviar tu imagen.");
+                                                } else if (galery.date_of_Publication.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa el campo de la fecha antes de enviar tu imagen.");
+                                                }
+
+                                            }
+
+                                        }} class="form-control bg-light  text-dark border border-dark border border-2 " id="floatingInputInvalid" />
                                     </div>
-                                    <div class="mb-3 px-2">
-                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => setGalery({ ...galery, [e.target.name]: e.target.value })} class="form-control bg-light  text-dark border border-dark border border-2 " type="date" id="formFileMultiple" multiple placeholder="Fecha Foto - dd-mm-aa" />
+                                    <div class="mb-3 px-2 text-center">
+                                        <label className="mb-2 fw-bold" htmlFor="formFileMultiple">Selecciona una fecha:</label>
+                                        <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => {
+                                            setGalery({ ...galery, [e.target.name]: e.target.value });
+                                            setAlertMessageFotos(false);
+                                        }} onKeyDown={(e) => {
+                                            if (e.key === 'Enter') {
+                                                e.preventDefault();
+                                                if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
+                                                    uploadImage()();
+                                                    setAlertMessageFotos(false);
+                                                } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu imagen.");
+                                                } else if (galery.title.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa el campo del título antes de enviar tu imagen.");
+                                                } else if (galery.date_of_Publication.trim().length === 0) {
+                                                    setAlertMessageFotos("Por favor, completa el campo de la fecha antes de enviar tu imagen.");
+                                                }
+
+                                            }
+                                        }} class="form-control bg-light  text-dark border border-dark border border-2 " type="date" id="formFileMultiple" />
                                     </div>
                                     <div class=" d-flex justify-content-end mb-4 p-2">
                                         <button type="button" class="btn btn-dark btn-sm mx-1" onClick={() => {
-                                            uploadImage()
-
+                                            if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
+                                                uploadImage();
+                                                setAlertMessageFotos(false)
+                                            } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
+                                                setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu comentario.");
+                                            } else if (galery.title.trim().length === 0) {
+                                                setAlertMessageFotos("Por favor, completa el campo del título antes de enviar tu comentario.");
+                                            } else if (galery.date_of_Publication.trim().length === 0) {
+                                                setAlertMessageFotos("Por favor, completa el campo de la fecha antes de enviar tu comentario.");
+                                            }
                                         }}>Enviar</button>
+                                        <button type="button" class="btn btn-danger btn-sm mx-1" onClick={async () => {
+                                            setGalery({ title: "", date_of_Publication: "" });
+                                            setAlertMessageFotos(false);
+                                            setFiles(null);
+
+                                        }}>Cancelar</button>
+
                                     </div>
+                                    {alertMessageFotos ? (
+                                        <div className="alert alert-danger" role="alert">
+                                            {alertMessageFotos}
+                                        </div>
+                                    ) : null}
                                 </div>
+
+
 
                                 {perfilImages.map((image, i) => {
                                     return <div key={i} class="comentario card mt-4">
 
                                         <div class="card-body">
-                                            <div class="">
-                                                <h6 class="card-title text-danger fw-bold text">{image.user.name}</h6>
-                                                <img src={image.user.profile_image_url ? image.user.profile_image_url : urlImage} alt="Imagen del usuario" class=" card-img-topcomment card-img-top img-fluid rounded-circle border border border-dark border border-2 mb-2" />
+                                            <div class="d-flex justify-content-center bg-light p-1 mb-1">
+                                                <img src={image.user.profile_image_url ? image.user.profile_image_url : urlImage} alt="Imagen del usuario" class=" card-img-topcomme  img-fluid" />
+                                                <h6 class="card-title text-danger fw-bold text namecomment my-auto">{image.user.name}</h6>
                                             </div>
-                                            <div class="mb-5">
+                                            <div class="mb-5 d-flex justify-content-center my-2">
                                                 {store.currentUser.id === image.user.id ? (
-                                                    <button type="button" class="btn btn-danger btn-sm  " onClick={() => deleteImages(image.id)}><i class="fa-solid fa-trash"></i></button>) : null
+                                                    <button type="button" class="btn btn-danger btn-sm  " onClick={() => deleteImages(image.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>) : null
                                                 }
                                             </div>
                                             <div class=" bg-light bordecomment border border border-2 border border-dark card-body text-center my-auto mb-5">
-
+                                                {selectedImageIndex === i && showCloseButton ? (
+                                                    <button className="botonhover btn btn-danger btn-sm d-flex justify-content-end" onClick={closedHover}>
+                                                        Cerrar
+                                                    </button>
+                                                ) : null}
                                                 <h6 class="  text-center tamano fs-2 text text-decoration-underline mt-5">{image.title}</h6>
-                                                <img src={image.url} alt="Imagen del usuario" class="card-img img-fluid my-auto imgenescachespremium" />
-                                                <h6 class="mb-5 mt-2 ">{image.date_of_Publication}</h6>
+                                                <img src={image.url} alt="Imagen del usuario" class={`card-img-top img-fluid imgenescachespremium ${selectedImageIndex === i ? 'active' : null}`}
+                                                    onClick={() => handleHover(i)} />
+
+                                                <h6 class="mb-5 mt-3 ">{image.date_of_Publication}</h6>
 
                                             </div>
 

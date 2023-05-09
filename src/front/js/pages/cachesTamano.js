@@ -37,14 +37,14 @@ export const CachesTamano = () => {
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Tamaño más Populares entre Nuestra Comunidad</h2>
                 <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 row row-cols-lg-3 mx-auto gx-3 gy-4container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.slice(0, mostrarTarjetas).map((cache) => {
+                    {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                     <div className="card-body">
-                                        <h4 className="card-title">{cache.state}</h4>
-                                        <h5 className="card-title">{cache.city}</h5>
+                                        <h3 className="card-title">{cache.state}</h3>
+                                        <h4 className="card-title">{cache.city}</h4>
                                         <p className="card-text">{cache.name}</p>
                                         <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0,0)}>
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>

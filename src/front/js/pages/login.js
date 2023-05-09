@@ -58,6 +58,11 @@ export const Login = () => {
                                 setError(false);
                                 setEmail(e.target.value);
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    sendLoginCredential()
+                                }}}
                         ></input>
                     </div>
                 </div>
@@ -76,6 +81,11 @@ export const Login = () => {
                                 setError(false);
                                 setPassword(e.target.value);
                             }}
+                            onKeyDown={(e) => {
+                                if (e.key === 'Enter') {
+                                    e.preventDefault();
+                                    sendLoginCredential()
+                                }}}
                         ></input>
                     </div>
                 </div>
@@ -90,7 +100,7 @@ export const Login = () => {
                         Login
                     </button>
                     {error ? (
-                        <p className="alert alert-warning">{error}</p>
+                        <p className="alert alert-danger">{error}</p>
                     ) : null}
                 </div>
                 <div className="fw-bold">

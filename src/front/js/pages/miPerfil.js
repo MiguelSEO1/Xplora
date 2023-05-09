@@ -10,11 +10,18 @@ export const MiPerfil = () => {
     const params = useParams();
     const { store, actions } = useContext(Context);
     const [urlImage, seturlImage] = useState("https://objetivoligar.com/wp-content/uploads/2017/03/blank-profile-picture-973460_1280.jpg");
+    const [urlImageSkull, seturlImageSkull] = useState("https://thumbs.dreamstime.com/b/cr%C3%A1neo-e-icono-de-la-bandera-pirata-aislado-50307817.jpg");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
     const [country, setCountry] = useState("");
     const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
+    const [alertName, setAlertName] = useState("");
+    const [alertEmail, setAlertEmail] = useState("");
+    const [alertCountry, setAlertCountry] = useState("");
+    const [alertTotalChanges, setAlertTotalChanges] = useState("");
+
+
 
     const [showDiv1, setShowDiv1] = useState(true);
     const [showDiv2, setShowDiv2] = useState(false);
@@ -430,6 +437,19 @@ export const MiPerfil = () => {
 
     };
 
+    const emailRegex = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.(?:com|net|org|edu|gov|mil|info|biz|co|([a-zA-Z]{2,}))$/i;
+    const accents = /[áéíóúü]/;
+    const uppercase = /[A-Z]/;
+
+
+    const countries = [
+        'Alemania', 'Austria', 'Bélgica', 'Bulgaria', 'Chipre', 'Croacia', 'Dinamarca', 'Eslovaquia', 'Eslovenia',
+        'España', 'Estonia', 'Finlandia', 'Francia', 'Grecia', 'Hungría', 'Irlanda', 'Italia', 'Letonia', 'Lituania',
+        'Luxemburgo', 'Malta', 'Países Bajos', 'Polonia', 'Portugal', 'República Checa', 'Rumanía', 'Suecia', 'Argentina',
+        'Bolivia', 'Brasil', 'Chile', 'Colombia', 'Costa Rica', 'Cuba', 'Ecuador', 'El Salvador', 'Guatemala', 'Honduras',
+        'México', 'Nicaragua', 'Panamá', 'Paraguay', 'Perú', 'Puerto Rico', 'República Dominicana', 'Uruguay', 'Venezuela']
+        ;
+
 
 
     return (
@@ -458,32 +478,138 @@ export const MiPerfil = () => {
                                 <h2 className="text-center my-5 text-danger">Perfil</h2>
                             </div>
                             <div className=" d-flex ">
-                                <UploadImage urlImage={urlImage} apiURL="/api/upload" />
+                                <UploadImage urlImage={urlImageSkull} apiURL="/api/upload" />
                             </div>
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-4 fw-bold">Nombre</label>
+                            <label htmlFor="exampleFormControlInput1" className="form-label mt-4 fw-bold">Nombre *(obligatorio)</label>
                             <input type="email" className="form-control" id="exampleFormControlInput1" value={name}
-                                onChange={(e) => { setName(e.target.value); }} placeholder={store.currentUser.name} />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3 fw-bold">Email</label>
+                                onChange={(e) => {
+                                    setName(e.target.value);
+                                    setAlertName(false);
+                                    setAlertEmail(false);
+                                    setAlertCountry(false);
+                                    setAlertTotalChanges(false);
+                                    setAlertTotalChanges(false);
+                                }} onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (name.trim() != "" && email.trim() != "" && emailRegex.test(email.trim()) && countries.includes(country.trim()) || country.trim() === "") {
+                                            await actions.getUpdateUser(email, name, country, city);
+                                            setAlertTotalChanges("Cambios actualizados correctamente");
+                                        } else if (name.trim() === "") {
+                                            setAlertName("Por favor, ingrese un nombre de usuario.");
+                                        } else if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                        } else if (!countries.includes(country.trim() && country.trim() != "")) {
+                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).");
+                                        }
+                                    }
+                                }
+                                }
+                                placeholder={store.currentUser.name} />
+                            {alertName ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertName}
+                                </div>
+                            ) : null}
+
+                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3 fw-bold">Email *(obligatorio)</label>
                             <input type="email" className="form-control" id="exampleFormControlInput1" value={email}
-                                onChange={(e) => { setEmail(e.target.value); }} placeholder={store.currentUser.email} />
-                            <label htmlFor="disabledTextInput" className="form-label mt-3 fw-bold">Password</label>
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                    setAlertCountry(false);
+                                    setAlertName(false);
+                                    setAlertEmail(false);
+                                    setAlertTotalChanges(false);
+                                }} onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (email.trim() != "" && emailRegex.test(email.trim()) && name.trim() != "" && countries.includes(country.trim()) || country.trim() === "") {
+                                            await actions.getUpdateUser(email, name, country, city);
+                                            setAlertTotalChanges("Cambios actualizados correctamente")
+                                        } else if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                        } else if (name.trim() === "") {
+                                            setAlertName("Por favor, ingrese un nombre de usuario.");
+                                        } else if (!countries.includes(country.trim()) && country.trim() != "") {
+                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).´");
+                                        }
+                                    }
+                                }
+                                }
+                                placeholder={store.currentUser.email} />
+                            {alertEmail ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertEmail}
+                                </div>
+                            ) : null}
+                            <label htmlFor="disabledTextInput" className="form-label mt-3 fw-bold">Password *(obligatorio)</label>
                             <input className="form-control text-dark" type="password" aria-label="Disabled input example" disabled readOnly onChange={(e) => { setPassword(e.target.value); }} value={password} placeholder={".........................."} />
                             <div className="d-flex justify-content-end my-3">
                                 <NewPassword />
                             </div>
+
+
                             <label htmlFor="exampleFormControlInput1" className="form-label mt-1 fw-bold">País</label>
                             <input type="email" className="form-control" id="exampleFormControlInput1" value={country}
-                                onChange={(e) => { setCountry(e.target.value); }} placeholder={store.currentUser.country} />
-                            <label htmlFor="exampleFormControlInput1" className="form-label mt-3 fw-bold">City</label>
-                            <input type="email" className="form-control" id="exampleFormControlInput1" value={city}
-                                onChange={(e) => { setCity(e.target.value); }} placeholder={store.currentUser.city} />
+                                onChange={(e) => {
+                                    setCountry(e.target.value);
+                                    setAlertCountry(false);
+                                    setAlertName(false);
+                                    setAlertEmail(false);
+                                    setAlertTotalChanges(false);
+                                }} onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                        } else if (name.trim() === "") {
+                                            setAlertName("Por favor, ingrese un nombre de usuario.");
+                                        } else if (email.trim() != "" && emailRegex.test(email.trim()) && name.trim() != "" && countries.includes(country.trim()) || country.trim() === "") {
+                                            await actions.getUpdateUser(email, name, country, city);
+                                            setAlertTotalChanges("Cambios actualizados correctamente");
+                                        } else if(!countries.includes(country.trim()) && country.trim() != ""){
+                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).");
+                                        }
+                                    }
+                                }}
+                                placeholder={store.currentUser.country} />
+                            {alertCountry ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertCountry}
+                                </div>
+                            ) : null}
                             <div className="d-flex justify-content-end">
-                                <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
-                                    e.preventDefault();
-                                    actions.getUpdateUser(email, name, country, city)
-                                }}>Guardar Cambios </button>
+                                <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={async () => {
+                                    if (
+                                        country.trim() === "" ||
+                                        countries.includes(country.trim()) &&
+                                        name.trim() !== "" &&
+                                        email.trim() !== "" &&
+                                        emailRegex.test(email.trim())
+                                    ) {
+                                        await actions.getUpdateUser(email, name, country, city);
+                                        setAlertTotalChanges("Cambios actualizados correctamente");
+                                    } else {
+                                        if (!countries.includes(country.trim()) && country.trim() != "") {
+                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas.");
+                                        } 
+                                        if (name.trim() === "") {
+                                            setAlertName("Por favor, ingrese un nombre de usuario.");
+                                        }
+                                        if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                        }
+                                    }
+                                }}>Guardar Cambios</button>
+
+
 
                             </div>
+                            {alertTotalChanges ? (
+                                <div className="mb-3 p-3 label alert alert-danger" role="alert">
+                                    {alertTotalChanges}
+                                </div>
+                            ) : null}
                         </div>
                     ) : null}
                     {showDiv2 ? (
@@ -518,15 +644,15 @@ export const MiPerfil = () => {
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
 
                                 {store.currentUser.favorites <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     store.currentUser.favorites.map((favorites) => {
                                         return (
                                             <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
-                                                        <h4 className="card-title">{favorites.cache.state}</h4>
-                                                        <h5 className="card-title">{favorites.cache.city}</h5>
+                                                        <h3 className="card-title">{favorites.cache.state}</h3>
+                                                        <h4 className="card-title">{favorites.cache.city}</h4>
                                                         <p className="card-text">{favorites.cache.name}</p>
                                                         <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
@@ -550,15 +676,15 @@ export const MiPerfil = () => {
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
 
                                 {store.currentUser.favorites <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     store.currentUser.favorites.map((favorites) => {
                                         return (
                                             <div className="">
                                                 <div className=" esquinaCarta card " key={favorites.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
-                                                        <h4 className="card-title">{favorites.cache.state}</h4>
-                                                        <h5 className="card-title">{favorites.cache.city}</h5>
+                                                        <h3 className="card-title">{favorites.cache.state}</h3>
+                                                        <h4 className="card-title">{favorites.cache.city}</h4>
                                                         <p className="card-text">{favorites.cache.name}</p>
                                                         <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
@@ -582,15 +708,15 @@ export const MiPerfil = () => {
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Enviados</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {getPendingCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     getPendingCaches.map((caches) => {
                                         return (
                                             <div className="">
-                                                <div className="text-center esquinaCarta card " key={caches.id}>
+                                                <div className="text-center mx-auto esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -613,15 +739,15 @@ export const MiPerfil = () => {
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Aprobados</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {approvedCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     approvedCaches.map((caches) => {
                                         return (
                                             <div className="">
                                                 <div className=" text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -651,8 +777,8 @@ export const MiPerfil = () => {
                                                 <div className=" text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -674,15 +800,15 @@ export const MiPerfil = () => {
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Enviados</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {getPendingCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
                                     getPendingCaches.map((caches) => {
                                         return (
                                             <div className="">
                                                 <div className="  text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -705,15 +831,15 @@ export const MiPerfil = () => {
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Aprobados</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {approvedCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center  mx-auto text-primary "> No tienes nada</h2> :
                                     approvedCaches.map((caches) => {
                                         return (
                                             <div className="">
                                                 <div className="text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -736,15 +862,15 @@ export const MiPerfil = () => {
                             <h2 className="text-center my-5 text-decoration-underline">Mis Cachés Rechazados</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {declinedCaches <= 0 ?
-                                    <h2 className="mx-auto text-primary "> No tienes nada</h2> :
+                                    <h2 className="text-center  mx-auto text-primary "> No tienes nada</h2> :
                                     declinedCaches.map((caches) => {
                                         return (
                                             <div className="">
                                                 <div className="text-center esquinaCarta card " key={caches.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body">
-                                                        <h4 className="card-title">{caches.state}</h4>
-                                                        <h5 className="card-title">{caches.city}</h5>
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
                                                         <p className="card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -782,65 +908,69 @@ export const MiPerfil = () => {
                             <h2 className="text-center text-danger my-5">Admin Panel</h2>
                             <h2 className="text-center mb-5 text-decoration-underline">Nuevos caches</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                                {pendingCaches.map((caches) => {
-                                    return (
-                                        <div className="">
-                                            <div className=" text-center esquinaCarta card " key={caches.id}>
-                                                <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
-                                                <div className="card-body">
-                                                    <h4 className="card-title">{caches.state}</h4>
-                                                    <h5 className="card-title">{caches.city}</h5>
-                                                    <p className="card-text">{caches.name}</p>
-                                                    <button
-                                                        className="btn btn-success btn-sm mt-1"
-                                                        onClick={(e) => {
-                                                            setError(false);
-                                                            acceptCache(caches.id);
-                                                        }}
-                                                    >Aprobar</button>
-                                                    <button
-                                                        className="btn btn-danger btn-sm mx-1 mt-1"
-                                                        onClick={(e) => {
-                                                            setError(false);
-                                                            declineCache(caches.id);
-                                                        }}
-                                                    >Rechazar</button>
-                                                    <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
-                                                        <button className="btn btn-primary btn-sm mt-1">Ver Detalles</button>
-                                                    </Link>
-                                                    {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
+                                {pendingCaches <= 0 ?
+                                    <h2 className="text-center  mx-auto text-primary "> No tienes nada</h2> :
+                                    pendingCaches.map((caches) => {
+                                        return (
+                                            <div className="">
+                                                <div className=" text-center esquinaCarta card " key={caches.id}>
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <div className="card-body">
+                                                        <h3 className="card-title">{caches.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{caches.provincia}</h4>
+                                                        <p className="card-text">{caches.name}</p>
+                                                        <button
+                                                            className="btn btn-success btn-sm mt-1"
+                                                            onClick={(e) => {
+                                                                setError(false);
+                                                                acceptCache(caches.id);
+                                                            }}
+                                                        >Aprobar</button>
+                                                        <button
+                                                            className="btn btn-danger btn-sm mx-1 mt-1"
+                                                            onClick={(e) => {
+                                                                setError(false);
+                                                                declineCache(caches.id);
+                                                            }}
+                                                        >Rechazar</button>
+                                                        <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
+                                                            <button className="btn btn-primary btn-sm mt-1">Ver Detalles</button>
+                                                        </Link>
+                                                        {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    )
-                                })}
+                                        )
+                                    })}
                             </div>
                             <h2 className="text-center mb-5 text-decoration-underline">Comentarios Denunciados</h2>
                             <div className="container mb-5 row row-cols-lg-1 mx-auto gx-3 text-center">
-                                {perfilComment.filter(comment => comment.is_spam).map((comment, i) => {
-                                    return (
-                                        <div key={i} class=" comentario card my-4">
-                                            <div className="  card-body ">
-                                                <div class="">
-                                                    <h6 className="card-title text-danger fw-bold text">{comment.user.name}</h6>
-                                                    <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="card-img-topcomment card-img-top img-fluid rounded-circle border border border-dark border border-2 mb-2" />
+                                {perfilComment <= 0 ?
+                                    <h2 className="text-center  mx-auto text-primary "> No tienes nada</h2> :
+                                    perfilComment.filter(comment => comment.is_spam).map((comment, i) => {
+                                        return (
+                                            <div key={i} class=" comentario card my-4">
+                                                <div className="  card-body ">
+                                                    <div class="d-flex justify-content-center bg-light p-1">
+                                                        <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImageSkull} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
+                                                        <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
+                                                    </div>
+
+                                                    <div className="m-3" >
+                                                        <button type="button" class="btn btn-danger btn-sm mx-1 my-1" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
+                                                        <button type="button" class="btn btn-success btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
+
+                                                    </div>
                                                 </div>
-
-                                                <div className="m-3" >
-                                                    <button type="button" class="btn btn-danger btn-sm mx-1" onClick={() => deleteComments(comment.id)}>Eliminar Comentario</button>
-                                                    <button type="button" class="btn btn-success btn-sm" onClick={() => reportedComments(comment.id)}>Ignorar Denuncia</button>
-
+                                                <div className="card-body mb-4">
+                                                    <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
+                                                    <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
+                                                    {comment.is_spam ? <p className="tamano text-danger">Motivo: Spam</p> : null}
                                                 </div>
                                             </div>
-                                            <div className="card-body mb-4">
-                                                <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
-                                                <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
-                                                {comment.is_spam ? <p className="tamano text-danger">Motivo: Spam</p> : null}
-                                            </div>
-                                        </div>
-                                    )
-                                })}
+                                        )
+                                    })}
                             </div>
 
 

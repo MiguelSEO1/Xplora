@@ -253,10 +253,6 @@ h6 {
 
 @media screen and (min-width: 1200px) {
   
-  .card-img-topcomment{
-    width: 10%;
-  }
-  
   
   
   .Orbital {
@@ -297,9 +293,7 @@ h6 {
     width: 25%;
   }
 
-  .imgenescachespremium {
-    width: 20%;
-  }
+  
 
   .imagenfotos {
     width: 40%;
@@ -316,18 +310,13 @@ h6 {
 
 @media only screen and (max-width: 480px) {
   
-  .card-img-topcomment{
-    width: 20%;
-  }
   
   
   .animaciones {
     display: none;
   }
 
-  .imgenescachespremium {
-    width: 50%;
-  }
+  
 
   .imagenfotos {
     width: 25%;
@@ -347,9 +336,7 @@ h6 {
     width: 25%;
   }
 
-  .imgenescachespremium {
-    width: 20%;
-  }
+  
 
   .imagenfotos {
     width: 40%;
@@ -430,11 +417,21 @@ h6 {
   
 }
 
+.comentarioeditado {
+  
+  background-color: #f5edc6;
+  
+}
+
 .cajacomentario {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
     5px 5px 10px rgba(0, 0, 0, 0.5);
   background-color: #f5edc6;
   border-radius: 10px;
+  font-family: "Seaweed Script", cursive;
+}
+
+.label{
   font-family: "Seaweed Script", cursive;
 }
 
@@ -463,9 +460,7 @@ h6 {
   border-radius: 10px;
 }
 
-.file {
-  font-size: medium;
-}
+
 
 .cajafotosespecifica {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
@@ -500,3 +495,68 @@ tr {
   margin-bottom: 15%;
 }
 
+.card-img-topcomme, .user-image {
+  max-width: 50px; /* establece el ancho máximo para la imagen */
+  height: 50px; /* ajusta la altura automáticamente para mantener la proporción */
+  margin-left: 2px;
+  object-fit: contain;
+}
+
+.namecomment{
+  max-width: 15%; /* establece el ancho máximo para la imagen */
+  height: auto; /* ajusta la altura automáticamente para mantener la proporción */
+  margin-left: 9px;
+  margin-top: 20px;
+  font-size: 20px;
+}
+
+.imgenescachespremium {
+  max-width: 30%;
+}
+
+.imgenescachessubirfoto{
+  max-width: 30%;
+}
+@media (max-width: 768px) { /* establece las reglas para pantallas más pequeñas */
+  .card-img-topcomme, .user-image {
+      max-width: 60px; /* establece el ancho máximo para la imagen en pantallas más pequeñas */
+      margin-left: 2px;
+      object-fit: contain;
+  
+}
+.namecomment{
+  max-width: 60%; /* establece el ancho máximo para la imagen en pantallas más pequeñas */
+  margin-left: 6px;
+  margin-top: 10px;
+  font-size: 18px;
+  
+}
+
+.imgenescachespremium {
+  max-width: 50%;
+  z-index: 1;
+}
+
+.imgenescachessubirfoto{
+  max-width: 70%;
+}
+
+.botonhover{
+  position: absolute;
+  z-index: 2;
+  left: px;
+}
+
+}
+
+
+
+
+.imgenescachespremium {
+  transition: transform 0.9s ease-in-out;
+}
+
+.imgenescachespremium.active {
+  transform: scale(2);
+  
+}

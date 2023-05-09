@@ -9,6 +9,7 @@ export const NewPassword = () => {
     const [repeatNewPassword, setRepeatNewPassword] = useState("");
     const [error, setError] = useState("");
     const sendPasswordChange = async () => {
+        
         const response = await fetch(
             process.env.BACKEND_URL + "/api/change-password",
             {
@@ -40,64 +41,98 @@ export const NewPassword = () => {
 
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
-                    <div className="modal-content">
-                        <div className="modal-header">
-                            <h1 className="modal-title fs-5" id="exampleModalLabel">Cambiar Contraseña</h1>
-                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    <div className="comentarioeditado modal-content">
+                        <div className="text-center mx-auto border-danger modal-header">
+                            <h1 className="mx-1 modal-title fs-5" id="exampleModalLabel">Cambiar Contraseña</h1>
+                            <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={(e) => {
+                                setNewPassword("");
+                                setRepeatNewPassword("");
+                                setError(false);
+                            }}></button>
                         </div>
-                        <div className="modal-body mb-5">
+                        <div className="modal-body mb-2 text-center">
                             <label htmlFor="currentPassword"
-                                className="form-label mt-3">
+                                className=" label form-label mt-3 fw-bold">
                                 Contraseña Actual
                             </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className="border border-dark border border-2 bordecomment form-control"
                                 id="currentPassword"
                                 value={currentPassword}
                                 onChange={(e) => {
                                     setCurrentPassword(e.target.value);
+                                    setError(false);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        sendPasswordChange();
+                                    }
+                                }
+                                }
                                 placeholder="Contraseña Actual" />
                             <label
                                 htmlFor="newPassword"
-                                className="form-label mt-3">
+                                className=" label form-label mt-3 fw-bold">
                                 Nueva Contraseña
                             </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className=" border border-dark border border-2 bordecomment form-control"
                                 id="newPassword"
                                 value={newPassword}
                                 onChange={(e) => {
                                     setNewPassword(e.target.value);
+                                    setError(false);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        sendPasswordChange();
+                                    }
+                                }
+                                }
                                 placeholder="Nueva Contraseña" />
                             <label
                                 htmlFor="repeatNewPassword"
-                                className="form-label mt-3">
+                                className=" label form-label mt-3 fw-bold">
                                 Confirmar contraseña
                             </label>
                             <input
                                 type="password"
-                                className="form-control"
+                                className=" mb-4 border border-dark border border-2 bordecomment form-control"
                                 id="repeatNewPassword"
                                 value={repeatNewPassword}
                                 onChange={(e) => {
                                     setRepeatNewPassword(e.target.value);
+                                    setError(false);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        sendPasswordChange();
+                                    }
+                                }
+                                }
                                 placeholder="Confirmar contraseña" />
 
                         </div>
-                        <div className="modal-footer">
-                            <button type="button" className="btn btn-success btn-sm" data-bs-dismiss="modal">Cerrar</button>
-                            <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={(e) => {
+                        <div className="border-dark modal-footer mb-4">
+                            <button type="button" className="btn btn-success btn-sm " data-bs-dismiss="modal" onClick={(e) => {
+                                setNewPassword("");
+                                setRepeatNewPassword("");
+                                setError(false);
+                            }}>Cerrar</button>
+                            <button className="mb-2 mt-2 btn btn-danger btn-sm" onClick={(e) => {
                                 e.preventDefault();
                                 sendPasswordChange();
+                                
+
                             }}>Guardar Cambios </button>
 
                             {error ? (
-                                <p className="alert alert-warning">{error}</p>
+                                <p className="alert alert-danger">{error}</p>
                             ) : null}
                         </div>
                     </div>

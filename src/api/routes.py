@@ -26,12 +26,12 @@ def user_login():
     
     # Find the user with the matching username
     if user is None:
-        return jsonify({"response": "Invalid username or password."}), 401
+        return jsonify({"response": "Usuario o contraseña inválida"}), 401
     
     # Hash the entered password and compare to the stored hash
     hashed_password = hashlib.sha256(body_password.encode('utf-8')).hexdigest()
     if hashed_password != user.password:
-        return jsonify({"response": "Invalid username or password."}), 401
+        return jsonify({"response": "Usuario o contraseña inválida"}), 401
 
     token = create_access_token(identity=user.id)
     return jsonify({"response": "Hola", "token": token}), 200
@@ -54,33 +54,33 @@ def change_password():
 
     # Validates if the new password matches
     if new_password != repeat_new_password:
-        return {"error": "New passwords do not match"}, 400
+        return {"error": "Las nuevas contraseñas no coinciden"}, 400
     
     # Checks if the input is empty
     if not current_password:
-        return {"error": "Current password cannot be empty"}, 400
+        return {"error": "La contraseña actual no puede estar vacía"}, 400
     
     # Checks if the password is the same as the database
     if user.password != hashlib.sha256(current_password.encode('utf-8')).hexdigest():
-        return {"error": "Incorrect current password"}, 400
+        return {"error": "Contraseña actual incorrecta"}, 400
     
     if len(new_password) < 8:
-        return jsonify({"response": "Password must be at least 8 characters."}), 300
+        return jsonify({"response": "La contraseña debe tener al menos 8 caracteres."}), 300
     if not re.search(r'[A-Z]', new_password):
-        return jsonify({"response": "Password must include at least one capital letter."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos una letra mayúscula."}), 300
     if not re.search(r'[a-z]', new_password):
-        return jsonify({"response": "Password must include at least one lowercase letter."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos una letra minúscula."}), 300
     if not re.search(r'\d', new_password):
-        return jsonify({"response": "Password must include at least one number."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos un número."}), 300
     if not re.search(r'[^\w\s]', new_password):
-        return jsonify({"response": "Password must include at least one special character."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos un carácter especial."}), 300
 
     # Update the user's password in the database
     new_hashed_password = hashlib.sha256(new_password.encode('utf-8')).hexdigest()
     user.password = new_hashed_password
     db.session.commit()
     
-    return jsonify({"message": "Password updated successfully"})
+    return jsonify({"message": "Contraseña actualizada exitosamente"})
 
 @api.route('/updateUser-user', methods=['PUT'])
 @jwt_required()
@@ -309,11 +309,11 @@ def user_register():
     
     # Check if user already exists
     if user_already_exist:
-        return jsonify({"response": "Email already used"}), 300
+        return jsonify({"response": "Email ya en uso"}), 300
 
     # Check that all fields are present in the request
     if not body_username or not body_email or not body_password:
-        return jsonify({"response": "Username, email, and password are required."}), 300
+        return jsonify({"response": "Se requiere nombre de usuario, correo electrónico y contraseña."}), 300
     
     # Check that the email is in the correct format
     if not re.match(r'^\w+([.-]?\w+)*@\w+([.-]?\w+)*(\.\w{2,3})+$', body_email):
@@ -321,15 +321,15 @@ def user_register():
 
     # Check password requirements
     if len(body_password) < 8:
-        return jsonify({"response": "Password must be at least 8 characters."}), 300
+        return jsonify({"response": "La contraseña debe tener al menos 8 caracteres."}), 300
     if not re.search(r'[A-Z]', body_password):
-        return jsonify({"response": "Password must include at least one capital letter."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos una letra mayúscula."}), 300
     if not re.search(r'[a-z]', body_password):
-        return jsonify({"response": "Password must include at least one lowercase letter."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos una letra minúscula."}), 300
     if not re.search(r'\d', body_password):
-        return jsonify({"response": "Password must include at least one number."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos un número."}), 300
     if not re.search(r'[^\w\s]', body_password):
-        return jsonify({"response": "Password must include at least one special character."}), 300
+        return jsonify({"response": "La contraseña debe incluir al menos un carácter especial."}), 300
 
     # Hash the password using SHA-256
     hashed_password = hashlib.sha256(body_password.encode('utf-8')).hexdigest()
@@ -346,44 +346,44 @@ def cache_register():
 
     body_name = request.json.get("name")
     if not body_name or not isinstance(body_name, str):
-        return jsonify({"response": "Invalid or missing 'name' parameter"}), 400
+        return jsonify({"response": "Parámetro 'nombre' no válido o faltante"}), 400
 
     body_description = request.json.get("description")
 
     body_comunidad_autonoma = request.json.get("comunidad_autonoma")
     if not body_comunidad_autonoma or not isinstance(body_comunidad_autonoma, str):
-        return jsonify({"response": "Invalid or missing 'comunidad autonoma' parameter"}), 400
+        return jsonify({"response": "Parámetro 'comunidad autónoma' no válido o faltante"}), 400
     body_comunidad_autonoma = body_comunidad_autonoma.capitalize()
     
     body_provincia = request.json.get("provincia")
     if not body_provincia or not isinstance(body_provincia, str):
-        return jsonify({"response": "Invalid or missing 'provincia' parameter"}), 400
+        return jsonify({"response": "Parámetro 'provincia' no válido o faltante"}), 400
     body_provincia = body_provincia.capitalize()
 
     body_postal_code = request.json.get("postal_code")
     if not body_postal_code or not isinstance(body_postal_code, str):
-        return jsonify({"response": "Invalid or missing 'postal_code' parameter"}), 400
+        return jsonify({"response": "Parámetro 'provincia' no válido o faltante"}), 400
 
     body_coordinates_y = request.json.get("coordinates_y")
     if not body_coordinates_y or not isinstance(body_coordinates_y, str):
-        return jsonify({"response": "Invalid or missing 'Latitud' parameter"}), 400
+        return jsonify({"response": "Parámetro 'Latitud' no válido o faltante"}), 400
 
     body_coordinates_x = request.json.get("coordinates_x")
     if not body_coordinates_x or not isinstance(body_coordinates_x, str):
-        return jsonify({"response": "Invalid or missing 'Longitud' parameter"}), 400
+        return jsonify({"response": "Parámetro 'Longitud' no válido o faltante"}), 400
 
     body_difficulty = request.json.get("difficulty")
     if not body_difficulty or not isinstance(body_difficulty, str):
-        return jsonify({"response": "Invalid or missing 'difficulty' parameter"}), 400
+        return jsonify({"response": "Parámetro de 'dificultad' no válido o faltante"}), 400
 
     body_size = request.json.get("size")
     if not body_size or not isinstance(body_size, str):
-        return jsonify({"response": "Invalid or missing 'size' parameter"}), 400
+        return jsonify({"response": "Parámetro de 'tamaño' no válido o faltante"}), 400
     
     # Checks if cache exists
     cache_already_exist = Cache.query.filter_by(name= body_name).first()
     if cache_already_exist:
-        return jsonify({"response": "Cache already created, choose another name"}), 300
+        return jsonify({"response": "Caché ya creado, elige otro nombre"}), 300
 
     # Generating the QR code image
     qr_data = f"{body_name}, {body_description}, {body_comunidad_autonoma}, {body_provincia}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
@@ -414,7 +414,7 @@ def cache_register():
         )
     db.session.add(new_cache)
     db.session.commit()
-    return jsonify({"response": "Cache registered successfully"}), 200   
+    return jsonify({"response": "Caché registrado con éxito"}), 200   
  
 @api.route('/ranking_users', methods=['GET'])
 @jwt_required()
