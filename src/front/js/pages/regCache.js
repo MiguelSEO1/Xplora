@@ -117,13 +117,7 @@ export const Cache = () => {
                                     setError(false);
                                     setName(e.target.value);
                                 }}
-                                onKeyUp={async (e) => {
-                                    if (e.key === 'Enter') {
-                                        e.preventDefault();
-                                        sendCacheRegistral();
-                                    }
-                                }
-                                }
+                                
                             ></input>
                         </div>
                     </div>
@@ -141,6 +135,13 @@ export const Cache = () => {
                                     setError(false);
                                     setDescription(e.target.value);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        sendCacheRegistral();
+                                    }
+                                }
+                                }
                             ></input>
                         </div>
                     </div>
