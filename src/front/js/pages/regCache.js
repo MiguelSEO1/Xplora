@@ -19,6 +19,16 @@ export const Cache = () => {
     const [comunidadID, setComunidadID] = useState(null);
     const [provincias, setProvincias] = useState([]);
     const [provinciaID, setProvinciaID] = useState(null);
+    const [alertNameCache, setAlertNameCache] = useState("");
+    const [alertTotalCreateCache, setAlertTotalCreateCache] = useState("");
+    const [alertDescription, setAlertDescription] = useState("");
+    const [alertPostalCode, setAlertPostalCode] = useState("");
+    const [alertDifficulty, setAlertDifficulty] = useState("");
+    const [alertSize, setAlertSize] = useState("");
+    const [alertComunidades, setAlertComunidades] = useState("");
+    const [alertProvincias, setAlertProvincias] = useState("");
+    const [alertLatCache, setAlertLatCache] = useState("");
+    const [alertLngCache, setAlertLngCache] = useState("");
 
 
 
@@ -105,7 +115,7 @@ export const Cache = () => {
                     <h2 className="text-center my-4 text-danger">Crea y Registra tú Caché</h2>
                     <div className=" row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="name">
-                            Name:{" "}
+                            Nombre:{" "}
                         </label>
                         <div className="mx-auto col-sm-10">
                             <input
@@ -116,14 +126,63 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setName(e.target.value);
+                                    setAlertNameCache(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
-                                
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                      e.preventDefault();
+                                      if (name.trim() === "") {
+                                        setAlertNameCache("Por favor, ingrese un nombre de caché.");
+                                      } else if (description.trim() === "") {
+                                        setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
+                                      } else if (postalCode.trim() === "") {
+                                        setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
+                                      } else if (!data.lat) {
+                                        setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                      } else if (isNaN(data.lat)) {
+                                        setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                      } else if (!data.lng) {
+                                        setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                      } else if (isNaN(data.lng)) {
+                                        setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                      } else if (comunidadID === null) {
+                                        setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                      }else if (!comunidadID) {
+                                        setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                      }else if (provinciaID === null) {
+                                        setAlertProvincias("Por favor, seleccione una Provincia.");
+                                      }else if (!provinciaID) {
+                                        setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
+                                      }else if (difficulty === "") {
+                                        setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                      }else if (!difficulty) {
+                                        setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                      } else if (size === "") {
+                                        setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                      }else if (!size) {
+                                        setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                      }
+                                      else {
+                                        sendCacheRegistral();
+                                        setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                      }
+                                    }
+                                  }}
+                                  
+
                             ></input>
+                            {alertNameCache ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertNameCache}
+                                </div>
+                            ) : null}
+                             {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            Descripion:{" "}
+                            Descripción:{" "}
                         </label>
                         <div className="">
                             <input
@@ -134,20 +193,34 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setDescription(e.target.value);
+                                    setAlertDescription(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
                                 onKeyUp={async (e) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
-                                        sendCacheRegistral();
+                                        if (description.trim() != "") {
+                                            sendCacheRegistral();;
+                                            setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                        } else if (description.trim() === "") {
+                                            setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
+                                        }
                                     }
+
                                 }
                                 }
+
                             ></input>
+                            {alertDescription ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertDescription}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
-                            Country:{" "}
+                            País:{" "}
                         </label>
                         <div className="col-sm-10">
                             <select
@@ -156,6 +229,8 @@ export const Cache = () => {
                                 value="España"
                                 onChange={(e) => {
                                     setError(false);
+                                    setAlertPostalCode(false);
+                                    setAlertTotalCreateCache(false);
                                 }}>
                                 <option value="1">España</option>
                             </select>
@@ -173,14 +248,22 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     handleComunidad(e);
+                                    setAlertComunidades(false);
+                                    setAlertTotalCreateCache(false);
+                                    
                                 }}>
-                                <option value="">Selecciona Comunidad Autonoma</option>
+                                <option value="">Selecciona Comunidad Autónoma</option>
                                 {
                                     comunidades.map((comunidad, index) => (
                                         <option key={index} value={comunidad.CCOM}>{comunidad.COM}</option>
                                     ))
                                 }
                             </select>
+                            {alertComunidades ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertComunidades}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
@@ -195,6 +278,8 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setProvinciaID(e.target.value)
+                                    setAlertProvincias(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
                             >
                                 <option value="">Selecciona Povincia</option>
@@ -204,6 +289,11 @@ export const Cache = () => {
                                     ))
                                 }
                             </select>
+                            {alertProvincias ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertProvincias}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div id="mi-elemento" className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
@@ -221,8 +311,27 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setPostalCode(e.target.value);
+                                    setAlertPostalCode(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (postalCode.trim() != "") {
+                                            sendCacheRegistral();;
+                                            setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                        } else if (postalCode.trim() === "") {
+                                            setAlertPostalCode("Por favor, ingrese un código postal de ubicaión del caché.");
+                                        }
+                                    }
+                                }
+                                }
                             ></input>
+                            {alertPostalCode ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertPostalCode}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div id="mi-elemento" className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3 ">
@@ -250,8 +359,31 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setData({ ...data, lat: e.target.value });
+                                    setAlertLatCache(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (!data.lat) {
+                                            setAlertLatCache("Por favor, ingrese coordenadas válidas del caché.");
+                                        } else if (isNaN(data.lat)) {
+                                            setAlertLatCache("Por favor, ingrese un número válido para las coordenadas del caché.");
+                                        } else {
+                                            sendCacheRegistral();
+                                            setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                        }
+                                    }
+                                }}
+                                
+                                
+                                
                             ></input>
+                            {alertLatCache ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertLatCache}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
@@ -269,8 +401,28 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setData({ ...data, lng: e.target.value });
+                                    setAlertLngCache(false);
+                                    setAlertTotalCreateCache(false);
+                                }}onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (!data.lng) {
+                                            setAlertLngCache("Por favor, ingrese coordenadas válidas del caché.");
+                                        } else if (isNaN(data.lng)) {
+                                            setAlertLngCache("Por favor, ingrese un número válido para las coordenadas del caché.");
+                                        } else {
+                                            sendCacheRegistral();
+                                            setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                        }
+                                    }
                                 }}
+                                
                             ></input>
+                            {alertLngCache ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertLngCache}
+                                </div>
+                            ) : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
@@ -286,14 +438,22 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setDifficulty(e.target.value);
+                                    setAlertDifficulty(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
                             >
-                                <option value="-1">---</option>
+                                <option value="">---</option>
                                 <option value="Baja">Baja</option>
                                 <option value="Media">Media</option>
                                 <option value="Alta">Alta</option>
                             </select>
+                            {alertDifficulty ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertDifficulty}
+                                </div>
+                            ) : null}
                         </div>
+                        
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
                         <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
@@ -308,26 +468,74 @@ export const Cache = () => {
                                 onChange={(e) => {
                                     setError(false);
                                     setSize(e.target.value);
+                                    setAlertSize(false);
+                                    setAlertTotalCreateCache(false);
                                 }}
                             >
-                                <option value="-1">---</option>
+                                <option value="">---</option>
                                 <option value="Pequeño">Pequeño</option>
                                 <option value="Mediano">Mediano</option>
                                 <option value="Grande">Grande</option>
                             </select>
+                            {alertSize ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertSize}
+                                </div>
+                            ) : null}
                         </div>
+                        
                     </div>
                     <div className="text-center mt-2 p-3 mb-4">
                         <button
                             className="btn btn-dark btn-lg"
                             onClick={() => {
-                                sendCacheRegistral();
+                                if (name.trim() === "") {
+                                    setAlertNameCache("Por favor, ingrese un nombre de caché.");
+                                  } else if (description.trim() === "") {
+                                    setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
+                                  } else if (postalCode.trim() === "") {
+                                    setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
+                                  } else if (!data.lat) {
+                                    setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                  } else if (isNaN(data.lat)) {
+                                    setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                  } else if (!data.lng) {
+                                    setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                  } else if (isNaN(data.lng)) {
+                                    setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                  } else if (comunidadID === null) {
+                                    setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                  }else if (!comunidadID) {
+                                    setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                  }else if (provinciaID === null) {
+                                    setAlertProvincias("Por favor, seleccione una Provincia.");
+                                  }else if (!provinciaID) {
+                                    setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
+                                  }else if (difficulty === "") {
+                                    setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                  }else if (!difficulty) {
+                                    setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                  } else if (size === "") {
+                                    setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                  }else if (!size) {
+                                    setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                  }
+                                  else {
+                                    sendCacheRegistral();
+                                    setAlertTotalCreateCache("Cambios actualizados correctamente");
+                                  }
                             }}
                         >
                             Registra tu Caché
                         </button>
-                        {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
+                       
+                        {alertTotalCreateCache ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertTotalCreateCache}
+                                </div>
+                            ) : null}
                     </div>
+
                 </div>
             </div>
 
