@@ -460,15 +460,20 @@ export const MiPerfil = () => {
             <div className=" row row-cols-lg-2 row-cols-md-1 row-cols-sm-1">
 
                 <div className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13} mx-auto`}>
-
+                    
 
                     <button className={`${showDiv1 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarDatosPersonales}>Datos Personales </button>
-                    <button className={`${showDiv2 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesPropios}> Cachés Registrados </button>
+                    <button className={`${showDiv2 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesPropios}> Cachés Registrados {getPendingCaches.length === 0 ? null :
+                        <span className="createalert translate-middle badge rounded-pill bg-danger">
+                          {getPendingCaches.length}+ 
+                        </span>}</button>
                     <button className={`${showDiv3 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesEncontrados}> Cachés Encontrados </button>
                     <button className={`${showDiv4 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>
                     <button className={`${showDiv5 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary mb-5 `} onClick={mostrarPostsFavoritos}> Posts Favoritos </button>
                     {store.admin ? <button className={`${showDiv13 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary mt-5`} onClick={mostrarAdmin}> Admin panel </button> : null}
                 </div>
+
+                
 
                 <div className="  mt-5">
 
@@ -567,7 +572,7 @@ export const MiPerfil = () => {
                                         } else if (email.trim() != "" && emailRegex.test(email.trim()) && name.trim() != "" && countries.includes(country.trim()) || country.trim() === "") {
                                             await actions.getUpdateUser(email, name, country, city);
                                             setAlertTotalChanges("Cambios actualizados correctamente");
-                                        } else if(!countries.includes(country.trim()) && country.trim() != ""){
+                                        } else if (!countries.includes(country.trim()) && country.trim() != "") {
                                             setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).");
                                         }
                                     }
@@ -592,7 +597,7 @@ export const MiPerfil = () => {
                                     } else {
                                         if (!countries.includes(country.trim()) && country.trim() != "") {
                                             setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas.");
-                                        } 
+                                        }
                                         if (name.trim() === "") {
                                             setAlertName("Por favor, ingrese un nombre de usuario.");
                                         }
@@ -617,9 +622,18 @@ export const MiPerfil = () => {
                             <h2 className="text-center text-danger my-5">Mis Cachés Registrados</h2>
                             <div className="text-center mb-4">
                                 <div className="" aria-label="Basic checkbox toggle button group" >
-                                    <button type="button " className="btn btn-warning mx-2 my-2" onClick={mostrarCachesCreadosEnviados}>Cachés Enviados <i className="fa-solid fa-rocket"></i></button>
-                                    <button type="button " className="btn btn-success mx-2" onClick={mostrarCachesCreadosAprobados}>Cachés Aprobados <i className="fa-solid fa-face-smile"></i></button>
-                                    <button type="button " className="btn btn-danger mx-2 my-2" onClick={mostrarCachesCreadosRechazados} >Cachés Rechazados <i className="fa-solid fa-heart-crack"></i></button>
+                                    <button type="button " className="btn btn-warning mx-2 my-2" onClick={mostrarCachesCreadosEnviados}>Cachés Enviados <i className="fa-solid fa-rocket"></i>{getPendingCaches.length === 0 ? null :
+                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
+                            {getPendingCaches.length}+
+                        </span>}</button>
+                                    <button type="button " className="btn btn-success mx-2" onClick={mostrarCachesCreadosAprobados}>Cachés Aprobados <i className="fa-solid fa-face-smile"></i>{approvedCaches.length === 0 ? null :
+                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
+                            {approvedCaches.length}+
+                        </span>}</button>
+                                    <button type="button " className="btn btn-danger mx-2 my-2" onClick={mostrarCachesCreadosRechazados} >Cachés Rechazados <i className="fa-solid fa-heart-crack"></i>{declinedCaches.length === 0 ? null :
+                        <span className="createalertespecífica translate-middle badge rounded-pill bg-dark">
+                            {declinedCaches.length}+
+                        </span>}</button>
                                 </div>
                             </div>
                         </div>

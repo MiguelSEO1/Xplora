@@ -547,6 +547,8 @@ tr {
   left: px;
 }
 
+
+
 }
 
 
@@ -558,5 +560,27 @@ tr {
 
 .imgenescachespremium.active {
   transform: scale(2);
+  
+}
+
+.btn .createalert {
+  position: relative;
+  top: 6px;
+  left: 30px;
+  
+}
+.btn .createalertespecífica {
+  position: relative;
+  top: -5px;
+  left: 30px;
+ 
+  
+}
+
+section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
+  width: 100%;
+  margin-top: 130px;
+  padding: 2em;
+  
   
 }
