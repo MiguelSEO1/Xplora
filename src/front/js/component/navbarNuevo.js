@@ -156,7 +156,12 @@ export const NavbarNuevo = () => {
                                 </Link>
                             </li>
                             <li className="nav-item d-none d-lg-block">
-                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                <Link to="#historia" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                    Historia
+                                </Link>
+                            </li>
+                            <li className="nav-item d-none d-lg-block">
+                                <Link to="#faqs" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
                                     Faqs
                                 </Link>
                             </li>
@@ -234,7 +239,9 @@ export const NavbarNuevo = () => {
                                     <Buscador />) : null}
                             </>) : (<>
                                 <a class="dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
+                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Historia</a>
                                 <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
+
                                 <hr className="dropdown-divider" />
                                 <a class="dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
                                 <a class="dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>

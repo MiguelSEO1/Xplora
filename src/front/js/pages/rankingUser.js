@@ -21,7 +21,7 @@ export const RankingUser = () => {
         .catch(error => console.error(error));
 
     return (
-        <div className="vh-100 container text-center">
+        <div className="vh-100 container text-center mb-5">
             <h1 className="container-fluid text-center cuerpo mb-4">Ranking de Usuarios</h1>
             <p>¡Bienvenidos a nuestra sección de rankings! Aquí podrás encontrar información detallada sobre tus logros en la búsqueda de tesoros. Verás tu posición actual para compararte con otros miembros de la comunidad. ¡A por ellos!</p>
             <div className="container-fluid text-center my-5">

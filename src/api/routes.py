@@ -178,6 +178,7 @@ def create_comments(id):
 
 
 
+
 @api.route('/perfil-cache-comments/<int:id>', methods=['GET'])
 def get_comments(id):
     cache = Cache.query.filter_by(id=id).first()
@@ -296,6 +297,24 @@ def new():
     print("@@@@@@@@@")
     db.session.commit()
     return jsonify({"response": "Cache is favorite"}), 200  
+
+@api.route('/api/add-found-cache', methods=['POST'])
+@jwt_required()
+def add_found_cache():
+    user_id = get_jwt_identity()
+    user = User.query.get(user_id)
+    cache_id = request.json.get("id")
+    cache_found = Cache.query.filter_by(cache_id=cache_id, user_id=user_id).first()
+    if cache_found in user.caches_found:
+        return jsonify({"response": "Cache already found by user"}), 400
+    new_cache_found = Cache(cache_id=cache_id, user_id=user_id)
+    db.session.add(new_cache_found)
+    db.session.commit()
+    user.caches_found.append(new_cache_found)
+    return jsonify({"response": "Cache added to user's found caches"}), 200
+
+
+   
 
 @api.route('/register', methods=['POST'])
 def user_register():

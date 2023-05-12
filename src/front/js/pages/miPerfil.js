@@ -239,7 +239,7 @@ export const MiPerfil = () => {
         setShowDiv3(false);
         setShowDiv4(false);
         setShowDiv5(false);
-        setShowDiv6(false);
+        setShowDiv6(true);
         setShowDiv7(false);
         setShowDiv8(false);
         setShowDiv9(false);
@@ -966,7 +966,7 @@ export const MiPerfil = () => {
                                         return (
                                             <div key={i} class=" comentario card my-4">
                                                 <div className="  card-body ">
-                                                    <div class="d-flex justify-content-center bg-light p-1">
+                                                    <div class="d-flex justify-content-center bg-light p-1 py-2">
                                                         <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImageSkull} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
                                                         <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                                     </div>

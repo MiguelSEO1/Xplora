@@ -15,6 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ caches: data.results })
 			},
 
+			
+
 			getCachesToShow: async () => {
 				const response = await fetch(process.env.BACKEND_URL + "/api/ToShowcache");
 				const data = await response.json();
@@ -152,6 +154,28 @@ const getState = ({ getStore, getActions, setStore }) => {
 				if (response.ok) {
 					getActions().validateUser();
 
+				} else {
+					setError(responsetoJson.response);
+				}
+			},
+
+			createFoundCaches: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/create-user-found",
+					{
+						method: "POST",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.ok) {
+					getActions().validateUser();
 				} else {
 					setError(responsetoJson.response);
 				}

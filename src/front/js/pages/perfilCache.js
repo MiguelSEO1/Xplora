@@ -42,7 +42,8 @@ export const PerfilCache = () => {
 
     }, []);
 
-
+    
+    
 
     const getCacheComments = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-comments/" + params.id)
@@ -85,6 +86,26 @@ export const PerfilCache = () => {
             getCacheComments();
         }
     };
+
+    const addUserFoundCache = async (id) => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/add-found-cache/", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: "Bearer " + localStorage.getItem("token"),
+          },
+          body: JSON.stringify({
+            id: id,
+          }),
+        });
+      
+        if (response.ok) {
+            console.log("Cache encontrado añadido correctamente");
+        } else {
+            console.error("Error al añadir el cache encontrado");
+        }
+      };
+      
 
     const deleteComments = async (id) => {
         const response = await fetch(process.env.BACKEND_URL + "/api/delete-comments", {
@@ -295,7 +316,7 @@ export const PerfilCache = () => {
                             <h2 className="text-center my-3">Registra Hallazgo de este Caché</h2>
                             <img src={perfilDetails.qr_code_url} width="300" height="auto" alt="QR code" />
                             <div className="text-center my-4">
-                                <button type="button" class="btn btn-danger" onClick={() => {
+                                <button type="button" class="btn btn-danger" onClick={() => {addUserFoundCache(caches.id)
                                 }}>Registrar el hallazgo de este Caché <i className="fa-regular fa-star"></i></button>
                             </div>
                         </div>
@@ -316,7 +337,7 @@ export const PerfilCache = () => {
                                     <label className="mb-2 fw-bold" htmlFor="formFileMultiple">Selecciona un Título:</label>
                                     <input name="title" value={comment.title} onChange={(e) => {
                                         setComment({ ...comment, [e.target.name]: e.target.value });
-                                        setAlertMessage(false); 
+                                        setAlertMessage(false);
                                     }}
                                         onKeyDown={async (e) => {
                                             if (e.key === 'Enter') {
@@ -387,7 +408,7 @@ export const PerfilCache = () => {
                             {perfilComment.map((comment, i) => {
                                 return <div key={i} class=" comentario card my-4">
                                     <div className="  card-body ">
-                                        <div class="d-flex justify-content-center bg-light p-1">
+                                        <div class="d-flex justify-content-center bg-light p-1 py-2">
                                             <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
                                             <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                         </div>
@@ -397,7 +418,7 @@ export const PerfilCache = () => {
                                                 {store.currentUser.id === comment.user.id ? (
                                                     <button type="button" class="my-2 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
                                                 ) : (
-                                                    <button type="button" class="my-2 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>Denunciar <i class="fa-solid fa-bug"></i></button>
+                                                    <button type="button" class="my-2 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>spam <i class="fa-solid fa-bug"></i></button>
                                                 )}
                                             </div>
 
@@ -433,7 +454,7 @@ export const PerfilCache = () => {
                                                                                     if (updatedComment.title.trim().length > 0 && updatedComment.text.trim().length > 0) {
                                                                                         await editComments(comment.id, updatedComment);
                                                                                         setAlertMessageEdits("Comentario editado correctamente.");
-                                                                                        
+
                                                                                     } else if (updatedComment.title.trim().length === 0 && updatedComment.text.trim().length === 0) {
                                                                                         setAlertMessageEdits("Por favor, completa ambos campos antes de editar tu comentario.");
                                                                                     } else if (updatedComment.title.trim().length === 0) {
@@ -444,8 +465,8 @@ export const PerfilCache = () => {
                                                                                 }
                                                                             }}
 
-
-                                                                            type="email" class="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" placeholder="Título" />
+                                                                            
+                                                                            type="email" class="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" placeholder={comment.title} />
 
 
                                                                         <div className="my-3 text-center">
@@ -468,7 +489,7 @@ export const PerfilCache = () => {
                                                                                             setAlertMessageEdits("Por favor, completa el campo del comentario antes de editar tu comentario.");
                                                                                         }
                                                                                     }
-                                                                                }} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" placeholder="Dejar Comentario" rows="3"></textarea>
+                                                                                }} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" placeholder={comment.text} rows="3"></textarea>
                                                                         </div>
                                                                     </div>
                                                                     <div className="border-dark modal-footer mb-3" key={i} >
@@ -508,7 +529,7 @@ export const PerfilCache = () => {
                                         </div>
                                     </div>
                                     <div className="card-body mb-4">
-                                        <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
+                                        <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-4 bordecomment">{comment.title}</h3>
                                         <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                     </div>
                                 </div>
@@ -627,7 +648,7 @@ export const PerfilCache = () => {
                                     return <div key={i} class="comentario card mt-4">
 
                                         <div class="card-body">
-                                            <div class="d-flex justify-content-center bg-light p-1 mb-1">
+                                            <div class="d-flex justify-content-center bg-light p-1 py-2 mb-1">
                                                 <img src={image.user.profile_image_url ? image.user.profile_image_url : urlImage} alt="Imagen del usuario" class=" card-img-topcomme  img-fluid" />
                                                 <h6 class="card-title text-danger fw-bold text namecomment my-auto">{image.user.name}</h6>
                                             </div>

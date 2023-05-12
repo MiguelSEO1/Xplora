@@ -252,9 +252,6 @@ h6 {
 }
 
 @media screen and (min-width: 1200px) {
-  
-  
-  
   .Orbital {
     display: none;
   }
@@ -293,8 +290,6 @@ h6 {
     width: 25%;
   }
 
-  
-
   .imagenfotos {
     width: 40%;
   }
@@ -309,34 +304,23 @@ h6 {
 }
 
 @media only screen and (max-width: 480px) {
-  
-  
-  
   .animaciones {
     display: none;
   }
-
-  
 
   .imagenfotos {
     width: 25%;
   }
 
-  .tamanocomentario{
-    font-size:small
-    
+  .tamanocomentario {
+    font-size: small;
   }
 }
 
 @media only screen and (min-width: 1100px) {
-  
-  
-  
   .imgenescaches {
     width: 25%;
   }
-
-  
 
   .imagenfotos {
     width: 40%;
@@ -348,20 +332,8 @@ h6 {
 }
 
 @media only screen and (max-width: 768px) {
-  
-  .card-img-topcomment{
+  .card-img-topcomment {
     width: 20%;
-  }
-
-  .scroll-animation {
-    opacity: 0;
-    transform: translateX(-50px);
-  }
-
-  .scroll-animation.scroll-triggered {
-    opacity: 1;
-    transform: translateX(0);
-    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
   }
 
   .navbar-logo {
@@ -414,13 +386,10 @@ h6 {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
     5px 5px 10px rgba(0, 0, 0, 0.5);
   background-color: #e2eeee;
-  
 }
 
 .comentarioeditado {
-  
   background-color: #f5edc6;
-  
 }
 
 .cajacomentario {
@@ -431,14 +400,12 @@ h6 {
   font-family: "Seaweed Script", cursive;
 }
 
-.label{
+.label {
   font-family: "Seaweed Script", cursive;
 }
 
-.bordecomment{
-  
+.bordecomment {
   border-radius: 10px;
-  
 }
 
 .infocachecaja {
@@ -459,8 +426,6 @@ h6 {
   background-color: #f5edc6;
   border-radius: 10px;
 }
-
-
 
 .cajafotosespecifica {
   box-shadow: -5px -5px 10px rgba(255, 255, 255, 0.5),
@@ -495,14 +460,22 @@ tr {
   margin-bottom: 15%;
 }
 
-.card-img-topcomme, .user-image {
-  max-width: 50px; /* establece el ancho máximo para la imagen */
-  height: 50px; /* ajusta la altura automáticamente para mantener la proporción */
-  margin-left: 2px;
-  object-fit: contain;
+.card-img-topcomme {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border-color: 1px solid #0c0c0c;
 }
 
-.namecomment{
+.user-image {
+  max-width: 40px;
+  height: auto;
+  margin-left: 2px;
+  border-radius: 50%;
+  border-color: 1px solid #0c0c0c;
+}
+
+.namecomment {
   max-width: 15%; /* establece el ancho máximo para la imagen */
   height: auto; /* ajusta la altura automáticamente para mantener la proporción */
   margin-left: 9px;
@@ -514,45 +487,64 @@ tr {
   max-width: 30%;
 }
 
-.imgenescachessubirfoto{
+.imgenescachessubirfoto {
   max-width: 30%;
 }
-@media (max-width: 768px) { /* establece las reglas para pantallas más pequeñas */
-  .card-img-topcomme, .user-image {
-      max-width: 60px; /* establece el ancho máximo para la imagen en pantallas más pequeñas */
-      margin-left: 2px;
-      object-fit: contain;
-  
+@media (max-width: 981px) {
+  /* establece las reglas para pantallas más pequeñas */
+
+  .card-img-topcomme {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+
+    border-color: 1px solid #0c0c0c;
+  }
+
+  .user-image {
+    max-width: 40px;
+    height: auto;
+    margin-left: 2px;
+    border-radius: 50%;
+    border-color: 1px solid #0c0c0c;
+  }
+  .namecomment {
+    max-width: 60%; /* establece el ancho máximo para la imagen en pantallas más pequeñas */
+    margin-left: 6px;
+    margin-top: 10px;
+    font-size: 18px;
+  }
+
+  .imgenescachespremium {
+    max-width: 50%;
+    z-index: 1;
+  }
+
+  .imgenescachessubirfoto {
+    max-width: 70%;
+  }
+
+  .botonhover {
+    position: absolute;
+    z-index: 2;
+    left: px;
+  }
+
+  .scroll-animation {
+    opacity: 0;
+    transform: translateX(-50px);
+  }
+
+  .scroll-animation.scroll-triggered {
+    opacity: 1;
+    transform: translateX(0);
+    transition: opacity 1s ease-in-out, transform 1s ease-in-out;
+  }
+
+  .imagenhome {
+    max-width: 100%;
+  }
 }
-.namecomment{
-  max-width: 60%; /* establece el ancho máximo para la imagen en pantallas más pequeñas */
-  margin-left: 6px;
-  margin-top: 10px;
-  font-size: 18px;
-  
-}
-
-.imgenescachespremium {
-  max-width: 50%;
-  z-index: 1;
-}
-
-.imgenescachessubirfoto{
-  max-width: 70%;
-}
-
-.botonhover{
-  position: absolute;
-  z-index: 2;
-  left: px;
-}
-
-
-
-}
-
-
-
 
 .imgenescachespremium {
   transition: transform 0.9s ease-in-out;
@@ -560,27 +552,58 @@ tr {
 
 .imgenescachespremium.active {
   transform: scale(2);
-  
 }
 
 .btn .createalert {
   position: relative;
   top: 6px;
   left: 30px;
-  
 }
 .btn .createalertespecífica {
   position: relative;
   top: -5px;
   left: 30px;
- 
-  
 }
 
 section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
   width: 100%;
-  margin-top: 130px;
-  padding: 2em;
-  
-  
+  padding-top: 2em;
+  padding-bottom: 8em;
+
+  text-align: center;
+}
+
+.homesection {
+  background-color: #f5edc6;
+}
+
+.accordion-button {
+  color: #f7f8fa;
+  background-color: #444444;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+  text-align: center;
+}
+
+.accordion-button:not(.collapsed) {
+  color: #030303;
+  background-color: #A97618;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
+}
+
+.accordion-button::after {
+  flex-shrink: 0;
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-left: auto;
+  content: "";
+  background-color: aliceblue;
+  background-image: url(https://openclipart.org/image/800px/303694);
+}
+
+.botonaventura {
+  border-color: #444444;
+}
+
+.imagenhome {
+  max-width: 70%;
 }
