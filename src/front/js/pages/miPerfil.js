@@ -470,7 +470,6 @@ export const MiPerfil = () => {
                         </span>}</button>
                     <button className={`${showDiv3 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesEncontrados}> Cachés Encontrados </button>
                     <button className={`${showDiv4 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>
-                    <button className={`${showDiv5 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary mb-5 `} onClick={mostrarPostsFavoritos}> Posts Favoritos </button>
                     {store.admin ? <button className={`${showDiv13 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary mt-5`} onClick={mostrarAdmin}> Admin panel </button> : null}
                 </div>
 
@@ -642,14 +641,35 @@ export const MiPerfil = () => {
                     {showDiv3 ? (
                         <div className="border border-dark border border-2 rounded registro container my-5">
                             <h2 className="text-center text-danger my-5">Mis Cachés Encontrados</h2>
-                            <div >
-                                <div className="text-center mb-4">
-                                    <div className="" aria-label="Basic checkbox toggle button group" >
-                                        <button type="button " className="btn btn-warning mx-2 my-2" onClick={mostrarCachesEncontradosEnviados}>Cachés Enviados <i className="fa-solid fa-rocket"></i></button>
-                                        <button type="button " className="btn btn-success mx-2" onClick={mostrarCachesEncontradosAprobados}>Cachés Aprobados <i className="fa-solid fa-face-smile"></i></button>
-                                        <button type="button " className="btn btn-danger mx-2 my-2" onClick={mostrarCachesEncontradosRechazados} >Cachés Rechazados <i className="fa-solid fa-heart-crack"></i></button>
-                                    </div>
-                                </div>
+                            <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
+
+                                {store.currentUser.caches_found <= 0 ?
+                                    <h2 className="text-center mx-auto text-primary "> No tienes nada</h2> :
+                                    store.currentUser.caches_found.map((cache_Found) => {
+                                        return (
+                                            <div className="">
+                                                <div className=" esquinaCarta card " key={cache_Found.id}>
+                                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                                    <div className="card-body text-center">
+                                                    <h3 className="card-title">{cache_Found.comunidad_autonoma}</h3>
+                                                    <h4 className="card-title">{cache_Found.provincia}</h4>
+                                                        <p className="card-text">{cache_Found.name}</p>
+                                                        <Link to={"/perfil-cache/" + cache_Found.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
+                                                            <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
+                                                        </Link>
+                                                        <button onClick={() => {
+                                                            actions.createFavoritesCaches(cache_Found.id);
+                                                        }} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache_Found.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
+                                                        {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
+                                                        
+                                                        
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        );
+                                    })
+                                }
                             </div>
                         </div>
                     ) : null}
@@ -981,7 +1001,6 @@ export const MiPerfil = () => {
                                                 <div className="card-body mb-4">
                                                     <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
                                                     <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
-                                                    {comment.is_spam ? <p className="tamano text-danger">Motivo: Spam</p> : null}
                                                 </div>
                                             </div>
                                         )

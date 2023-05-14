@@ -221,20 +221,20 @@ def reported_comments_Spam():
     return jsonify(comment.serialize()), 200
     return jsonify({"error": "Comment not found"}), 404
  
-@api.route('/reported-comments-violence', methods=['PUT'])
+@api.route('/admin-rol', methods=['PUT'])
 @jwt_required()
-def reported_comments_violence():
+def adm_rol_user():
     user_id = get_jwt_identity()
-    comment_id= request.json.get("id")
-    comment = Comment.query.get(comment_id)
-    if comment:
-        if comment.is_violence:
-            comment.is_violence = False
+    user_id= request.json.get("id")
+    user = User.query.get(user_id)
+    if user:
+        if user.is_admin:
+            user.is_admin = False
         else:
-            comment.is_violence = True
+            user.is_admin = True
     db.session.commit()
-    return jsonify(comment.serialize()), 200
-    return jsonify({"error": "Comment not found"}), 404
+    return jsonify(user.serialize()), 200
+    return jsonify({"error": "user no Adm error"}), 404
 
 @api.route('/update-comments/', methods=['PUT'])
 @jwt_required()
@@ -298,19 +298,31 @@ def new():
     db.session.commit()
     return jsonify({"response": "Cache is favorite"}), 200  
 
-@api.route('/api/add-found-cache', methods=['POST'])
+@api.route('/add-cache-found/<int:id>', methods=['POST'])
 @jwt_required()
-def add_found_cache():
+def cache_found(id):
+    cache = Cache.query.filter_by(id=id).first()
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
+    user.caches_found.append(cache)
+    db.session.commit() 
+    return jsonify({"response": "cache found ok"}), 200
+ 
+
+
+@api.route('/api/create-user-found', methods=['POST'])
+@jwt_required()
+def found_cache():
+    user_id = get_jwt_identity()
     cache_id = request.json.get("id")
     caches_found = Cache.query.filter_by(cache_id=cache_id, user_id=user_id).first()
     if caches_found in user.caches_found:
         return jsonify({"response": "Cache already found by user"}), 400
-    new_cache_found = Cache(cache_id=cache_id, user_id=user_id)
+    new_cache_found = Cache_found(cache_id=cache_id, user_id=user_id)
     db.session.add(new_cache_found)
+    print(caches_found)
+    print("@@@@@@@@@")
     db.session.commit()
-    user.caches_found.append(new_cache_found)
     return jsonify({"response": "Cache added to user's found caches"}), 200
 
 

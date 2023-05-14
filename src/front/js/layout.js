@@ -18,6 +18,7 @@ import { SeguridadBusquedaCaches } from "./pages/seguridadBusquedaCaches";
 import { ResolverCaches } from "./pages/resolverCaches";
 import { CachesUrbanos } from "./pages/cachesUrbanos";
 import { PaginaEnhorabuena } from "./pages/paginaEnhorabuena";
+import { AdmPage } from "./pages/admPage";
 
 
 import { CachesFamilia } from "./pages/cachesFamilia";
@@ -57,6 +58,8 @@ const Layout = () => {
             <Route element={<Login />} path="/login" />
             <Route element={<PerfilCache />} path="/perfil-cache/:id" />
             <Route element={<MiPerfil />} path="/mi-Perfil" />
+            <Route element={<AdmPage />} path="/adm-XP" />
+
             <Route element={<Register />} path="/register" />
             <Route element={<Cache />} path="/reg_cache" />
             <Route element={<PaginaEnhorabuena />} path="/enhorabuena" />

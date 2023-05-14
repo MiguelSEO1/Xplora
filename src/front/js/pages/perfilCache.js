@@ -40,6 +40,7 @@ export const PerfilCache = () => {
     const [alertQr, setAlertQR] = useState("");
     const [cacheClave, setCacheClave] = useState("");
     const [secretClave, setSecretClave] = useState("");
+    const [cacheFound, setCacheFound] = useState({});
 
 
 
@@ -55,10 +56,12 @@ export const PerfilCache = () => {
 
         if (cacheClave === perfilDetails.cache_password) {
             setMostrarQR(true);
-            setAlertQR(false);
+            setAlertQR(null);
         } else {
             setAlertQR("clave invalida");
             setMostrarQR(false);
+            setAlertBotonRegister(null);
+            setMostrarBotonRegister(false);
         }
     };
 
@@ -67,7 +70,7 @@ export const PerfilCache = () => {
 
         if (secretClave === perfilDetails.secret_password) {
             setMostrarBotonRegister(true);
-            setAlertBotonRegister(false);
+            setAlertBotonRegister(null);
         } else {
             setAlertBotonRegister("clave Secreta invalida");
             setMostrarBotonRegister(false);
@@ -87,7 +90,26 @@ export const PerfilCache = () => {
         setPerfilImages(data)
     };
 
+    const addUserCache = async (cache_Found) => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/add-cache-found/" + params.id, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
 
+            },
+            body: JSON.stringify(cache_Found),
+        });
+      
+        if (!response.ok) {
+          throw new Error('Error al añadir el caché al usuario');
+        }
+      
+        const data = await response.json();
+        return setCacheFound(data);
+      };
+
+    
 
 
     const getDetails = async () => {
@@ -344,7 +366,7 @@ export const PerfilCache = () => {
                     {selectedDiv3 ? (
                         <div className="container text-center">
                             <h2 className="text-center my-3">Registra Hallazgo de este Caché</h2>
-                            <p className=" font-monospace text-center mb-4"> <i className=" text-danger fa-solid fa-book-skull fa-2x"></i>   PASO 1- Si has hallado el Caché {perfilDetails.name} introduce aquí la CLAVE SECRETA que has encontrado en el mismo. </p>
+                            <p className=" font-monospace text-center mb-4"> <i className=" text-danger fa-solid fa-book-skull fa-2x"></i>   PASO 1- Si has hallado el Caché "{perfilDetails.name}" introduce aquí la CLAVE SECRETA que has encontrado en el mismo. </p>
                             <form onSubmit={showQR}>
                                 <input
                                     type="text"
@@ -390,7 +412,7 @@ export const PerfilCache = () => {
                                     <div className="text-center my-4">
                                         <p className="font-monospace text-center mb-4"> <i class=" text-warning fa-sharp fa-regular fa-hand-peace fa-2x"></i> PASO 3. Ya puedes Registrar el Hallazgo de tu Tesoro </p>
                                         <button type="submit" className="btn btn-danger my-3" onClick={() => {
-                                            addUserFoundCache(caches.id)
+                                            addUserCache(caches.id)
                                         }}>Registrar el hallazgo de este Caché <i className="text-warning fa-regular fa-star"></i></button>
                                     </div>
                                 </div>

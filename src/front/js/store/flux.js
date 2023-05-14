@@ -4,7 +4,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			caches: [],
 			cachesToShow: [],
 			userActive: null,
-			currentUser: {favorites:[]},
+			currentUser: {favorites:[], caches_found:[]},
+
 			is_favorite: false,
 		},
 
@@ -115,9 +116,32 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			
+
 			reportedCommentsviolence: async (id) => {
 				const response = await fetch(
 					process.env.BACKEND_URL + "/api/reported-comments-",
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.status == 200) { return response.json() 
+				}else {
+					setError(responsetoJson.response);
+				}
+			},
+
+			adminRol: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/admin-rol",
 					{
 						method: "PUT",
 						headers: {
