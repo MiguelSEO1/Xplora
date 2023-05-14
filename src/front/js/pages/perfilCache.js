@@ -33,6 +33,14 @@ export const PerfilCache = () => {
     const [alertMessageFotos, setAlertMessageFotos] = useState("");
     const [alertMessageEdit, setAlertMessageEdits] = useState("");
     const [shouldCloseModal, setShouldCloseModal] = useState(false);
+    const [inputValue, setInputValue] = useState('');
+    const [mostrarQr, setMostrarQR] = useState(false);
+    const [mostrarBotonRegister, setMostrarBotonRegister] = useState(false);
+    const [alertBotonRegister, setAlertBotonRegister] = useState("");
+    const [alertQr, setAlertQR] = useState("");
+    const [cacheClave, setCacheClave] = useState("");
+    const [secretClave, setSecretClave] = useState("");
+
 
 
     useEffect(() => {
@@ -42,8 +50,30 @@ export const PerfilCache = () => {
 
     }, []);
 
-    
-    
+    const showQR = (e) => {
+        e.preventDefault();
+
+        if (cacheClave === perfilDetails.cache_password) {
+            setMostrarQR(true);
+            setAlertQR(false);
+        } else {
+            setAlertQR("clave invalida");
+            setMostrarQR(false);
+        }
+    };
+
+    const showRegisterBoton = (e) => {
+        e.preventDefault();
+
+        if (secretClave === perfilDetails.secret_password) {
+            setMostrarBotonRegister(true);
+            setAlertBotonRegister(false);
+        } else {
+            setAlertBotonRegister("clave Secreta invalida");
+            setMostrarBotonRegister(false);
+        }
+    };
+
 
     const getCacheComments = async () => {
         const response = await fetch(process.env.BACKEND_URL + "/api/perfil-cache-comments/" + params.id)
@@ -89,23 +119,23 @@ export const PerfilCache = () => {
 
     const addUserFoundCache = async (id) => {
         const response = await fetch(process.env.BACKEND_URL + "/api/add-found-cache/", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: "Bearer " + localStorage.getItem("token"),
-          },
-          body: JSON.stringify({
-            id: id,
-          }),
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+            },
+            body: JSON.stringify({
+                id: id,
+            }),
         });
-      
+
         if (response.ok) {
             console.log("Cache encontrado añadido correctamente");
         } else {
             console.error("Error al añadir el cache encontrado");
         }
-      };
-      
+    };
+
 
     const deleteComments = async (id) => {
         const response = await fetch(process.env.BACKEND_URL + "/api/delete-comments", {
@@ -314,11 +344,63 @@ export const PerfilCache = () => {
                     {selectedDiv3 ? (
                         <div className="container text-center">
                             <h2 className="text-center my-3">Registra Hallazgo de este Caché</h2>
-                            <img src={perfilDetails.qr_code_url} width="300" height="auto" alt="QR code" />
-                            <div className="text-center my-4">
-                                <button type="button" class="btn btn-danger" onClick={() => {addUserFoundCache(caches.id)
-                                }}>Registrar el hallazgo de este Caché <i className="fa-regular fa-star"></i></button>
-                            </div>
+                            <p className=" font-monospace text-center mb-4"> <i className=" text-danger fa-solid fa-book-skull fa-2x"></i>   PASO 1- Si has hallado el Caché {perfilDetails.name} introduce aquí la CLAVE SECRETA que has encontrado en el mismo. </p>
+                            <form onSubmit={showQR}>
+                                <input
+                                    type="text"
+                                    className="imputhallazgo w-50 mx-auto form-control mb-3 border border-dark border border-2 bordecomment bg-dark text-white"
+                                    placeholder="Introduzca la clave"
+                                    value={cacheClave}
+                                    onChange={(e) => setCacheClave(e.target.value)}
+                                />
+                                <button type="submit" className="  btn btn-dark my-3">
+                                    Validar clave
+                                </button>
+                            </form>
+                            {mostrarQr ?
+                                <div>
+                                    <img src={perfilDetails.qr_code_url} width="300" height="auto" alt="QR code" />
+                                    <p className="font-monospace text-center mb-4"> <i class="text-primary fa-solid fa-gem fa-2x"></i> PASO 2. Escanea el QR y optén la Clave definitiva para REGISTRAR TU HALLAZGO</p>
+
+                                    <form onSubmit={showRegisterBoton}>
+                                        <input
+                                            type="text"
+                                            className="imputhallazgo w-50 mx-auto form-control mb-3 border-dark border border-2 bordecomment bg-dark text-white"
+                                            placeholder="clave SECRETA"
+                                            value={secretClave}
+                                            onChange={(e) => setSecretClave(e.target.value)}
+                                        />
+                                        <button type="submit" className="btn btn-primary my-3">
+                                            Validar clave
+                                        </button>
+                                    </form>
+                                </div>
+
+                                : null
+                            }
+                            {alertQr ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertQr}
+                                </div>
+                            ) : null}
+
+
+                            {mostrarBotonRegister ?
+                                <div>
+                                    <div className="text-center my-4">
+                                        <p className="font-monospace text-center mb-4"> <i class=" text-warning fa-sharp fa-regular fa-hand-peace fa-2x"></i> PASO 3. Ya puedes Registrar el Hallazgo de tu Tesoro </p>
+                                        <button type="submit" className="btn btn-danger my-3" onClick={() => {
+                                            addUserFoundCache(caches.id)
+                                        }}>Registrar el hallazgo de este Caché <i className="text-warning fa-regular fa-star"></i></button>
+                                    </div>
+                                </div>
+                                : null
+                            }
+                            {alertBotonRegister ? (
+                                <div className="mb-3 label alert alert-danger" role="alert">
+                                    {alertBotonRegister}
+                                </div>
+                            ) : null}
                         </div>
                     ) : null}
                     {selectedDiv4 ? (
@@ -465,7 +547,7 @@ export const PerfilCache = () => {
                                                                                 }
                                                                             }}
 
-                                                                            
+
                                                                             type="email" class="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlInput1" placeholder={comment.title} />
 
 

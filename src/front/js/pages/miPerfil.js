@@ -150,6 +150,7 @@ export const MiPerfil = () => {
         const responsetoJson = await response.json();
         if (response.ok) {
             getCachesPending();
+            actions.getCaches();
         } else {
             setError(responsetoJson.response);
         }

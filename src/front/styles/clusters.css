@@ -607,3 +607,9 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
 .imagenhome {
   max-width: 70%;
 }
+
+.imputhallazgo {
+  width: 11em;
+  max-width: 100%;
+  min-width: 200px;
+}

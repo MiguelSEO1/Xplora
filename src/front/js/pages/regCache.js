@@ -11,6 +11,9 @@ export const Cache = () => {
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
     const [postalCode, setPostalCode] = useState("");
+    const [secretPassword, setSecretPassword] = useState("");
+    const [cachePassword, setCachePassword] = useState("");
+
     const [difficulty, setDifficulty] = useState("");
     const [size, setSize] = useState("");
     const [error, setError] = useState("");
@@ -29,8 +32,8 @@ export const Cache = () => {
     const [alertProvincias, setAlertProvincias] = useState("");
     const [alertLatCache, setAlertLatCache] = useState("");
     const [alertLngCache, setAlertLngCache] = useState("");
-
-
+    const [alerSecretPassword, setAlerSecretPassword] = useState("");
+    const [alertCachePassword, setAlerCachePassword] = useState("");
 
 
     const sendCacheRegistral = async () => {
@@ -52,7 +55,8 @@ export const Cache = () => {
                     coordinates_x: data.lng.toString(),
                     difficulty: difficulty,
                     size: size,
-
+                    secret_password: secretPassword,
+                    cache_password: cachePassword,
                 }),
             }
         );
@@ -63,13 +67,13 @@ export const Cache = () => {
             setError(responsetoJson.response);
         }
     };
-    
+
     useEffect(() => {
         if (data.lat && data.lng) {
-          setAlertLatCache(false);
-          setAlertLngCache(false);
+            setAlertLatCache(false);
+            setAlertLngCache(false);
         }
-      }, [data.lat, data.lng]);
+    }, [data.lat, data.lng]);
 
     useEffect(() => {
         const getComunidades = async () => {
@@ -106,6 +110,8 @@ export const Cache = () => {
         backgroundImage: `url(${mapaPirata})`,
     };
 
+    const regex = /^[a-zA-Z0-9]*$/;
+
     return (
         <section className="mx-auto cuerpo" >
             <div className=" container text-center my-3">
@@ -140,44 +146,53 @@ export const Cache = () => {
                                         e.preventDefault();
                                         if (name.trim() === "") {
                                             setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                        } if (description.trim() === "") {
+                                        }else if  (description.trim() === "") {
                                             setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                        } if (postalCode.trim() === "") {
+                                        }else if (postalCode.trim() === "") {
                                             setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                        } if (!data.lat) {
+                                        }else if (!data.lat) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (isNaN(data.lat)) {
+                                        }else if (isNaN(data.lat)) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (!data.lng) {
+                                        }else if (!data.lng ) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (isNaN(data.lng)) {
+                                        }else if (isNaN(data.lng)) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (comunidadID === null) {
+                                        }else if (comunidadID === null) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (!comunidadID) {
+                                        }else if (!comunidadID) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (provinciaID === null) {
+                                        }else if (provinciaID === null ) {
                                             setAlertProvincias("Por favor, seleccione una Provincia.");
-                                        } if (!provinciaID) {
+                                        }else if (!provinciaID) {
                                             setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (difficulty === "") {
+                                        }else if (difficulty === "") {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (!difficulty) {
+                                        }else if (!difficulty) {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (size === "") {
+                                        }else if (size === "") {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        } if (!size) {
+                                        }else if (!size) {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        }
-                                        else {
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        } else {
                                             sendCacheRegistral();
                                             setAlertTotalCreateCache(
                                                 <div className="alert alert-success">
                                                   Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
                                                    Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                                 </div>
-                                              );     
-                                                                                 }
+                                              );
+                                             
+        
+                                        }
                                     }
                                 }}
 
@@ -188,7 +203,6 @@ export const Cache = () => {
                                     {alertNameCache}
                                 </div>
                             ) : null}
-                            {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
                         </div>
                     </div>
                     <div className="row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
@@ -212,44 +226,53 @@ export const Cache = () => {
                                         e.preventDefault();
                                         if (name.trim() === "") {
                                             setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                        } if (description.trim() === "") {
+                                        }else if  (description.trim() === "") {
                                             setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                        } if (postalCode.trim() === "") {
+                                        }else if (postalCode.trim() === "") {
                                             setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                        } if (!data.lat) {
+                                        }else if (!data.lat) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (isNaN(data.lat)) {
+                                        }else if (isNaN(data.lat)) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (!data.lng) {
+                                        }else if (!data.lng ) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (isNaN(data.lng)) {
+                                        }else if (isNaN(data.lng)) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (comunidadID === null) {
+                                        }else if (comunidadID === null) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (!comunidadID) {
+                                        }else if (!comunidadID) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (provinciaID === null) {
+                                        }else if (provinciaID === null ) {
                                             setAlertProvincias("Por favor, seleccione una Provincia.");
-                                        } if (!provinciaID) {
+                                        }else if (!provinciaID) {
                                             setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (difficulty === "") {
+                                        }else if (difficulty === "") {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (!difficulty) {
+                                        }else if (!difficulty) {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (size === "") {
+                                        }else if (size === "") {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        } if (!size) {
+                                        }else if (!size) {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        }
-                                        else {
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else {
                                             sendCacheRegistral();
                                             setAlertTotalCreateCache(
                                                 <div className="alert alert-success">
                                                   Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
                                                    Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                                 </div>
-                                              );   
-                                                                                  }
+                                              );
+                                             
+        
+                                        }
                                     }
                                 }}
 
@@ -362,44 +385,53 @@ export const Cache = () => {
                                         e.preventDefault();
                                         if (name.trim() === "") {
                                             setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                        } if (description.trim() === "") {
+                                        }else if  (description.trim() === "") {
                                             setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                        } if (postalCode.trim() === "") {
+                                        }else if (postalCode.trim() === "") {
                                             setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                        } if (!data.lat) {
+                                        }else if (!data.lat) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (isNaN(data.lat)) {
+                                        }else if (isNaN(data.lat)) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (!data.lng) {
+                                        }else if (!data.lng ) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (isNaN(data.lng)) {
+                                        }else if (isNaN(data.lng)) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (comunidadID === null) {
+                                        }else if (comunidadID === null) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (!comunidadID) {
+                                        }else if (!comunidadID) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (provinciaID === null) {
+                                        }else if (provinciaID === null ) {
                                             setAlertProvincias("Por favor, seleccione una Provincia.");
-                                        } if (!provinciaID) {
+                                        }else if (!provinciaID) {
                                             setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (difficulty === "") {
+                                        }else if (difficulty === "") {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (!difficulty) {
+                                        }else if (!difficulty) {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (size === "") {
+                                        }else if (size === "") {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        } if (!size) {
+                                        }else if (!size) {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        }
-                                        else {
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else {
                                             sendCacheRegistral();
                                             setAlertTotalCreateCache(
                                                 <div className="alert alert-success">
                                                   Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
                                                    Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                                 </div>
-                                              );   
-                                                                                   }
+                                              );
+                                             
+        
+                                        }
                                     }
                                 }}
                             ></input>
@@ -443,44 +475,53 @@ export const Cache = () => {
                                         e.preventDefault();
                                         if (name.trim() === "") {
                                             setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                        } if (description.trim() === "") {
+                                        }else if  (description.trim() === "") {
                                             setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                        } if (postalCode.trim() === "") {
+                                        }else if (postalCode.trim() === "") {
                                             setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                        } if (!data.lat) {
+                                        }else if (!data.lat) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (isNaN(data.lat)) {
+                                        }else if (isNaN(data.lat)) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (!data.lng) {
+                                        }else if (!data.lng ) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (isNaN(data.lng)) {
+                                        }else if (isNaN(data.lng)) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (comunidadID === null) {
+                                        }else if (comunidadID === null) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (!comunidadID) {
+                                        }else if (!comunidadID) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (provinciaID === null) {
+                                        }else if (provinciaID === null ) {
                                             setAlertProvincias("Por favor, seleccione una Provincia.");
-                                        } if (!provinciaID) {
+                                        }else if (!provinciaID) {
                                             setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (difficulty === "") {
+                                        }else if (difficulty === "") {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (!difficulty) {
+                                        }else if (!difficulty) {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (size === "") {
+                                        }else if (size === "") {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        } if (!size) {
+                                        }else if (!size) {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        }
-                                        else {
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else {
                                             sendCacheRegistral();
                                             setAlertTotalCreateCache(
                                                 <div className="alert alert-success">
                                                   Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
                                                    Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                                 </div>
-                                              );  
-                                                                                    }
+                                              );
+                                             
+        
+                                        }
                                     }
                                 }}
 
@@ -507,9 +548,9 @@ export const Cache = () => {
                                 placeholder="coordinatesX"
                                 value={data ? data.lng : ""}
                                 onBlur={() => {
-                                       
-                                       setAlertLngCache(false);
-                                 }}
+
+                                    setAlertLngCache(false);
+                                }}
                                 onChange={(e) => {
                                     setError(false);
                                     setData({ ...data, lng: e.target.value });
@@ -520,44 +561,53 @@ export const Cache = () => {
                                         e.preventDefault();
                                         if (name.trim() === "") {
                                             setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                        } if (description.trim() === "") {
+                                        }else if  (description.trim() === "") {
                                             setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                        } if (postalCode.trim() === "") {
+                                        }else if (postalCode.trim() === "") {
                                             setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                        } if (!data.lat) {
+                                        }else if (!data.lat) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (isNaN(data.lat)) {
+                                        }else if (isNaN(data.lat)) {
                                             setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                        } if (!data.lng) {
+                                        }else if (!data.lng ) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (isNaN(data.lng)) {
+                                        }else if (isNaN(data.lng)) {
                                             setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                        } if (comunidadID === null) {
+                                        }else if (comunidadID === null) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (!comunidadID) {
+                                        }else if (!comunidadID) {
                                             setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (provinciaID === null) {
+                                        }else if (provinciaID === null ) {
                                             setAlertProvincias("Por favor, seleccione una Provincia.");
-                                        } if (!provinciaID) {
+                                        }else if (!provinciaID) {
                                             setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                        } if (difficulty === "") {
+                                        }else if (difficulty === "") {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (!difficulty) {
+                                        }else if (!difficulty) {
                                             setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                        } if (size === "") {
+                                        }else if (size === "") {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        } if (!size) {
+                                        }else if (!size) {
                                             setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                        }
-                                        else {
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        } else {
                                             sendCacheRegistral();
                                             setAlertTotalCreateCache(
                                                 <div className="alert alert-success">
                                                   Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
                                                    Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                                 </div>
-                                              ); 
-                                                                                     }
+                                              );
+                                             
+        
+                                        }
                                     }
                                 }}
 
@@ -629,50 +679,221 @@ export const Cache = () => {
                         </div>
 
                     </div>
+                    <div className=" row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
+                        <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
+                            Clave oculta en Caché:{" "}
+                        </label>
+                        <div className="mx-auto col-sm-10">
+                            <input
+                                className="form-control"
+                                name="cachePassword"
+                                placeholder="Clave oculta en Caché"
+                                value={cachePassword}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setCachePassword(e.target.value);
+                                    setAlerCachePassword(false);
+                                    setAlertTotalCreateCache(false);
+                                }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (name.trim() === "") {
+                                            setAlertNameCache("Por favor, ingrese un nombre de caché.");
+                                        }else if  (description.trim() === "") {
+                                            setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
+                                        }else if (postalCode.trim() === "") {
+                                            setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
+                                        }else if (!data.lat) {
+                                            setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                        }else if (isNaN(data.lat)) {
+                                            setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                        }else if (!data.lng ) {
+                                            setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                        }else if (isNaN(data.lng)) {
+                                            setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                        }else if (comunidadID === null) {
+                                            setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (!comunidadID) {
+                                            setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (provinciaID === null ) {
+                                            setAlertProvincias("Por favor, seleccione una Provincia.");
+                                        }else if (!provinciaID) {
+                                            setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (difficulty === "") {
+                                            setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                        }else if (!difficulty) {
+                                            setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                        }else if (size === "") {
+                                            setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                        }else if (!size) {
+                                            setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        } else {
+                                            sendCacheRegistral();
+                                            setAlertTotalCreateCache(
+                                                <div className="alert alert-success">
+                                                  Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
+                                                   Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
+                                                </div>
+                                              );
+                                             
+        
+                                        }
+                                    }
+                                }}
+
+
+                            ></input>
+                            {alertCachePassword ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alertCachePassword}
+                                </div>
+                            ) : null}
+                            {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
+                        </div>
+                    </div>
+                    <div className=" row row-cols-lg-1 row-cols-md-1 d-flex justify-content-center mx-auto my-3">
+                        <label className=" text-center mx-auto col-sm-2 col-form-label fw-bold" htmlFor="description">
+                            Clave Secreta :{" "}
+                        </label>
+                        <div className="mx-auto col-sm-10">
+                            <input
+                                className="form-control"
+                                name="secretPassword"
+                                placeholder="Clave Secreta"
+                                value={secretPassword}
+                                onChange={(e) => {
+                                    setError(false);
+                                    setSecretPassword(e.target.value);
+                                    setAlerSecretPassword(false);
+                                    setAlertTotalCreateCache(false);
+                                }}
+                                onKeyUp={async (e) => {
+                                    if (e.key === 'Enter') {
+                                        e.preventDefault();
+                                        if (name.trim() === "") {
+                                            setAlertNameCache("Por favor, ingrese un nombre de caché.");
+                                        }else if  (description.trim() === "") {
+                                            setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
+                                        }else if (postalCode.trim() === "") {
+                                            setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
+                                        }else if (!data.lat) {
+                                            setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                        }else if (isNaN(data.lat)) {
+                                            setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
+                                        }else if (!data.lng ) {
+                                            setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                        }else if (isNaN(data.lng)) {
+                                            setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
+                                        }else if (comunidadID === null) {
+                                            setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (!comunidadID) {
+                                            setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (provinciaID === null ) {
+                                            setAlertProvincias("Por favor, seleccione una Provincia.");
+                                        }else if (!provinciaID) {
+                                            setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
+                                        }else if (difficulty === "") {
+                                            setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                        }else if (!difficulty) {
+                                            setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
+                                        }else if (size === "") {
+                                            setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                        }else if (!size) {
+                                            setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                        }else if (secretPassword.trim() === "") {
+                                            setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                        }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                            setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }else if (cachePassword.trim() === "") {
+                                            setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                        }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                            setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                        }
+                                        else {
+                                            sendCacheRegistral();
+                                            setAlertTotalCreateCache(
+                                                <div className="alert alert-success">
+                                                  Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
+                                                   Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
+                                                </div>
+                                              );
+                                             
+        
+                                        }
+                                    }
+                                }}
+
+
+                            ></input>
+                            {alerSecretPassword ? (
+                                <div className=" label alert alert-danger" role="alert">
+                                    {alerSecretPassword}
+                                </div>
+                            ) : null}
+                            {error ? <p className="label alert alert-danger mt-2 ">{error}</p> : null}
+                        </div>
+                    </div>
                     <div className="text-center mt-2 p-3 mb-4">
                         <button
                             className="btn btn-dark btn-lg"
                             onClick={() => {
                                 if (name.trim() === "") {
                                     setAlertNameCache("Por favor, ingrese un nombre de caché.");
-                                } if (description.trim() === "") {
+                                } else if (description.trim() === "") {
                                     setAlertDescription("Por favor, ingrese una descripción adecuada de caché.");
-                                } if (postalCode.trim() === "") {
+                                } else if (postalCode.trim() === "") {
                                     setAlertPostalCode("Por favor, ingrese un código postal de ubicación del caché.");
-                                } if (!data.lat) {
+                                } else if (!data.lat) {
                                     setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                } if (isNaN(data.lat)) {
+                                } else if (isNaN(data.lat)) {
                                     setAlertLatCache("Por favor, ingrese coordenadas de Latitud válidas del caché.");
-                                } if (!data.lng ) {
+                                } else if (!data.lng) {
                                     setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                } if (isNaN(data.lng)) {
+                                } else if (isNaN(data.lng)) {
                                     setAlertLngCache("Por favor, ingrese coordenadas de Longitud válidas del caché.");
-                                } if (comunidadID === null) {
+                                } else if (comunidadID === null) {
                                     setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                } if (!comunidadID) {
+                                } else if (!comunidadID) {
                                     setAlertComunidades("Por favor, seleccione una Comunidad Autónoma.");
-                                } if (provinciaID === null ) {
+                                } else if (provinciaID === null) {
                                     setAlertProvincias("Por favor, seleccione una Provincia.");
-                                } if (!provinciaID) {
+                                } else if (!provinciaID) {
                                     setAlertProvincias("Por favor, seleccione una Comunidad Autónoma.");
-                                } if (difficulty === "") {
+                                } else if (difficulty === "") {
                                     setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                } if (!difficulty) {
+                                } else if (!difficulty) {
                                     setAlertDifficulty("Por favor, seleccione un nivel de dificultad del caché.");
-                                } if (size === "") {
+                                } else if (size === "") {
                                     setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
-                                } if (!size) {
+                                } else if (!size) {
                                     setAlertSize("Por favor, seleccione un nivel de tamaño del caché.");
+                                } else if (secretPassword.trim() === "") {
+                                    setAlerSecretPassword("Por favor, ingrese una clave Secreta de caché.");
+                                }else if (secretPassword.trim().length !== 8 || !regex.test(secretPassword.trim())) {
+                                    setAlerSecretPassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
+                                }else if (cachePassword.trim() === "") {
+                                    setAlerCachePassword("Por favor, ingrese una clave para su caché.");
+                                }else if (cachePassword.trim().length !== 8 || !regex.test(cachePassword.trim())) {
+                                    setAlerCachePassword("La clave secreta debe tener exactamente 8 caracteres alfanuméricos y sin tildes.");
                                 }
                                 else {
                                     sendCacheRegistral();
                                     setAlertTotalCreateCache(
                                         <div className="alert alert-success">
-                                          Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
-                                           Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
+                                            Caché creado correctamente. Nuetros administradores revisaran el mismo, el cual podrá ser rechazado o Aprobado.
+                                            Para comprobar el Estado de tus Caches creados visite <a href="/mi-perfil">Tú Perfil</a> (caches Registrados), para más detalles.
                                         </div>
-                                      );
-                                     
+                                    );
+
 
                                 }
                             }}
@@ -688,6 +909,7 @@ export const Cache = () => {
                             ) : null
                         )}
                     </div>
+
 
                 </div>
             </div>

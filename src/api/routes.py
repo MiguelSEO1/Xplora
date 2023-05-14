@@ -304,8 +304,8 @@ def add_found_cache():
     user_id = get_jwt_identity()
     user = User.query.get(user_id)
     cache_id = request.json.get("id")
-    cache_found = Cache.query.filter_by(cache_id=cache_id, user_id=user_id).first()
-    if cache_found in user.caches_found:
+    caches_found = Cache.query.filter_by(cache_id=cache_id, user_id=user_id).first()
+    if caches_found in user.caches_found:
         return jsonify({"response": "Cache already found by user"}), 400
     new_cache_found = Cache(cache_id=cache_id, user_id=user_id)
     db.session.add(new_cache_found)
@@ -398,14 +398,34 @@ def cache_register():
     body_size = request.json.get("size")
     if not body_size or not isinstance(body_size, str):
         return jsonify({"response": "Parámetro de 'tamaño' no válido o faltante"}), 400
+
+    body_secret_password = request.json.get("secret_password")
+    if not body_secret_password or not isinstance(body_secret_password, str):
+        return jsonify({"response": "clave secreta no válido o faltante"}), 400
+
+    body_cache_password = request.json.get("cache_password")
+    if not body_cache_password or not isinstance(body_cache_password, str):
+        return jsonify({"response": "clave oculta en Caché no válida o faltante"}), 400
     
     # Checks if cache exists
     cache_already_exist = Cache.query.filter_by(name= body_name).first()
     if cache_already_exist:
         return jsonify({"response": "Caché ya creado, elige otro nombre"}), 300
+    
+    # Checks if secretPassword exists
+    secret_password_already_exist = Cache.query.filter_by(secret_password= body_secret_password).first()
+    if secret_password_already_exist:
+        return jsonify({"response": "Clave secreta ya existente, elige otra diferente"}), 300
+
+    # Checks if cachePassword exists
+    cache_password_already_exist = Cache.query.filter_by(cache_password= body_cache_password).first()
+    if cache_password_already_exist:
+        return jsonify({"response": "Clave oculta en caché ya existente, elige otra diferente"}), 300
+
+    
 
     # Generating the QR code image
-    qr_data = f"{body_name}, {body_description}, {body_comunidad_autonoma}, {body_provincia}, {body_postal_code}, {body_difficulty}, {body_size} ({'Lat ' + body_coordinates_y}, {'Lng' + body_coordinates_x})"
+    qr_data = f"{body_secret_password}"
     qr_img = qrcode.make(qr_data)
 
     # Store the Qr code as binary data in the database
@@ -415,6 +435,8 @@ def cache_register():
 
     # Encode binary data to base64 string
     qr_code_data = base64.b64encode(qr_binary).decode('utf-8')
+
+    
 
     # Submit all data of new to the database
     new_cache = Cache(
@@ -427,10 +449,15 @@ def cache_register():
         coordinates_y=body_coordinates_y,
         coordinates_x=body_coordinates_x,
         difficulty=body_difficulty,
+        secret_password=body_secret_password,
+        cache_password=body_cache_password,
         size=body_size,
         qr_code=qr_code_data,
         owner_id=user_id,
         )
+
+        
+
     db.session.add(new_cache)
     db.session.commit()
     return jsonify({"response": "Caché registrado con éxito"}), 200   

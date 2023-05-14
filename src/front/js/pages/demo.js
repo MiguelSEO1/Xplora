@@ -8,7 +8,7 @@ import { Cluster } from "../component/cluster";
 
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
-	const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+	const [mostrarTarjetas, setMostrarTarjetas] = useState(8);
 
 
 

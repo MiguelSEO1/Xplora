@@ -2,7 +2,7 @@ from flask_sqlalchemy import SQLAlchemy
 
 db = SQLAlchemy()
 
-cache_found = db.Table('cache_found',
+cache_found = db.Table('caches_found',
     db.Column('user_id', db.Integer, db.ForeignKey('user.id'), primary_key=True),
     db.Column('cache_id', db.Integer, db.ForeignKey('cache.id'), primary_key=True)
 )
@@ -85,6 +85,8 @@ class Cache(db.Model):
     images = db.relationship('ImageGalery', backref='cache')
     favorites = db.relationship('Favorite', backref='cache')
     is_favorite = db.Column(db.Boolean, nullable=False, default=False)
+    cache_password = db.Column(db.String(255), nullable=False, unique=True)
+    secret_password = db.Column(db.String(255), nullable=False, unique=True)
     
     def serialize(self):
         return {
@@ -103,6 +105,8 @@ class Cache(db.Model):
             "difficulty": self.difficulty,
             "qr_code": self.qr_code,
             "owner_id": self.owner_id,
+            "cache_password": self.cache_password,
+             "secret_password": self.secret_password,
             "comments": [x.serialize() for x in self.comments],
             "images" : [x.serialize() for x in self.images],
             #"favorites" : [x.serialize() for x in self.favorites]

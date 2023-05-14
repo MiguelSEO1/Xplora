@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5b1277df42a8
+Revision ID: 9d05910208b2
 Revises: 
-Create Date: 2023-04-27 19:27:53.239791
+Create Date: 2023-05-14 09:49:02.170098
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5b1277df42a8'
+revision = '9d05910208b2'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -63,10 +63,14 @@ def upgrade():
     sa.Column('qr_code', sa.String(length=5000), nullable=False),
     sa.Column('owner_id', sa.Integer(), nullable=False),
     sa.Column('is_favorite', sa.Boolean(), nullable=False),
+    sa.Column('cache_password', sa.String(length=255), nullable=False),
+    sa.Column('secret_password', sa.String(length=255), nullable=False),
     sa.ForeignKeyConstraint(['owner_id'], ['user.id'], ),
-    sa.PrimaryKeyConstraint('id')
+    sa.PrimaryKeyConstraint('id'),
+    sa.UniqueConstraint('cache_password'),
+    sa.UniqueConstraint('secret_password')
     )
-    op.create_table('cache_found',
+    op.create_table('caches_found',
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('cache_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['cache_id'], ['cache.id'], ),
@@ -129,7 +133,7 @@ def downgrade():
     op.drop_table('image_galery')
     op.drop_table('favorite')
     op.drop_table('comment')
-    op.drop_table('cache_found')
+    op.drop_table('caches_found')
     op.drop_table('cache')
     op.drop_table('blog')
     op.drop_table('user')
