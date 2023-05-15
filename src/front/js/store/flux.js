@@ -139,7 +139,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			adminRol: async (id) => {
+			adminRolUser: async (id) => {
 				const response = await fetch(
 					process.env.BACKEND_URL + "/api/admin-rol",
 					{

@@ -75,12 +75,12 @@ export const NavbarNuevo = () => {
                             </Link>
                         </li>
                         <li className="nav-item dropdown d-none d-lg-block" onClick={() => setShowSearch(false)}>
-                            <Link to="/" className="elemento nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
+                            <Link to="/" className=" elemento nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                 cachés
                             </Link>
                             <ul className="dropdown-menu ">
                                 <li className="nav-item d-none d-lg-block">
-                                    <Link to="/tipos-de-caches" className="nav-link active desplegable" onClick={() => {
+                                    <Link to="/tipos-de-caches" className="text-center nav-link active desplegable" onClick={() => {
                                         setShowSearch(false); // Este es el evento original
                                         window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
                                     }} aria-current="page">
@@ -89,7 +89,7 @@ export const NavbarNuevo = () => {
                                 </li>
 
                                 <li className="nav-item d-none d-lg-block">
-                                    <Link to="/reg_cache" className="nav-link active desplegable" onClick={() => {
+                                    <Link to="/reg_cache" className="text-center nav-link active desplegable" onClick={() => {
                                         setShowSearch(false); // Este es el evento original
                                         window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
                                     }} aria-current="page">
@@ -110,11 +110,11 @@ export const NavbarNuevo = () => {
                             <ul className="dropdown-menu">
 
                                 <Link to="/mi-Perfil" className="text-decoration-none" onClick={() => window(0, 0)}>
-                                    <button className="dropdown-item" href="#">Mi perfil</button>
+                                    <button className="text-center dropdown-item" href="#">Mi perfil</button>
                                 </Link>
 
                                 <button
-                                    className="dropdown-item nav-item me-1 text-danger text-aling"
+                                    className="text-center dropdown-item nav-item me-1 text-danger text-aling"
                                     onClick={async () => {
                                         if (await actions.logout()) {
                                             navigate("/");
@@ -132,6 +132,27 @@ export const NavbarNuevo = () => {
                         </li>
                         <li className="nav-item d-none d-lg-block me-auto">
                             <button type="button btn-sm mt-1 " className="btn btn-light" onClick={() => { mostrarBuscador(); window(0, 0) }}><i className="fa-sharp fa-solid fa-magnifying-glass"></i></button>
+                        </li>
+                        <div className="dropdown-center ">
+
+
+                            <div className="dropdown-center ">
+                                <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-lock"></i>
+                                </button>
+                                <ul className="dropdown-menu">
+                                    <Link to="/adm-XP" className="text-decoration-none" onClick={() => window(0, 0)}>
+                                        <button className="text-center dropdown-item" href="#">Admin</button>
+                                    </Link>
+                                </ul>
+                            </div>
+
+
+                        </div>
+                        <li className="nav-item d-none d-lg-block ">
+                            <Link to="/adm-XP" className="nav-link active text-danger" aria-current="page" onClick={() => window(0, 0)}>
+                                Admin
+                            </Link>
                         </li>
                     </ul>
                 </>

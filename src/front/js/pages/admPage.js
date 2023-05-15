@@ -74,7 +74,7 @@ export const AdmPage = () => {
                                 return <tr className={user.id == myrank.id ? "alert alert-warning" : "bg-light"} key={user.id}>
                                     <td className="text-center py-4 fs-6">{position + 1}</td>
                                     <td className="text-center fs-6">{user.name}    <button type="submit" className="d-flex justify-content-center btn btn-danger my-3" onClick={() => {
-                                        actions.adminRol(user.id)
+                                        actions.adminRolUser(user.id)
                                     }}>adm <i className="text-warning fa-regular fa-star"></i></button></td>
                                     <td className="text-center fs-6">{user.caches}</td>
 
@@ -92,4 +92,5 @@ export const AdmPage = () => {
         </div>
     );
 }
+
 
