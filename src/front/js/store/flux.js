@@ -4,7 +4,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			caches: [],
 			cachesToShow: [],
 			userActive: null,
-			currentUser: {favorites:[], caches_found:[]},
+			currentUser: {favorites:[]},
 
 			is_favorite: false,
 		},
@@ -16,7 +16,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ caches: data.results })
 			},
 
-			
+			adminRolUser: async (id) => {
+				const response = await fetch(
+					process.env.BACKEND_URL + "/api/admin-rol",
+					{
+						method: "PUT",
+						headers: {
+							"Content-Type": "application/json",
+							Authorization: "Bearer " + localStorage.getItem("token"),
+						},
+						body: JSON.stringify({
+							id: id,
+						}),
+					}
+				);
+				const responsetoJson = await response.json();
+				if (response.status == 200) { return response.json() 
+				}else {
+					setError(responsetoJson.response);
+				}
+			},
 
 			getCachesToShow: async () => {
 				const response = await fetch(process.env.BACKEND_URL + "/api/ToShowcache");

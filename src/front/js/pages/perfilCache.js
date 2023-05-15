@@ -100,16 +100,16 @@ export const PerfilCache = () => {
             },
             body: JSON.stringify(cache_Found),
         });
-      
+
         if (!response.ok) {
-          throw new Error('Error al añadir el caché al usuario');
+            throw new Error('Error al añadir el caché al usuario');
         }
-      
+
         const data = await response.json();
         return setCacheFound(data);
-      };
+    };
 
-    
+
 
 
     const getDetails = async () => {
@@ -521,9 +521,10 @@ export const PerfilCache = () => {
                                             <div className="d-flex justify-content-center ">
                                                 {store.currentUser.id === comment.user.id ? (
                                                     <button type="button" class="my-2 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
-                                                ) : (
-                                                    <button type="button" class="my-2 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>spam <i class="fa-solid fa-bug"></i></button>
-                                                )}
+                                                ) : null}
+                                                {store.currentUser.id === comment.user.id ? (
+                                                <button type="button" class="my-2 mx-1 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>spam <i class="fa-solid fa-bug"></i></button>
+                                                ) : null}
                                             </div>
 
                                             <div className="d-flex my-auto mx-1" >
