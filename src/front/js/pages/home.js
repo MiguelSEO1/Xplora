@@ -34,6 +34,7 @@ export const Home = () => {
 
   window.addEventListener('scroll', checkScroll);
 
+  
 
 
   return (

@@ -461,19 +461,25 @@ export const MiPerfil = () => {
             <div className=" row row-cols-lg-2 row-cols-md-1 row-cols-sm-1">
 
                 <div className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13} mx-auto`}>
-                    
 
-                    <button className= "colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarDatosPersonales}>Datos Personales </button>
-                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados {getPendingCaches.length === 0 ? null :
-                        <span className="createalert translate-middle badge rounded-pill bg-danger">
-                          {getPendingCaches.length}+ 
-                        </span>}</button>
-                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados </button>
-                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>
+
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarDatosPersonales}>Datos Personales </button>
+                    {getPendingCaches.length === 0 ? null :
+                        <span className=" mt-5 position-absolute translate-middle badge rounded-pill bg-danger">
+                            {getPendingCaches.length}+
+                        </span>}<button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados </button> 
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados</button>{store.currentUser.favorites.length === 0 ? null :
+                        <span class="mt-2  position-absolute translate-middle badge rounded-pill bg-danger">
+                            {store.currentUser.caches_found.length}+
+                        </span>}
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>{store.currentUser.favorites.length === 0 ? null :
+                        <span class=" mt-2 position-absolute translate-middle badge rounded-pill bg-danger">
+                            {store.currentUser.favorites.length}+
+                        </span>}
                     {store.admin ? <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto mt-5" onClick={mostrarAdmin}> Admin panel </button> : null}
                 </div>
 
-                
+
 
                 <div className="  mt-5">
 
@@ -623,17 +629,17 @@ export const MiPerfil = () => {
                             <div className="text-center mb-4">
                                 <div className="" aria-label="Basic checkbox toggle button group" >
                                     <button type="button " className="btn btn-warning mx-2 my-2" onClick={mostrarCachesCreadosEnviados}>Cachés Enviados <i className="fa-solid fa-rocket"></i>{getPendingCaches.length === 0 ? null :
-                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
-                            {getPendingCaches.length}+
-                        </span>}</button>
+                                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
+                                            {getPendingCaches.length}+
+                                        </span>}</button>
                                     <button type="button " className="btn btn-success mx-2" onClick={mostrarCachesCreadosAprobados}>Cachés Aprobados <i className="fa-solid fa-face-smile"></i>{approvedCaches.length === 0 ? null :
-                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
-                            {approvedCaches.length}+
-                        </span>}</button>
+                                        <span className="createalertespecífica translate-middle badge rounded-pill bg-danger">
+                                            {approvedCaches.length}+
+                                        </span>}</button>
                                     <button type="button " className="btn btn-danger mx-2 my-2" onClick={mostrarCachesCreadosRechazados} >Cachés Rechazados <i className="fa-solid fa-heart-crack"></i>{declinedCaches.length === 0 ? null :
-                        <span className="createalertespecífica translate-middle badge rounded-pill bg-dark">
-                            {declinedCaches.length}+
-                        </span>}</button>
+                                        <span className="createalertespecífica translate-middle badge rounded-pill bg-dark">
+                                            {declinedCaches.length}+
+                                        </span>}</button>
                                 </div>
                             </div>
                         </div>
@@ -651,8 +657,8 @@ export const MiPerfil = () => {
                                                 <div className=" esquinaCarta card " key={cache_Found.id}>
                                                     <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
                                                     <div className="card-body text-center">
-                                                    <h3 className="card-title">{cache_Found.comunidad_autonoma}</h3>
-                                                    <h4 className="card-title">{cache_Found.provincia}</h4>
+                                                        <h3 className="card-title">{cache_Found.comunidad_autonoma}</h3>
+                                                        <h4 className="card-title">{cache_Found.provincia}</h4>
                                                         <p className="card-text">{cache_Found.name}</p>
                                                         <Link to={"/perfil-cache/" + cache_Found.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
@@ -661,8 +667,8 @@ export const MiPerfil = () => {
                                                             actions.createFavoritesCaches(cache_Found.id);
                                                         }} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache_Found.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
                                                         {error ? <p className="alert alert-warning mt-2">{error}</p> : null}
-                                                        
-                                                        
+
+
                                                     </div>
                                                 </div>
                                             </div>

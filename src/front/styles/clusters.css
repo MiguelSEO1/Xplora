@@ -554,14 +554,16 @@ tr {
   transform: scale(2);
 }
 
-.btn .createalert {
+.createalert {
   position: relative;
-  top: 6px;
-  left: 30px;
+  bottom: 10em;
+ left: 23em;
+  
+  justify-content: end;
 }
 .btn .createalertespecífica {
   position: relative;
-  top: -5px;
+  top: -10px;
   left: 30px;
 }
 
@@ -586,7 +588,7 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
 
 .accordion-button:not(.collapsed) {
   color: #030303;
-  background-color: #A97618;
+  background-image: linear-gradient(to bottom, #f5d296, #b2a656);
   box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.125);
 }
 
@@ -615,7 +617,7 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
 }
 
 .colorgradiente {
-  background-color: #e70909;
+  
   background-image: linear-gradient(to bottom, #f5d296, #b2a656);
   color: rgb(7, 7, 7);
   border: 1px solid rgb(63, 62, 62);
@@ -631,3 +633,4 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
 .h2map{
   line-height: 3em;
 }
+

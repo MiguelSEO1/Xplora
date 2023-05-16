@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
+import { useNavigate } from "react-router-dom";
 import Skull from "../../img/skull.svg";
 import QRCode from "react-qr-code";
 import Mapa from "../../img/mapa.png"
@@ -11,6 +12,7 @@ import { MapsGooglecopy } from "../component/mapsGooglecopy";
 
 export const PerfilCache = () => {
     const params = useParams();
+    const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [files, setFiles] = useState(null)
     const [urlImage, seturlImage] = useState("https://thumbs.dreamstime.com/b/cr%C3%A1neo-e-icono-de-la-bandera-pirata-aislado-50307817.jpg");
@@ -297,6 +299,7 @@ export const PerfilCache = () => {
                     <div className="col-lg-12 col-md-12 mb-3">
                         <h1 className=" text-center mt-2 align-self-start">Datos Caché "{perfilDetails.name}"</h1>
                     </div>
+                    
                     <div className="btn-group container my-5" aria-label="Basic checkbox toggle button group" >
                         <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarDatosCache}>Información Caché</label>
                         <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarComentariosCache}> Comentarios y Fotos</label>
@@ -412,7 +415,8 @@ export const PerfilCache = () => {
                                     <div className="text-center my-4">
                                         <p className="font-monospace text-center mb-4"> <i class=" text-warning fa-sharp fa-regular fa-hand-peace fa-2x"></i> PASO 3. Ya puedes Registrar el Hallazgo de tu Tesoro </p>
                                         <button type="submit" className="btn btn-danger my-3" onClick={() => {
-                                            addUserCache(caches.id)
+                                            addUserCache(caches.id);
+                                            navigate("/enhorabuena");
                                         }}>Registrar el hallazgo de este Caché <i className="text-warning fa-regular fa-star"></i></button>
                                     </div>
                                 </div>

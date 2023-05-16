@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
+import Miguel from "../../img/miguel.png";
 
 
 
@@ -22,7 +23,7 @@ export const Contact = () => {
                     ¡Hola! Mi nombre es Miguel y soy Desarrollador de Software Full Stack apasionado por el SEO, capaz de colaborar en el desarrollo de aplicaciones y sitios web con habilidades en tecnologías front-end y back-end.
                 </p>
 
-                <img src alt="Descripción de la imagen" style={{ width: '300px', margin: '20px auto' }} />
+                <img src={Miguel} alt="Descripción de la imagen" style={{ width: '300px', margin: '20px auto' }} />
 
                 <h2>Contacto</h2>
                 <p>

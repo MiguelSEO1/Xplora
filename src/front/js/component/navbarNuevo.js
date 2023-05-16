@@ -10,6 +10,7 @@ import logoregistro from "../../img/logoregistro.png"
 
 import person from "../../img/person.png"
 import { Buscador } from "../component/buscador";
+import { element } from "prop-types";
 
 
 

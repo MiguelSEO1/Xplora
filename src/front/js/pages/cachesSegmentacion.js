@@ -3,7 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { ClustersCaches } from "../component/clustersCaches";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
-import Almeria from "../../img/almeria.png";;
+import Almeria from "../../img/almeria.png";
 import Granada from "../../img/granada.png";
 import Malaga from "../../img/malaga.png";
 import Jaen from "../../img/jaen.png";
