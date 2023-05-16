@@ -90,7 +90,7 @@ export const Buscador = () => {
 			{hasFilters && cachesToShow.length > 0 ? (
 				<div>
 					<div className="container mb-5 row row-cols-lg-4 mx-auto gx-3 flex-nowrap overflow-auto pb-3">
-						{cachesToShow.map((cache) => {
+						{cachesToShow.filter(cache => cache.is_approved).map((cache) => {
 							return (
 								<div className="col-sm-1 col-md-4 ">
 								<div className=" Cartabuscador card text-center border border-dark" key={cache.id}>

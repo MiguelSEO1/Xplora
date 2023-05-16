@@ -627,3 +627,7 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
   color: white;
   transform: scale(1.03)
 }
+
+.h2map{
+  line-height: 3em;
+}

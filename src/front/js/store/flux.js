@@ -31,7 +31,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 				);
 				const responsetoJson = await response.json();
-				if (response.status == 200) { return response.json() 
+				if (response.status == 200) { return responsetoJson 
 				}else {
 					setError(responsetoJson.response);
 				}
@@ -158,26 +158,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			adminRolUser: async (id) => {
-				const response = await fetch(
-					process.env.BACKEND_URL + "/api/admin-rol",
-					{
-						method: "PUT",
-						headers: {
-							"Content-Type": "application/json",
-							Authorization: "Bearer " + localStorage.getItem("token"),
-						},
-						body: JSON.stringify({
-							id: id,
-						}),
-					}
-				);
-				const responsetoJson = await response.json();
-				if (response.status == 200) { return response.json() 
-				}else {
-					setError(responsetoJson.response);
-				}
-			},
+			
 
 			createFavoritesCaches: async (id) => {
 				const response = await fetch(
@@ -227,7 +208,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: () => {
 				try {
 					localStorage.removeItem("token");
-					setStore({ userActive: null, currentUser: {} });
+					setStore({ userActive: null, currentUser: {favorites:[]}
+					 });
 					return true;
 				} catch (e) {
 					console.log(e);

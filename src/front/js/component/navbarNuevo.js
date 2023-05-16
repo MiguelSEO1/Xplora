@@ -74,6 +74,14 @@ export const NavbarNuevo = () => {
                                 Blog
                             </Link>
                         </li>
+                        <li className="nav-item d-none d-lg-block">
+                            <Link to="/ranking-usuario" className="elemento nav-link active" onClick={() => {
+                                setShowSearch(false); // Este es el evento original
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }} aria-current="page">
+                                Ranking
+                            </Link>
+                        </li>
                         <li className="nav-item dropdown d-none d-lg-block" onClick={() => setShowSearch(false)}>
                             <Link to="/" className=" elemento nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                 cachés
@@ -98,6 +106,7 @@ export const NavbarNuevo = () => {
                                 </li>
                             </ul>
                         </li>
+                        
                         <div className="dropdown-center ">
                             <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i className="fa-solid fa-user"></i>
@@ -149,11 +158,7 @@ export const NavbarNuevo = () => {
 
 
                         </div>
-                        <li className="nav-item d-none d-lg-block ">
-                            <Link to="/adm-XP" className="nav-link active text-danger" aria-current="page" onClick={() => window(0, 0)}>
-                                Admin
-                            </Link>
-                        </li>
+                        
                     </ul>
                 </>
             ) : (

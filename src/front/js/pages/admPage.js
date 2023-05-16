@@ -48,7 +48,7 @@ export const AdmPage = () => {
 
             <form onSubmit={admin}>
                 <input
-                    type="text"
+                    type="password"
                     className="imputhallazgo w-50 mx-auto form-control mb-3 border border-dark border border-2 bordecomment bg-dark text-white"
                     placeholder="Introduzca la clave"
                     value={admClave}
@@ -69,12 +69,14 @@ export const AdmPage = () => {
                             </tr>
                         </thead>
                         <tbody className="mt-5">
-
                             {users.map((user, position) => {
                                 return <tr className={user.id == myrank.id ? "alert alert-warning" : "bg-light"} key={user.id}>
+                                    {user.is_admin ? "@@@@@":"2222222"}
+
                                     <td className="text-center py-4 fs-6">{position + 1}</td>
-                                    <td className="text-center fs-6">{user.name}    <button type="submit" className="d-flex justify-content-center btn btn-danger my-3" onClick={() => {
-                                        actions.adminRolUser(user.id)
+                                    <td className="text-center fs-6">{user.name}    <button type="submit" className="d-flex justify-content-center btn btn-danger my-3" onClick={async() => {
+                                        await actions.adminRolUser(user.id);
+                                        await userRanking()
                                     }}>adm <i className="text-warning fa-regular fa-star"></i></button></td>
                                     <td className="text-center fs-6">{user.caches}</td>
 

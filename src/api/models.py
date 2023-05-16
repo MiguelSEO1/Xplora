@@ -53,7 +53,8 @@ class User(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "caches": len(self.caches_found)
+            "caches": len(self.caches_found),
+            "is_admin": self.is_admin,
         }
 
 class Blog(db.Model):
@@ -171,7 +172,7 @@ class Comment(db.Model):
             "is_violence": self.is_violence,
             "is_child_abuse": self.is_child_abuse,
             "text": self.text,
-            "user": user.serialize(),
+            "user": user.basicInfo(),
             "complaint": [x.serialize() for x in self.complaint],
 
         }

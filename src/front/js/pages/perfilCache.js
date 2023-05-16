@@ -38,6 +38,7 @@ export const PerfilCache = () => {
     const [mostrarBotonRegister, setMostrarBotonRegister] = useState(false);
     const [alertBotonRegister, setAlertBotonRegister] = useState("");
     const [alertQr, setAlertQR] = useState("");
+    const [alertReport, setAlertReport] = useState(false);
     const [cacheClave, setCacheClave] = useState("");
     const [secretClave, setSecretClave] = useState("");
     const [cacheFound, setCacheFound] = useState({});
@@ -312,14 +313,14 @@ export const PerfilCache = () => {
                         <div className=" container mx-auto row row-cols-lg-2 row-cols-md-1 row-cols-sm-1 mt-5" >
 
                             <div className="   " >
-                                <h2 className=" h2map text-start text-danger text-decoration-underline align-items-start">Ubicación</h2>
+                                <h2 className=" h2map text-start text-danger text-decoration-underline my-auto ">Ubicación</h2>
                                 <MapsGooglecopy setData={setData} />
                             </div>
 
                             <div className=" " >
 
-                                <h2 className=" infocache text-start text-danger mb-5 text-decoration-underline">Información</h2>
-                                <ul className="infocachecaja list-group mb-5">
+                                <h2 className="h2map infocache text-start text-danger mb-5 text-decoration-underline my-auto">Información</h2>
+                                <ul className="infocachecaja list-group mb-5 ">
                                     <li className="list-group-item list-group-item-warning"><strong>Nombre:</strong> {perfilDetails.name}</li>
                                     <li className="list-group-item list-group-item-warning"><strong>Coordenadas:</strong> {perfilDetails.coordinates_x}/ {perfilDetails.coordinates_y} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>País:</strong> {perfilDetails.country}</li>
@@ -328,7 +329,6 @@ export const PerfilCache = () => {
                                     <li className="list-group-item list-group-item-warning"><strong>Dificultad:</strong> {perfilDetails.difficulty} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>Tamaño:</strong> {perfilDetails.size} </li>
                                     <li className="list-group-item list-group-item-warning"><strong>Descripción:</strong> {perfilDetails.description}</li>
-                                    <li className="list-group-item"><strong>QR Code:</strong> <img src={perfilDetails.qr_code_url} width="200" alt="QR code" /></li>
 
                                 </ul>
                             </div>
@@ -369,7 +369,7 @@ export const PerfilCache = () => {
                             <p className=" font-monospace text-center mb-4"> <i className=" text-danger fa-solid fa-book-skull fa-2x"></i>   PASO 1- Si has hallado el Caché "{perfilDetails.name}" introduce aquí la CLAVE SECRETA que has encontrado en el mismo. </p>
                             <form onSubmit={showQR}>
                                 <input
-                                    type="text"
+                                    type="password"
                                     className="imputhallazgo w-50 mx-auto form-control mb-3 border border-dark border border-2 bordecomment bg-dark text-white"
                                     placeholder="Introduzca la clave"
                                     value={cacheClave}
@@ -386,7 +386,7 @@ export const PerfilCache = () => {
 
                                     <form onSubmit={showRegisterBoton}>
                                         <input
-                                            type="text"
+                                            type="password"
                                             className="imputhallazgo w-50 mx-auto form-control mb-3 border-dark border border-2 bordecomment bg-dark text-white"
                                             placeholder="clave SECRETA"
                                             value={secretClave}
@@ -509,43 +509,54 @@ export const PerfilCache = () => {
                                 </div>
                             </div>
 
-                            {perfilComment.map((comment, i) => {
-                                return <div key={i} class=" comentario card my-4">
+                            {perfilComment.map((comment) => {
+                                return <div key={comment.id} class=" comentario card my-4">
                                     <div className="  card-body ">
                                         <div class="d-flex justify-content-center bg-light p-1 py-2">
                                             <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
                                             <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                         </div>
+                                        {alertReport && comment.is_spam ? (
+                                                    <div className=" text-center label alert alert-danger" role="alert">
+                                                        {alertReport}
+                                                    </div>
+                                                ) : null}
                                         <div className=" d-flex justify-content-center ">
 
                                             <div className="d-flex justify-content-center ">
                                                 {store.currentUser.id === comment.user.id ? (
-                                                    <button type="button" class="my-2 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
+                                                    <button type="button" class="my-2 mx-1 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
                                                 ) : null}
                                                 {store.currentUser.id === comment.user.id ? (
-                                                <button type="button" class="my-2 mx-1 btn btn-warning btn-sm" onClick={() => actions.reportedComments(comment.id, getCacheComments)}>spam <i class="fa-solid fa-bug"></i></button>
+                                                    <button type="button" class="my-2 mx-2 btn btn-warning btn-sm" onClick={() => {
+                                                        actions.reportedComments(comment.id, getCacheComments);
+                                                        setAlertReport("Comentario Reportado. Dicha incidencia será revisada por los Administradores del sitio. Pulse de nuevo para retirar dicha incidencia.");
+                                                      }}>Reporte <i class="fa-solid fa-bug"></i></button>
                                                 ) : null}
+                                                
                                             </div>
-
+                                            
                                             <div className="d-flex my-auto mx-1" >
                                                 {store.currentUser.id === comment.user.id ? (
 
 
                                                     <div className="  ">
-                                                        <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                        <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target={"#exampleModal" + comment.id} onClick={()=>{
+                                                            setUpdatedComment({...updatedComment, title:comment.title, text:comment.text})
+                                                        }}>
                                                             Editar  <i class="fa-solid fa-pen-to-square"></i>
                                                         </button>
-
-                                                        <div className=" modal fade" key={i} id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                        
+                                                        <div className=" modal fade" id={"exampleModal" + comment.id} tabIndex="-1" aria-labelledby={"exampleModalLabel" + comment.id} aria-hidden="true">
                                                             <div className="modal-dialog">
                                                                 <div className=" comentarioeditado modal-content">
                                                                     <div className="text-center mx-auto border-danger modal-header">
-                                                                        <h1 className=" mx-1 modal-title fs-5" id="exampleModalLabel">Editar Comentario</h1>
+                                                                        <h1 className=" mx-1 modal-title fs-5" id={"exampleModalLabel" + comment.id}>Editar Comentario</h1>
                                                                         <button type="button" className=" btn-close" data-bs-dismiss="modal" aria-label="Close" onClick={() => {
                                                                             setAlertMessageEdits(false);
                                                                         }}></button>
                                                                     </div>
-                                                                    <div className="  container mt-5 my-3 text-center" key={i} >
+                                                                    <div className="  container mt-5 my-3 text-center"  >
                                                                         <label className="label mb-2 fw-bold" htmlFor="formFileMultiple">Título:</label>
                                                                         <input name="title" value={updatedComment.title} onChange={(e) => {
                                                                             setUpdatedComment({ ...updatedComment, [e.target.name]: e.target.value });
@@ -597,7 +608,7 @@ export const PerfilCache = () => {
                                                                                 }} className="form-control bg-light  p-2 text-dark  border border-dark border border-2 bordecomment" id="exampleFormControlTextarea1" placeholder={comment.text} rows="3"></textarea>
                                                                         </div>
                                                                     </div>
-                                                                    <div className="border-dark modal-footer mb-3" key={i} >
+                                                                    <div className="border-dark modal-footer mb-3"  >
                                                                         <button type="button"
                                                                             className="btn btn-dark btn-sm"
                                                                             onClick={() => {
