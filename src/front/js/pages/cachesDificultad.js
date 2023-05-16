@@ -22,7 +22,7 @@ export const CachesDificultad = () => {
 
             <div className="container">
                 <h1 className="text-center mt-5 mb-4">Cachés por Dificultad</h1>
-                <p className="text-center mb-5">Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
+                <p className="text-center mb-5">¡Prepárate para explorar los tesoros ocultos más desafiantes con nuestra selección de caches por dificultad! Hemos recopilado una lista de opciones emocionantes para explorar, desde los pequeños y sencillos hasta los más desafiantes. ¡No esperes más, comienza a buscar tesoros desafiantes y pon a prueba tus habilidades ahora mismo!</p>
             </div>
             <div className=" container mx-auto text-center">
                 <h2 className="text-center mt-5 my-4">Comienza a Explorar</h2>
@@ -35,7 +35,7 @@ export const CachesDificultad = () => {
             </div>
             <div className="container mx-auto text-center">
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Dificultad más Populares entre Nuestra Comunidad</h2>
-                <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
+                <p className="text-center mb-5">¡Abre tus ojos a lo desconocido y embárcate en una búsqueda épica de los tesoros escondidos por la comunidad! En nuestra selección de caches más populares encontrarás los lugares más fascinantes para explorar a tu alrededor. </p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
                         return (

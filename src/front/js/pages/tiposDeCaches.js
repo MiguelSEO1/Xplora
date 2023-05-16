@@ -20,11 +20,11 @@ export const TiposDeCaches = () => {
 
             <div className="container arriba" >
                 <h1 className="text-center mt-5 mb-4">Tipos de Cachés</h1>
-                <p className="mb-5">Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
+                <p className="mb-5">¡Bienvenido a nuestra sección de tipos de caches! Aquí encontrarás opciones emocionantes para explorar lugares únicos en todo el mundo. Podrás elegir caches por ubicación, tamaño y dificultad, desde los pequeños micro caches escondidos en la ciudad hasta los más grandes caches en plena naturaleza. ¡No esperes más y comienza tu búsqueda de aventuras ahora mismo!</p>
             </div>
             <div className=" container mx-auto text-center">
                 <h2 className="text-center my-4">Comienza a Explorar</h2>
-                <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
+                <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
                 <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
                     <Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
                     <Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
@@ -33,7 +33,7 @@ export const TiposDeCaches = () => {
             </div>
             <div className="container mx-auto text-center mt-5">
                 <h2 className="text-center mb-4 ">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
-                <p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
+                <p>¡Accede a los caches más populares entre nuestra comunidad y descubre por qué son tan populares! Explora y descubre lugares increíbles en todo el mundo a través de los ojos de otros entusiastas. ¡No esperes más, accede a los caches más populares ahora mismo y únete a la diversión!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
                         return (

@@ -613,3 +613,17 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
   max-width: 100%;
   min-width: 200px;
 }
+
+.colorgradiente {
+  background-color: #e70909;
+  background-image: linear-gradient(to bottom, #f5d296, #b2a656);
+  color: rgb(7, 7, 7);
+  border: 1px solid rgb(63, 62, 62);
+  transition: transform 0.2s ease-in-out;
+}
+
+.colorgradiente:hover {
+  background-color: black;
+  color: white;
+  transform: scale(1.03)
+}

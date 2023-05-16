@@ -297,9 +297,9 @@ export const PerfilCache = () => {
                         <h1 className=" text-center mt-2 align-self-start">Datos Caché "{perfilDetails.name}"</h1>
                     </div>
                     <div className="btn-group container my-5" aria-label="Basic checkbox toggle button group" >
-                        <label className="btn btn-outline-primary mx-auto " onClick={mostrarDatosCache}>Información Caché</label>
-                        <label className="btn btn-outline-primary mx-auto " onClick={mostrarComentariosCache}> Comentarios y Fotos</label>
-                        <label className="btn btn-outline-primary mx-auto " onClick={mostrarHallazgoCache}> Registra Tu Hallazgo</label>
+                        <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarDatosCache}>Información Caché</label>
+                        <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarComentariosCache}> Comentarios y Fotos</label>
+                        <label className=" colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarHallazgoCache}> Registra Tu Hallazgo</label>
                     </div>
                 </div>
 
@@ -341,8 +341,8 @@ export const PerfilCache = () => {
                             <div className="text-center mb-5 mt-5 mb-3">
                                 <div >
                                     <div className="" aria-label="Basic checkbox toggle button group g-0" >
-                                        <button type="button " className="btn btn-outline-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
-                                        <button type="button " className="btn btn-outline-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
+                                        <button type="button " className="btn btn-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
+                                        <button type="button " className=" btn btn-dark-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
                                     </div>
                                 </div>
 
@@ -430,8 +430,8 @@ export const PerfilCache = () => {
                         <div className="container">
                             <div className="text-center mb-5 mt-5 ">
                                 <div className="" aria-label="Basic checkbox toggle button group" >
-                                    <button type="button " className="btn btn-outline-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
-                                    <button type="button " className="btn btn-outline-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
+                                    <button type="button " className="btn btn-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
+                                    <button type="button " className="btn btn-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
                                 </div>
                             </div>
                             <h2 className="text-center mb-5 mt-5">Sección de Comentarios</h2>
@@ -657,8 +657,8 @@ export const PerfilCache = () => {
                     {selectedDiv5 ? (
                         <div className="container-fluid">
                             <div className="text-center" aria-label="Basic checkbox toggle button group" >
-                                <button type="button " className="btn btn-outline-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
-                                <button type="button " className="btn btn-outline-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
+                                <button type="button " className="btn btn-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
+                                <button type="button " className="btn btn-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
                             </div>
                             <h2 className="text-center mb-4 mt-5">Galería de fotos</h2>
                             <div className=" mb-5 mx-auto">

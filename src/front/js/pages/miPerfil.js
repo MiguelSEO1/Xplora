@@ -457,20 +457,20 @@ export const MiPerfil = () => {
 
 
         <div className="container cuerpo">
-            <h1 className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13 ? "text-center mb-5" : "text-center  mb-5 "}`}>GeoCaching - My Profile</h1>
+            <h1 className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13 ? "text-center mb-5" : "text-center  mb-5 "}`}>Mi Área Personal</h1>
             <div className=" row row-cols-lg-2 row-cols-md-1 row-cols-sm-1">
 
                 <div className={`${showDiv1 || showDiv2 || showDiv3 || showDiv4 || showDiv5 || showDiv13} mx-auto`}>
                     
 
-                    <button className={`${showDiv1 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarDatosPersonales}>Datos Personales </button>
-                    <button className={`${showDiv2 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesPropios}> Cachés Registrados {getPendingCaches.length === 0 ? null :
+                    <button className= "colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarDatosPersonales}>Datos Personales </button>
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados {getPendingCaches.length === 0 ? null :
                         <span className="createalert translate-middle badge rounded-pill bg-danger">
                           {getPendingCaches.length}+ 
                         </span>}</button>
-                    <button className={`${showDiv3 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarcachesEncontrados}> Cachés Encontrados </button>
-                    <button className={`${showDiv4 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary `} onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>
-                    {store.admin ? <button className={`${showDiv13 ? "w-100 mx-auto bg-primary text-white" : "w-100 mx-auto"} btn btn-outline-primary mt-5`} onClick={mostrarAdmin}> Admin panel </button> : null}
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados </button>
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarCachesFavoritos}> Cachés Favoritos </button>
+                    {store.admin ? <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto mt-5" onClick={mostrarAdmin}> Admin panel </button> : null}
                 </div>
 
                 

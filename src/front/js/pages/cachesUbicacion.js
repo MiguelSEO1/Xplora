@@ -38,11 +38,11 @@ export const CachesUbicacion = () => {
 
             <div className="container">
                 <h1 className="text-center mt-5 mb-4">Cachés por Ubicación</h1>
-                <p className="text-center mb-5">Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
+                <p className="text-center mb-5">¡Descubre los mejores tesoros ocultos con nuestra selección de caches por ubicación! Desde caches en la más pura naturaleza hasta caches en la ciudad, hemos recopilado una lista de opciones emocionantes para explorar. Ya sea que estés buscando una aventura en la naturaleza o un desafío urbano, tenemos algo para todos. ¡No esperes más, comienza a buscar tesoros en tu ubicación favorita ahora mismo!</p>
             </div>
             <div className=" container mx-auto text-center">
                 <h2 className="text-center mt-5 my-4">Comienza a Explorar</h2>
-                <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
+                <p className="mb-5">¡Tenemos todo lo que necesitas para satisfacer tu espíritu aventurero! Ya sea que prefieras explorar rutas de senderismo emocionantes o sumergirte en exploraciones urbanas, nuestros cachés te llevarán a descubrir lugares únicos en todo el mundo. No esperes más, comienza a explorar nuestros tesoros ocultos ahora mismo y descubre lo que el mundo tiene para ofrecer. ¡La aventura te espera!</p>
                 <div className="container row row-cols-lg-3 gx-3 mx-auto mb-5">
                     <ClustersCaches link="/caches/Andalucía" image={Andalucia} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Aragón" image={Aragon} onClick={() => window(0, 0)} />
@@ -69,7 +69,7 @@ export const CachesUbicacion = () => {
             </div>
             <div className="container mx-auto text-center">
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Ubicación más Populares entre Nuestra Comunidad</h2>
-                <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
+                <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros ocultos por la comunidad! En nuestra selección de caches más populares encontrarás los lugares más interesantes para explorar a tu alrededor. Prepárate para una aventura inolvidable llena de sorpresas y descubrimientos emocionantes. ¡Únete a la búsqueda de tesoros ahora y descubre qué tesoro te espera a la vuelta de la esquina!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
                         return (
