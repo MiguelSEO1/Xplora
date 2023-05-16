@@ -58,14 +58,7 @@ export const NavbarNuevo = () => {
                                 Home
                             </Link>
                         </li>
-                        <li className="nav-item d-none d-lg-block">
-                            <Link to="/mi-perfil" className="elemento nav-link active" onClick={() => {
-                                setShowSearch(false); // Este es el evento original
-                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
-                            }} aria-current="page">
-                                Faqs
-                            </Link>
-                        </li>
+                        
                         <li className="nav-item d-none d-lg-block">
                             <Link to="/blog" className="elemento nav-link active" onClick={() => {
                                 setShowSearch(false); // Este es el evento original
@@ -105,6 +98,14 @@ export const NavbarNuevo = () => {
                                     </Link>
                                 </li>
                             </ul>
+                        </li>
+                        <li className="nav-item d-none d-lg-block">
+                            <Link to="/contact" className="elemento nav-link active" onClick={() => {
+                                setShowSearch(false); // Este es el evento original
+                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
+                            }} aria-current="page">
+                                Contacto
+                            </Link>
                         </li>
                         
                         <div className="dropdown-center ">

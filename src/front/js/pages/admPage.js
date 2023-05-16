@@ -70,19 +70,38 @@ export const AdmPage = () => {
                         </thead>
                         <tbody className="mt-5">
                             {users.map((user, position) => {
-                                return <tr className={user.id == myrank.id ? "alert alert-warning" : "bg-light"} key={user.id}>
-                                    {user.is_admin ? "@@@@@":"2222222"}
-
-                                    <td className="text-center py-4 fs-6">{position + 1}</td>
-                                    <td className="text-center fs-6">{user.name}    <button type="submit" className="d-flex justify-content-center btn btn-danger my-3" onClick={async() => {
-                                        await actions.adminRolUser(user.id);
-                                        await userRanking()
-                                    }}>adm <i className="text-warning fa-regular fa-star"></i></button></td>
-                                    <td className="text-center fs-6">{user.caches}</td>
-
-                                </tr>
+                                return (
+                                    <tr className={user.id === myrank.id ? "alert alert-warning" : "bg-light"} key={user.id}>
+                                        <td className="text-center py-4 fs-6">{position + 1}</td>
+                                        <td className="text-center fs-6">
+                                            {user.name}
+                                            <button
+                                                type="submit"
+                                                className={`d-flex justify-content-center btn ${user.is_admin ? 'btn-danger' : 'btn-warning'} my-3`}
+                                                onClick={async () => {
+                                                    await actions.adminRolUser(user.id);
+                                                    await userRanking();
+                                                }}
+                                            >
+                                                {user.is_admin ? (
+                                                    <>
+                                                        <span className="font-monospace">Admin</span>
+                                                           <i className=" text-warning fa-regular fa-star"></i>
+                                                    </>
+                                                ) : (
+                                                    <>
+                                                        <span className="font-monospace">Usuario</span>
+                                                           <i className=" text-danger fa-regular fa-star"></i>
+                                                    </>
+                                                )}
+                                            </button>
+                                        </td>
+                                        <td className="text-center fs-6">{user.caches}</td>
+                                    </tr>
+                                );
                             })}
                         </tbody>
+
                     </table>
                 </div>
             </div>) : null}
