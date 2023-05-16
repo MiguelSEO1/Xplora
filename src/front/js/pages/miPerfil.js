@@ -42,7 +42,7 @@ export const MiPerfil = () => {
     const [getPendingCaches, setGetPendingCaches] = useState([]);
     const [error, setError] = useState("");
     const [perfilComment, setPerfilComment] = useState([]);
-
+    const [cacheFound, setCacheFound] = useState({});
 
 
     useEffect(() => {
@@ -216,6 +216,25 @@ export const MiPerfil = () => {
         });
         const data = await response.json();
         setGetPendingCaches(data.results)
+    };
+
+    const addUserCache = async (cache_Found) => {
+        const response = await fetch(process.env.BACKEND_URL + "/api/add-cache-found/" + params.id, {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                Authorization: "Bearer " + localStorage.getItem("token"),
+
+            },
+            body: JSON.stringify(cache_Found),
+        });
+
+        if (!response.ok) {
+            throw new Error('Error al añadir el caché al usuario');
+        }
+
+        const data = await response.json();
+        return setCacheFound(data);
     };
 
     const mostrarDatosPersonales = () => {
@@ -468,7 +487,7 @@ export const MiPerfil = () => {
                         <span className=" mt-5 position-absolute translate-middle badge rounded-pill bg-danger">
                             {getPendingCaches.length}+
                         </span>}<button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados </button> 
-                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados</button>{store.currentUser.favorites.length === 0 ? null :
+                    <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados</button>{store.currentUser.caches_found.length === 0 ? null :
                         <span class="mt-2  position-absolute translate-middle badge rounded-pill bg-danger">
                             {store.currentUser.caches_found.length}+
                         </span>}

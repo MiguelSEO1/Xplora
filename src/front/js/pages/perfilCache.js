@@ -299,7 +299,7 @@ export const PerfilCache = () => {
                     <div className="col-lg-12 col-md-12 mb-3">
                         <h1 className=" text-center mt-2 align-self-start">Datos Caché "{perfilDetails.name}"</h1>
                     </div>
-                    
+
                     <div className="btn-group container my-5" aria-label="Basic checkbox toggle button group" >
                         <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarDatosCache}>Información Caché</label>
                         <label className="colorgradiente btn btn-outline-dark mx-auto " onClick={mostrarComentariosCache}> Comentarios y Fotos</label>
@@ -417,6 +417,7 @@ export const PerfilCache = () => {
                                         <button type="submit" className="btn btn-danger my-3" onClick={() => {
                                             addUserCache(caches.id);
                                             navigate("/enhorabuena");
+                                            window.scrollTo(0, 0);
                                         }}>Registrar el hallazgo de este Caché <i className="text-warning fa-regular fa-star"></i></button>
                                     </div>
                                 </div>
@@ -511,6 +512,11 @@ export const PerfilCache = () => {
 
                                     }}>Cancelar</button>
                                 </div>
+                                {alertReport && comment.is_spam ? (
+                                    <div className=" mb-5 text-center label alert alert-danger" role="alert">
+                                        {alertReport}
+                                    </div>
+                                ) : null}
                             </div>
 
                             {perfilComment.map((comment) => {
@@ -520,11 +526,7 @@ export const PerfilCache = () => {
                                             <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
                                             <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                         </div>
-                                        {alertReport && comment.is_spam ? (
-                                                    <div className=" text-center label alert alert-danger" role="alert">
-                                                        {alertReport}
-                                                    </div>
-                                                ) : null}
+                                        
                                         <div className=" d-flex justify-content-center ">
 
                                             <div className="d-flex justify-content-center ">
@@ -532,25 +534,39 @@ export const PerfilCache = () => {
                                                     <button type="button" class="my-2 mx-1 btn btn-danger btn-sm" onClick={() => deleteComments(comment.id)}>Eliminar <i class="fa-solid fa-trash"></i></button>
                                                 ) : null}
                                                 {store.currentUser.id === comment.user.id ? (
-                                                    <button type="button" class="my-2 mx-2 btn btn-warning btn-sm" onClick={() => {
-                                                        actions.reportedComments(comment.id, getCacheComments);
-                                                        setAlertReport("Comentario Reportado. Dicha incidencia será revisada por los Administradores del sitio. Pulse de nuevo para retirar dicha incidencia.");
-                                                      }}>Reporte <i class="fa-solid fa-bug"></i></button>
+                                                    <button
+                                                    type="button"
+                                                    className={`my-2 mx-2 btn btn-${comment.is_spam ? 'primary' : 'warning'} btn-sm`}
+                                                    onClick={() => {
+                                                      actions.reportedComments(comment.id, getCacheComments);
+                                                    }}
+                                                  >
+                                                    {comment.is_spam ? (
+                                                      <>
+                                                        Retirar reporte <i className="fa-solid fa-bug"></i>
+                                                      </>
+                                                    ) : (
+                                                      <>
+                                                        Reporte <i className="fa-solid fa-bug"></i>
+                                                      </>
+                                                    )}
+                                                  </button>
+                                                  
                                                 ) : null}
-                                                
+
                                             </div>
-                                            
+
                                             <div className="d-flex my-auto mx-1" >
                                                 {store.currentUser.id === comment.user.id ? (
 
 
                                                     <div className="  ">
-                                                        <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target={"#exampleModal" + comment.id} onClick={()=>{
-                                                            setUpdatedComment({...updatedComment, title:comment.title, text:comment.text})
+                                                        <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target={"#exampleModal" + comment.id} onClick={() => {
+                                                            setUpdatedComment({ ...updatedComment, title: comment.title, text: comment.text })
                                                         }}>
                                                             Editar  <i class="fa-solid fa-pen-to-square"></i>
                                                         </button>
-                                                        
+
                                                         <div className=" modal fade" id={"exampleModal" + comment.id} tabIndex="-1" aria-labelledby={"exampleModalLabel" + comment.id} aria-hidden="true">
                                                             <div className="modal-dialog">
                                                                 <div className=" comentarioeditado modal-content">
