@@ -100,7 +100,7 @@ export const NavbarNuevo = () => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item d-none d-lg-block">
+                        <li className="nav-item  d-none d-lg-block">
                             <Link to="/contact" className="elemento nav-link active" onClick={() => {
                                 setShowSearch(false); // Este es el evento original
                                 window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
