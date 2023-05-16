@@ -46,7 +46,7 @@ export const CachesUbicacion = () => {
                 <div className="container row row-cols-lg-3 gx-3 mx-auto mb-5">
                     <ClustersCaches link="/caches/Andalucía" image={Andalucia} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Aragón" image={Aragon} onClick={() => window(0, 0)} />
-                    <ClustersCaches link="/caches/Islas canarias" image={Canarias} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Canarias" image={Canarias} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Cantabria" image={Cantabria} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Castilla y león" image={CastillaLeon} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Castilla-la mancha" image={CastillaMancha} onClick={() => window(0, 0)} />
