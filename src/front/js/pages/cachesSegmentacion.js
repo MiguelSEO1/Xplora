@@ -258,12 +258,17 @@ export const CachesSegmentacion = () => {
             </div>
 
             <div className="container mx-auto text-center">
-                <h2 className="text-center mb-3 mt-3">
+                <h2 className="text-center mb-3 mt-5">
                     {store.caches.some(cache => cache.size === params.tipos) ? `Accede a los Cachés ${params.tipos}s más Populares entre Nuestra Comunidad` : null}
-                    {store.caches.some(cache => cache.difficulty === params.tipos) ? `Accede a los Cachés con dificultad ${params.tipos} más Populares entre Nuestra Comunidad ` : null}
-                    {store.caches.some(cache => cache.city === params.tipos) ? `Accede a los Cachés de ${params.tipos} más Populares entre Nuestra Comunidad ` : null}
-
+                    {store.caches.some(cache => cache.difficulty === params.tipos) ? `Accede a los Cachés con dificultad ${params.tipos} más Populares entre Nuestra Comunidad` : null}
+                    {(() => {
+                        if (!store.caches.some(cache => cache.city === params.tipos && (cache.size === params.tipos || cache.difficulty === params.tipos))) {
+                            return `Accede a los Cachés de ${params.tipos} más Populares entre Nuestra Comunidad`;
+                        }
+                        return null;
+                    })()}
                 </h2>
+
                 <p className="text-center mb-4 mt-4">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                     {store.caches.filter(
