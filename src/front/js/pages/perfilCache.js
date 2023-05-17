@@ -315,7 +315,7 @@ export const PerfilCache = () => {
 
                         <div className=" container mx-auto row row-cols-lg-2 row-cols-md-1 row-cols-sm-1 mt-5" >
 
-                            <div className="   " >
+                            <div className="  mb-5 " >
                                 <h2 className=" h2map text-start text-danger text-decoration-underline my-auto ">Ubicación</h2>
                                 <MapsGooglecopy setData={setData} />
                             </div>

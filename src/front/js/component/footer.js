@@ -1,6 +1,10 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
+
 
 export const Footer = () => (
+
   <footer className="  text-center text-lg-start bg-dark text-muted ">
     <section className=" footer border border-dark alert alert-dark bg-dark text-white">
       <div className="my-auto  container text-center text-md-start mt-5">
@@ -38,6 +42,14 @@ export const Footer = () => (
                 Prensa
               </a>
             </div>
+            <div className="row">
+              <a href="contact" className="text-reset">
+                Contacto
+              </a>
+            </div>
+            <div className="row"></div>
+            
+
           </div>
           <div className="col-md-3 col-lg-3 col-xl-3 mx-auto mb-md-0 mb-4">
             <h6 className="text-uppercase fw-bold mb-4">Redes Sociales</h6>

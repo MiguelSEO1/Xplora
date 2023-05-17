@@ -53,8 +53,7 @@ import Ceutaprovincia from "../../img/ceutaprovincia.png";
 import Melillaprovincia from "../../img/melillaprovincia.png";
 import Navarraprovincia from "../../img/navarraprovincia.png";
 import Cantabriaprovincia from "../../img/cantabriaprovincia.png";
-import Lariojaprovincia from "../../img/lariojaprovincia.png";
-
+import Zamora from "../../img/zamora.png";
 
 
 export const CachesSegmentacion = () => {
@@ -185,7 +184,7 @@ export const CachesSegmentacion = () => {
                         <ClustersCaches link="/caches-provincias/Segovia" image={Segovia} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Soria" image={Soria} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Valladolid" image={Valladolid} onClick={() => window(0, 0)} />
-                        <ClustersCaches link="/caches-provincias/Zamora" image={Valladolid} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-provincias/Zamora" image={Zamora} onClick={() => window(0, 0)} />
                     </div>
                 ) : null}
                 {params.tipos === "País vasco" ? (
@@ -229,7 +228,7 @@ export const CachesSegmentacion = () => {
                 ) : null}
                 {params.tipos === "Principado de Asturias" ? (
                     <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
-                        <ClustersCaches link="/caches-provincias/Principado de asturias" image={Asturiasprovincia} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-provincias/Principado de Asturias" image={Asturiasprovincia} onClick={() => window(0, 0)} />
                     </div>
                 ) : null}
                 {params.tipos === "Navarra" ? (

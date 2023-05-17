@@ -100,14 +100,7 @@ export const NavbarNuevo = () => {
                                 </li>
                             </ul>
                         </li>
-                        <li className="nav-item  d-none d-lg-block">
-                            <Link to="/contact" className="elemento nav-link active" onClick={() => {
-                                setShowSearch(false); // Este es el evento original
-                                window.scrollTo(0, 0); // Este es el nuevo evento que se agregará
-                            }} aria-current="page">
-                                Contacto
-                            </Link>
-                        </li>
+                        
 
                         <div className="dropdown-center ">
                             <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
