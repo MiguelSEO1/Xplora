@@ -966,7 +966,7 @@ export const MiPerfil = () => {
                     {showDiv13 ? (
                         <div className="border border-dark border border-2 rounded registro container my-5">
                             <h2 className="text-center text-danger my-5">Admin Panel</h2>
-                            <h2 className="text-center mb-5 text-decoration-underline">Nuevos caches</h2>
+                            <h2 className="text-center mb-5 text-decoration-underline">Nuevos cachés</h2>
                             <div className="container mb-5 mt-3 row row-cols-lg-2 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
                                 {pendingCaches <= 0 ?
                                     <h2 className="text-center  mx-auto text-primary "> No tienes nada</h2> :

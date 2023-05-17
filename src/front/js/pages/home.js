@@ -42,7 +42,7 @@ export const Home = () => {
       <section class="banner" style={styles}>
         <div>
           <h1 className="xplora">XPLORA</h1>
-          <p className="pxplora">Comunidad de Aventureros y Buscadores de Tesoros.</p>
+          <p className="pxplora">Comunidad de Buscadores de Tesoros Geolocalizados.</p>
           <Link to="/register">
             <button className="botonaventura border border-dark border-opacity-75 border border-3 btn btn-outline-dark my-3">Comienza tu Aventura  </button>
           </Link>
