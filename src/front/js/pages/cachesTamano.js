@@ -6,12 +6,16 @@ import "../../styles/clusters.css";
 import Grandes from "../../img/grandes.png";
 import Medianos from "../../img/medianos.png";
 import Pequenos from "../../img/pequenos.png";
+import { shuffle } from 'lodash';
 
 
 export const CachesTamano = () => {
     const { store, actions } = useContext(Context);
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+    const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
 
+    
+    
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
     };
@@ -37,7 +41,7 @@ export const CachesTamano = () => {
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Tamaño más Populares entre Nuestra Comunidad</h2>
                 <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 row row-cols-lg-3 mx-auto gx-3 gy-4container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
+                {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>

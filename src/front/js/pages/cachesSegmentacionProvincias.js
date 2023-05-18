@@ -2,6 +2,8 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
+import { shuffle } from 'lodash';
+
 
 
 export const CachesSegmentacionProvincias = () => {
@@ -15,8 +17,17 @@ export const CachesSegmentacionProvincias = () => {
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
     };
-    
-    
+
+    const filteredCaches = store.caches.filter(
+        cache =>
+            cache.is_approved === true &&
+            (cache.city === params.tipos)
+    );
+
+    const shuffledCaches = shuffle(filteredCaches);
+
+
+
 
     return (
 
@@ -32,28 +43,27 @@ export const CachesSegmentacionProvincias = () => {
                 <h2 className="text-center mt-5 my-4">Accede a los Cachés más Populares de la provincia de {params.tipos}</h2>
                 <p className="mb-5">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(
-                        cache => cache.city === params.tipos && cache.is_approved === true).slice(0, mostrarTarjetas).map((cache) => {
-                            return ( 
-                                <div className="">
-                                    <div className=" esquinaCarta card " key={cache.id}>
-                                        <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
-                                        <div className="card-body">
-                                            <h3 className="card-title">{cache.state}</h3>
-                                            <h4 className="card-title">{cache.city}</h4>
-                                            <p className="card-text">{cache.name}</p>
-                                            <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
-                                                <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
-                                            </Link>
+                    {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
+                        return (
+                            <div className="">
+                                <div className=" esquinaCarta card " key={cache.id}>
+                                    <img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
+                                    <div className="card-body">
+                                        <h3 className="card-title">{cache.state}</h3>
+                                        <h4 className="card-title">{cache.city}</h4>
+                                        <p className="card-text">{cache.name}</p>
+                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
+                                            <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
+                                        </Link>
 
-                                            <button onClick={() => {
-                                                actions.createFavoritesCaches(cache.id);
-                                            }} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
-                                        </div>
+                                        <button onClick={() => {
+                                            actions.createFavoritesCaches(cache.id);
+                                        }} type="button" className={store.currentUser.favorites.map(favorite => favorite.cache.id).includes(cache.id) ? "btn btn-outline-danger mx-1 botonBonito" : "btn btn-outline-warning mx-1 botonBonito "} ><i class="fa-solid fa-heart"></i></button>
                                     </div>
                                 </div>
-                            )
-                        })}
+                            </div>
+                        )
+                    })}
 
                 </div>
                 <button onClick={mostrarMasTarjetas} className="btn btn-primary mb-5">

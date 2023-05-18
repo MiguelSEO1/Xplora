@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { Context } from "../store/appContext";
 import { Cluster } from "../component/cluster";
+import { shuffle } from 'lodash';
 
 
 
@@ -9,6 +10,7 @@ import { Cluster } from "../component/cluster";
 export const Demo = () => {
 	const { store, actions } = useContext(Context);
 	const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+	const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
 
 
 
@@ -36,7 +38,7 @@ export const Demo = () => {
 				<h2 className="text-center mb-3 mt-5">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
 				<p>¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
 				<div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-					{store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
+					{shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
 						return (
 							<div className=" ">
 								<div className=" esquinaCarta card " key={cache.id}>

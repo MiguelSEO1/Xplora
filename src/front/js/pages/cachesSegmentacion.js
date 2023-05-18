@@ -54,6 +54,7 @@ import Melillaprovincia from "../../img/melillaprovincia.png";
 import Navarraprovincia from "../../img/navarraprovincia.png";
 import Cantabriaprovincia from "../../img/cantabriaprovincia.png";
 import Zamora from "../../img/zamora.png";
+import { shuffle } from 'lodash';
 
 
 export const CachesSegmentacion = () => {
@@ -73,7 +74,15 @@ export const CachesSegmentacion = () => {
         setMostrarTarjetas2(mostrarTarjetas2 + 3);
     };
 
+    const filteredCaches = store.caches.filter(
+        cache =>
+            cache.is_approved === true &&
+            (cache.state === params.tipos ||
+                cache.size === params.tipos ||
+                cache.difficulty === params.tipos)
+    );
 
+    const shuffledCaches = shuffle(filteredCaches);
 
 
     return (
@@ -89,13 +98,7 @@ export const CachesSegmentacion = () => {
                 <p className="text-center mb-3">Bienvenido a nuestro sitio web sobre geocaching, donde podrás vivir una experiencia única y emocionante mientras exploras el mundo en busca de tesoros escondidos. Conviértete en parte de una extensa comunidad de descubridores; todo ello combinando senderismo, emoción de un juego, tesoros ocultos y momentos inolvidables. ¡Comienza tu aventura ahora!</p>
             </div>
             <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                {store.caches.filter(
-                    cache =>
-                        cache.is_approved === true &&
-                        (cache.state === params.tipos ||
-                            cache.size === params.tipos ||
-                            cache.difficulty === params.tipos)
-                ).slice(0, mostrarTarjetas).map((cache) => {
+                {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
                     return (
                         <div className="">
                             <div className=" esquinaCarta card text-center" key={cache.id}>
@@ -266,14 +269,7 @@ export const CachesSegmentacion = () => {
 
                 <p className="text-center mb-4 mt-4">¡No te pierdas la oportunidad de descubrir los tesoros escondidos de la comunidad! Selecciona los cachés más populares y explora los lugares más interesantes alrededor de ti. ¡Te aseguramos una aventura inolvidable llena de sorpresas y descubrimientos!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(
-                        cache =>
-                            cache.is_approved === true &&
-                            (cache.state === params.tipos ||
-                                cache.size === params.tipos ||
-                                cache.difficulty === params.tipos)
-
-                    ).slice(0, mostrarTarjetas2).map((cache) => {
+                    {shuffledCaches.slice(0, mostrarTarjetas2).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>

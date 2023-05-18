@@ -6,11 +6,14 @@ import "../../styles/clusters.css";
 import Alta from "../../img/alta.png";;
 import Media from "../../img/media.png";
 import Baja from "../../img/baja.png";
+import { shuffle } from 'lodash';
 
 
 export const CachesDificultad = () => {
     const { store, actions } = useContext(Context);
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+    const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
+
 
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
@@ -28,16 +31,16 @@ export const CachesDificultad = () => {
                 <h2 className="text-center mt-5 my-4">Comienza a Explorar</h2>
                 <p className="mb-5">Entra en el emocionante mundo del geocaching. Descubre tesoros ocultos y vive una experiencia única en cada rincón del planeta. ¡Comienza tu aventura hoy mismo.</p>
                 <div className="container row row-cols-lg-3 g-3 mx-auto mb-5">
-                    <ClustersCaches link="/caches/Alta" image={Alta} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Media" image={Media} onClick={() => window(0, 0)}/>
-                    <ClustersCaches link="/caches/Baja" image={Baja} onClick={() => window(0, 0)}/>
+                    <ClustersCaches link="/caches/Alta" image={Alta} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Media" image={Media} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Baja" image={Baja} onClick={() => window(0, 0)} />
                 </div>
             </div>
             <div className="container mx-auto text-center">
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Dificultad más Populares entre Nuestra Comunidad</h2>
                 <p className="text-center mb-5">¡Abre tus ojos a lo desconocido y embárcate en una búsqueda épica de los tesoros escondidos por la comunidad! En nuestra selección de caches más populares encontrarás los lugares más fascinantes para explorar a tu alrededor. </p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
+                    {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
@@ -46,7 +49,7 @@ export const CachesDificultad = () => {
                                         <h3 className="card-title">{cache.state}</h3>
                                         <h4 className="card-title">{cache.city}</h4>
                                         <p className="card-text">{cache.name}</p>
-                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0,0)}>
+                                        <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                         </Link>
 
