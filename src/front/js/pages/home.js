@@ -16,21 +16,28 @@ export const Home = () => {
 
   const elements = document.querySelectorAll('.scroll-animation');
 
-  function checkScroll() {
+  const checkScroll = () => {
+    const elements = document.getElementsByClassName('scroll-animation');
+    
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const position = element.getBoundingClientRect().top;
       const screenHeight = window.innerHeight;
+      
       if (position < screenHeight * 0.8) {
         element.classList.add('scroll-triggered');
+        
         if (i % 2 === 0) {
           element.classList.add('left');
         } else {
           element.classList.add('right');
         }
+        
+        // Guardar el estado del elemento en localStorage
+        localStorage.setItem(`scrollElement-${i}`, 'visible');
       }
     }
-  }
+  };
 
   window.addEventListener('scroll', checkScroll);
 

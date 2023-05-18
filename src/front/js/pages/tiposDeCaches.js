@@ -5,10 +5,14 @@ import { Context } from "../store/appContext";
 import Ubicacion from "../../img/ubicacion.png"
 import Dificultad from "../../img/dificultad.png"
 import Tamano from "../../img/tamano.png"
+import { shuffle } from 'lodash';
+
 
 export const TiposDeCaches = () => {
     const { store, actions } = useContext(Context);
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+    const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
+
 
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
@@ -35,7 +39,7 @@ export const TiposDeCaches = () => {
                 <h2 className="text-center mb-4 ">Accede a los Cachés más Populares entre Nuestra Comunidad</h2>
                 <p>¡Accede a los caches más populares entre nuestra comunidad y descubre por qué son tan populares! Explora y descubre lugares increíbles en todo el mundo a través de los ojos de otros entusiastas. ¡No esperes más, accede a los caches más populares ahora mismo y únete a la diversión!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
+                    {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
