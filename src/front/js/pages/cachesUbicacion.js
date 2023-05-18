@@ -22,15 +22,20 @@ import RegionMurcia from "../../img/regionMurcia.png";
 import Ceuta from "../../img/ceuta.png";
 import PrincipadoAsturias from "../../img/principadoAsturias.png";
 import Melilla from "../../img/melilla.png";
+import { shuffle } from 'lodash';
 
 
 export const CachesUbicacion = () => {
     const { store, actions } = useContext(Context);
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
+    const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
+
 
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
     };
+
+
 
     return (
 
@@ -71,7 +76,7 @@ export const CachesUbicacion = () => {
                 <h2 className="text-center mb-4 mt-5">Accede a los Cachés por Ubicación más Populares entre Nuestra Comunidad</h2>
                 <p className="text-center mb-5">¡No te pierdas la oportunidad de descubrir los tesoros ocultos por la comunidad! En nuestra selección de caches más populares encontrarás los lugares más interesantes para explorar a tu alrededor. Prepárate para una aventura inolvidable llena de sorpresas y descubrimientos emocionantes. ¡Únete a la búsqueda de tesoros ahora y descubre qué tesoro te espera a la vuelta de la esquina!</p>
                 <div className="container mb-5 mt-3 row row-cols-lg-3 row-cols-md-2 row-cols-sm-1 mx-auto gx-4, gy-4">
-                    {store.caches.filter(cache => cache.is_approved).slice(0, mostrarTarjetas).map((cache) => {
+                    {shuffledCaches.slice(0, mostrarTarjetas).map((cache) => {
                         return (
                             <div className="">
                                 <div className=" esquinaCarta card " key={cache.id}>
