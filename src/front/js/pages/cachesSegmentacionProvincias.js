@@ -12,19 +12,25 @@ export const CachesSegmentacionProvincias = () => {
     const params = useParams();
     const [cacheUbicacion, setCacheUbicacion] = useState({});
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
-
+    const [shuffledCaches, setShuffledCaches] = useState([]);
 
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
     };
 
-    const filteredCaches = store.caches.filter(
-        cache =>
-            cache.is_approved === true &&
-            (cache.city === params.tipos)
-    );
 
-    const shuffledCaches = shuffle(filteredCaches);
+
+    // Función de efecto para mantener el orden constante
+    useEffect(() => {
+        const caches = store.caches.filter(
+            cache =>
+                cache.is_approved === true &&
+                (cache.city === params.tipos)
+        );
+        const shuffled = shuffle(caches);
+        setShuffledCaches(shuffled);
+    }, [store.caches]);
+
 
 
 

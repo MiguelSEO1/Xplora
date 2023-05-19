@@ -12,8 +12,14 @@ import { shuffle } from 'lodash';
 export const CachesTamano = () => {
     const { store, actions } = useContext(Context);
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
-    const shuffledCaches = shuffle(store.caches.filter(cache => cache.is_approved));
+    const [shuffledCaches, setShuffledCaches] = useState([]);
 
+    // Función de efecto para mantener el orden constante
+    useEffect(() => {
+        const caches = store.caches.filter(cache => cache.is_approved);
+        const shuffled = shuffle(caches);
+        setShuffledCaches(shuffled);
+    }, [store.caches]);
     
     
     const mostrarMasTarjetas = () => {

@@ -64,7 +64,7 @@ export const CachesSegmentacion = () => {
     const [cacheUbicacion, setCacheUbicacion] = useState({});
     const [mostrarTarjetas, setMostrarTarjetas] = useState(6);
     const [mostrarTarjetas2, setMostrarTarjetas2] = useState(6);
-
+    const [shuffledCaches, setShuffledCaches] = useState([]);
 
     const mostrarMasTarjetas = () => {
         setMostrarTarjetas(mostrarTarjetas + 3);
@@ -74,15 +74,21 @@ export const CachesSegmentacion = () => {
         setMostrarTarjetas2(mostrarTarjetas2 + 3);
     };
 
-    const filteredCaches = store.caches.filter(
-        cache =>
-            cache.is_approved === true &&
-            (cache.state === params.tipos ||
-                cache.size === params.tipos ||
-                cache.difficulty === params.tipos)
-    );
+   
 
-    const shuffledCaches = shuffle(filteredCaches);
+    // Función de efecto para mantener el orden constante
+    useEffect(() => {
+        const caches = store.caches.filter(
+            cache =>
+                cache.is_approved === true &&
+                (cache.state === params.tipos ||
+                    cache.size === params.tipos ||
+                    cache.difficulty === params.tipos)
+        );
+        const shuffled = shuffle(caches);
+        setShuffledCaches(shuffled);
+    }, [store.caches]);
+
 
 
     return (
