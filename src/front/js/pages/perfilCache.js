@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext } from "react";
+import React, { useState, useEffect, useContext, useRef } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Cluster } from "../component/cluster";
 import { Context } from "../store/appContext";
@@ -11,6 +11,7 @@ import { EditComment } from "../component/editComment";
 import { MapsGooglecopy } from "../component/mapsGooglecopy";
 
 export const PerfilCache = () => {
+    const commentsSectionRef = useRef(null);
     const params = useParams();
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
@@ -28,6 +29,7 @@ export const PerfilCache = () => {
     const [data, setData] = useState({});
     const [comment, setComment] = useState({ title: "", text: "" });
     const [selectedImageIndex, setSelectedImageIndex] = useState(null);
+
     const [showCloseButton, setShowCloseButton] = useState(false);
     const [galery, setGalery] = useState({ id: params.id, title: "", url: "", date_of_Publication: "" });
     const [updatedComment, setUpdatedComment] = useState({ title: "", text: "" });
@@ -35,12 +37,12 @@ export const PerfilCache = () => {
     const [alertMessageFotos, setAlertMessageFotos] = useState("");
     const [alertMessageEdit, setAlertMessageEdits] = useState("");
     const [alertCommentOk, setAlertCommentOk] = useState("");
-    const [alertPhotoOk, setAlertPhotoOk] = useState("");    
+    const [alertPhotoOk, setAlertPhotoOk] = useState("");
     const [mostrarQr, setMostrarQR] = useState(false);
     const [mostrarBotonRegister, setMostrarBotonRegister] = useState(false);
     const [alertBotonRegister, setAlertBotonRegister] = useState("");
     const [alertQr, setAlertQR] = useState("");
-    const [alertReport, setAlertReport] = useState(false);
+    const [alertReport, setAlertReport] = useState("El comentario ha sido reportado y será revisado por nuestros Administradores, Si Desea retirar dicho reporte pulse de nuevo el Botón.");
     const [cacheClave, setCacheClave] = useState("");
     const [secretClave, setSecretClave] = useState("");
     const [cacheFound, setCacheFound] = useState({});
@@ -536,7 +538,8 @@ export const PerfilCache = () => {
                                             <img src={comment.user.profile_image_url ? comment.user.profile_image_url : urlImage} alt="Imagen del usuario" class="bg-light card-img-topcomme img-fluid" />
                                             <h6 className="my-auto namecomment card-title text-danger fw-bold text">{comment.user.name}</h6>
                                         </div>
-                                        
+
+
                                         <div className=" d-flex justify-content-center ">
 
                                             <div className="d-flex justify-content-center ">
@@ -545,26 +548,31 @@ export const PerfilCache = () => {
                                                 ) : null}
                                                 {store.currentUser.id === comment.user.id ? (
                                                     <button
-                                                    type="button"
-                                                    className={`my-2 mx-2 btn btn-${comment.is_spam ? 'primary' : 'warning'} btn-sm`}
-                                                    onClick={() => {
-                                                      actions.reportedComments(comment.id, getCacheComments);
-                                                    }}
-                                                  >
-                                                    {comment.is_spam ? (
-                                                      <>
-                                                        Retirar reporte <i className="fa-solid fa-bug"></i>
-                                                      </>
-                                                    ) : (
-                                                      <>
-                                                        Reporte <i className="fa-solid fa-bug"></i>
-                                                      </>
-                                                    )}
-                                                  </button>
-                                                  
+                                                        type="button"
+                                                        className={`my-2 mx-2 btn btn-${comment.is_spam ? 'primary' : 'warning'} btn-sm`}
+                                                        onClick={() => {
+                                                            actions.reportedComments(comment.id, getCacheComments);
+                                                            setAlertReport(comment.is_spam ? 'El comentario ha sido retirado del reporte.' : 'El comentario ha sido reportado como spam.');
+                                                        }}
+                                                    >
+                                                        {comment.is_spam ? (
+                                                            <>
+                                                                Retirar reporte <i className="fa-solid fa-bug"></i>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                Reporte <i className="fa-solid fa-bug"></i>
+                                                            </>
+                                                        )}
+                                                    </button>
+
+
                                                 ) : null}
 
+
+
                                             </div>
+
 
                                             <div className="d-flex my-auto mx-1" >
                                                 {store.currentUser.id === comment.user.id ? (
@@ -674,13 +682,21 @@ export const PerfilCache = () => {
 
                                         </div>
                                     </div>
+
                                     <div className="card-body mb-4">
                                         <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-4 bordecomment">{comment.title}</h3>
                                         <p className="fs-5 fw-light label  p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                     </div>
+                                    {comment.is_spam ? (
+                                        <div className="label mb-3 text-center alert alert-danger" role="alert">
+                                            El comentario ha sido reportado y será revisado por nuestros Administradores, Si Desea retirar dicho reporte pulse de nuevo el Botón.
+                                        </div>
+                                    ) : null}
                                 </div>
+
                             })}
-                            <nav aria-label="Page navigation example mt-5" >
+                            
+                            <nav ref={commentsSectionRef} aria-label="Page navigation example mt-5" >
                                 <ul className="pagination justify-content-center">
                                     <li className="page-item disabled" >
                                         <a className="page-link">Previous</a>
