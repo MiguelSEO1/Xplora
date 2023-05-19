@@ -226,7 +226,7 @@ export const CachesSegmentacion = () => {
                 ) : null}
                 {params.tipos === "Islas baleares" ? (
                     <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
-                        <ClustersCaches link="/caches-provincias/Islas baleares" image={Palmamallorca} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-palma-de-mallorca//Islas baleares" image={Palmamallorca} onClick={() => window(0, 0)} />
                     </div>
                 ) : null}
                 {params.tipos === "Extremadura" ? (

@@ -39,6 +39,8 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Buscador } from "./component/buscador";
 import { CachesSegmentacionProvincias } from "./pages/cachesSegmentacionProvincias";
+import { CachesMallorca } from "./pages/cachesMallorca";
+
 import { Contact } from "./pages/contact";
 
 //create your first component
@@ -83,6 +85,8 @@ const Layout = () => {
             <Route element={<CachesTamano />} path="/caches-tamano"/>
             <Route element={<CachesSegmentacion />} path="/caches/:tipos"/>
             <Route element={<CachesSegmentacionProvincias />} path="/caches-provincias/:tipos"/>
+            <Route element={<CachesMallorca />} path="/caches-palma-de-mallorca/:tipos"/>
+
             <Route element={<h1>Not found!</h1>} />
 
           </Routes>
