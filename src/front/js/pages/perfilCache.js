@@ -34,8 +34,8 @@ export const PerfilCache = () => {
     const [alertMessage, setAlertMessage] = useState("");
     const [alertMessageFotos, setAlertMessageFotos] = useState("");
     const [alertMessageEdit, setAlertMessageEdits] = useState("");
-    const [shouldCloseModal, setShouldCloseModal] = useState(false);
-    const [inputValue, setInputValue] = useState('');
+    const [alertCommentOk, setAlertCommentOk] = useState("");
+    const [alertPhotoOk, setAlertPhotoOk] = useState("");    
     const [mostrarQr, setMostrarQR] = useState(false);
     const [mostrarBotonRegister, setMostrarBotonRegister] = useState(false);
     const [alertBotonRegister, setAlertBotonRegister] = useState("");
@@ -447,6 +447,7 @@ export const PerfilCache = () => {
                                     <input name="title" value={comment.title} onChange={(e) => {
                                         setComment({ ...comment, [e.target.name]: e.target.value });
                                         setAlertMessage(false);
+                                        setAlertCommentOk(false);
                                     }}
                                         onKeyDown={async (e) => {
                                             if (e.key === 'Enter') {
@@ -454,6 +455,7 @@ export const PerfilCache = () => {
                                                 if (comment.title.trim().length > 0 && comment.text.trim().length > 0) {
                                                     await createComments();
                                                     setComment({ title: "", text: "" });
+                                                    setAlertCommentOk("Comentario creado correctamente");
                                                 } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
                                                     setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
                                                 } else if (comment.title.trim().length === 0) {
@@ -470,6 +472,7 @@ export const PerfilCache = () => {
                                     <textarea name="text" value={comment.text} onChange={(e) => {
                                         setComment({ ...comment, [e.target.name]: e.target.value });
                                         setAlertMessage(false);
+                                        setAlertCommentOk(false);
                                     }}
                                         onKeyDown={async (e) => {
                                             if (e.key === 'Enter') {
@@ -478,6 +481,7 @@ export const PerfilCache = () => {
                                                     await createComments();
                                                     setComment({ title: "", text: "" });
                                                     setAlertMessage(false);
+                                                    setAlertCommentOk("Comentario creado correctamente");
                                                 } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
                                                     setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
                                                 } else if (comment.title.trim().length === 0) {
@@ -493,11 +497,17 @@ export const PerfilCache = () => {
                                         {alertMessage}
                                     </div>
                                 ) : null}
+                                {alertCommentOk ? (
+                                    <div className="alert alert-danger" role="alert">
+                                        {alertCommentOk}
+                                    </div>
+                                ) : null}
                                 <div className=" d-flex justify-content-end mt-2 mb-5">
                                     <button type="button" class="btn btn-dark btn-sm mx-1" onClick={async () => {
                                         if (comment.title.trim().length > 0 && comment.text.trim().length > 0) {
                                             await createComments();
                                             setComment({ title: "", text: "" });
+                                            setAlertCommentOk("Comentario creado correctamente");
                                         } else if (comment.title.trim().length === 0 && comment.text.trim().length === 0) {
                                             setAlertMessage("Por favor, completa ambos campos antes de enviar tu comentario.");
                                         } else if (comment.title.trim().length === 0) {
@@ -666,7 +676,7 @@ export const PerfilCache = () => {
                                     </div>
                                     <div className="card-body mb-4">
                                         <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-4 bordecomment">{comment.title}</h3>
-                                        <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
+                                        <p className="fs-5 fw-light label  p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                     </div>
                                 </div>
                             })}
@@ -710,12 +720,14 @@ export const PerfilCache = () => {
                                         <input type="text" name="title" value={galery.title} onChange={(e) => {
                                             setGalery({ ...galery, [e.target.name]: e.target.value });
                                             setAlertMessageFotos(false);
+                                            setAlertPhotoOk(false)
                                         }} onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
                                                 e.preventDefault();
                                                 if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
-                                                    uploadImage()();
+                                                    uploadImage();
                                                     setAlertMessageFotos(false);
+                                                    setAlertPhotoOk("Imagen subida correctamente")
                                                 } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
                                                     setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu imagen.");
                                                 } else if (galery.title.trim().length === 0) {
@@ -733,12 +745,14 @@ export const PerfilCache = () => {
                                         <input name="date_of_Publication" value={galery.date_of_Publication} onChange={(e) => {
                                             setGalery({ ...galery, [e.target.name]: e.target.value });
                                             setAlertMessageFotos(false);
+                                            setAlertPhotoOk(false)
                                         }} onKeyDown={(e) => {
                                             if (e.key === 'Enter') {
                                                 e.preventDefault();
                                                 if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
-                                                    uploadImage()();
+                                                    uploadImage();
                                                     setAlertMessageFotos(false);
+                                                    setAlertPhotoOk("Imagen subida correctamente")
                                                 } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
                                                     setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu imagen.");
                                                 } else if (galery.title.trim().length === 0) {
@@ -754,7 +768,8 @@ export const PerfilCache = () => {
                                         <button type="button" class="btn btn-dark btn-sm mx-1" onClick={() => {
                                             if (galery.title.trim().length > 0 && galery.date_of_Publication.trim().length > 0) {
                                                 uploadImage();
-                                                setAlertMessageFotos(false)
+                                                setAlertMessageFotos(false);
+                                                setAlertPhotoOk("Imagen subida correctamente")
                                             } else if (galery.title.trim().length === 0 && galery.date_of_Publication.trim().length === 0) {
                                                 setAlertMessageFotos("Por favor, completa ambos campos antes de enviar tu comentario.");
                                             } else if (galery.title.trim().length === 0) {
@@ -774,6 +789,11 @@ export const PerfilCache = () => {
                                     {alertMessageFotos ? (
                                         <div className="alert alert-danger" role="alert">
                                             {alertMessageFotos}
+                                        </div>
+                                    ) : null}
+                                    {alertPhotoOk ? (
+                                        <div className="alert alert-danger" role="alert">
+                                            {alertPhotoOk}
                                         </div>
                                     ) : null}
                                 </div>
