@@ -634,3 +634,55 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
   line-height: 3em;
 }
 
+.offcanvas {
+  position: fixed;
+  bottom: 0;
+  z-index: 1045;
+  display: flex;
+  flex-direction: column;
+  max-width: 100%;
+  visibility: hidden;
+  background-color: #f5edc6;
+  
+}
+
+.espaciado {
+  margin-top: 19px;
+  padding: 0.25rem 1rem;
+  margin-bottom: 0rem;
+  
+}
+
+.espaciado {
+  background-color: #dcd19c;
+  border: 1px solid #212529;
+  margin-bottom: 0rem;
+}
+
+p {
+  margin-top: 0;
+  margin-bottom: 0rem;
+}
+
+.cacheespacio {
+  margin-top: 16px;
+  margin-bottom: 0rem;
+  margin-right: 0rem!important;
+  margin-left: 0rem!important;
+  padding: none;
+}
+
+ul.dropdown-menu.show {
+  background-color: #f0d33f;
+}
+
+.dropdown-divider {
+  height: 0;
+  margin: 1.5rem 0;
+  overflow: hidden;
+  border-top: 4px solid rgba(177, 18, 18, 0.932);
+}
+.text-center.nav-link.active.desplegable:hover {
+  color: black; /* Color de texto al pasar el mouse */
+  background-color: rgb(240, 237, 237); /* Color de fondo al pasar el mouse */
+}

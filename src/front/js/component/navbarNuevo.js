@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import logonuevo from "../../img/logonuevo.png"
 import NuevoLogo from "../../img/nuevoLogo.png"
 import logoregistro from "../../img/logoregistro.png"
+import Mejorlogo from "../../img/mejorlogo.png"
 
 
 
@@ -42,13 +43,13 @@ export const NavbarNuevo = () => {
 
                         <div className=" navbar-logo col-lg-6 mx-auto me-auto d-none d-lg-block d-md-block">
                             <a href="/demo" onClick={() => window(0, 0)} >
-                                <img src={logoregistro} alt="Descripción del logo" />
+                                <img src={Mejorlogo} alt="Descripción del logo" />
                             </a>
                         </div>
 
                         <div className=" navbar-logo mx-auto pe-4 d-block d-md-none">
                             <a href="/demo" onClick={() => window(0, 0)}>
-                                <img src={logoregistro} alt="Descripción del logo" />
+                                <img src={Mejorlogo} alt="Descripción del logo" />
                             </a>
                         </div>
                         <li className="nav-item d-none d-lg-block">
@@ -76,7 +77,7 @@ export const NavbarNuevo = () => {
                                 Ranking
                             </Link>
                         </li>
-                        <li className="nav-item dropdown d-none d-lg-block" onClick={() => setShowSearch(false)}>
+                        <li className="nav-item dropdown d-none d-lg-block me-4" onClick={() => setShowSearch(false)}>
                             <Link to="/" className=" elemento nav-link dropdown-toggle" data-bs-toggle="dropdown" role="button" aria-expanded="false">
                                 cachés
                             </Link>
@@ -103,7 +104,7 @@ export const NavbarNuevo = () => {
                         
 
                         <div className="dropdown-center ">
-                            <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 " type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i className="fa-solid fa-user"></i>
                                 {store.currentUser.favorites.length === 0 ? null :
                                     <span class=" mt-3 mx-3 position-absolute translate-middle badge rounded-pill bg-danger">
@@ -129,7 +130,7 @@ export const NavbarNuevo = () => {
 
                             </ul>
                         </div>
-                        <li className="nav-item d-none d-lg-block ">
+                        <li className="nav-item d-none d-lg-block me-3">
                             <Link to="/mi-Perfil" className="nav-link active text-danger" aria-current="page" onClick={() => window(0, 0)}>
                                 Hola {store.currentUser.name}
                             </Link>
@@ -141,7 +142,7 @@ export const NavbarNuevo = () => {
 
 
                             <div className="dropdown-center ">
-                                <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1 mx-2" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <button className="btn btn-dark dropdown-toggle d-none d-lg-block btn-sm mt-1" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                     <i class="fa-solid fa-lock"></i>
                                 </button>
                                 <ul className="dropdown-menu">
@@ -150,9 +151,15 @@ export const NavbarNuevo = () => {
                                     </Link>
                                 </ul>
                             </div>
+                            
 
 
                         </div>
+                        <li className="nav-item d-none d-lg-block ">
+                            <Link to="/adm-XP" className="nav-link active text-danger" aria-current="page" onClick={() => window(0, 0)}>
+                               Admin
+                            </Link>
+                        </li>
 
                     </ul>
                 </>
@@ -226,13 +233,13 @@ export const NavbarNuevo = () => {
                         {store.userActive ? (
                             <>
                                 <button type="button" className="btn btn-light" onClick={mostrarBuscadorMobile}><i class="fa-sharp fa-solid fa-magnifying-glass"></i></button>
-                                <a className="dropdown-item" href="/demo" onClick={() => window(0, 0)}>Home</a>
-                                <a className="dropdown-item" href="/blog" onClick={() => window(0, 0)} >Blog</a>
-                                <a className="dropdown-item" href="/ranking-usuario" onClick={() => window(0, 0)}>Ranking</a>
-                                <a className="dropdown-item" href="/contact" onClick={() => window(0, 0)}>Contacto</a>
+                                <a className=" espaciado dropdown-item" href="/demo" onClick={() => window(0, 0)}>Home</a>
+                                <a className="espaciado dropdown-item" href="/blog" onClick={() => window(0, 0)} >Blog</a>
+                                <a className="espaciado dropdown-item" href="/ranking-usuario" onClick={() => window(0, 0)}>Ranking</a>
+                                <a className="espaciado dropdown-item" href="/contact" onClick={() => window(0, 0)}>Contacto</a>
 
-                                <div className="dropdown  mx-2">
-                                    <p className="p-2 dropdown-toggle" data-bs-toggle="dropdown">
+                                <div className=" cacheorbital espaciado dropdown  ">
+                                    <p className=" dropdown-toggle" data-bs-toggle="dropdown">
                                         Cachés
                                     </p>
                                     <ul className="dropdown-menu">
@@ -242,14 +249,14 @@ export const NavbarNuevo = () => {
                                 </div>
                                 <hr className="dropdown-divider" />
 
-                                <a className="dropdown-item" href="/mi-Perfil" >Mi Perfil
+                                <a className="espaciado dropdown-item" href="/mi-Perfil" >Mi Perfil
                                     {store.currentUser.favorites.length === 0 ? null :
                                         <span class=" mx-4 mt-1  translate-middle badge rounded-pill bg-danger">
                                             {store.currentUser.favorites.length}+
                                         </span>}</a>
-                                <a className="dropdown-item" href="/adm-XP" >Admin</a>
+                                <a className="espaciado dropdown-item" href="/adm-XP" >Admin</a>
                                 
-                                <p className="nav-item mx-3 text-danger"
+                                <p className="espaciado cacheespacio nav-item mx-3 text-danger"
                                     onClick={async () => {
                                         if (await actions.logout()) {
                                             navigate("/");
@@ -263,14 +270,14 @@ export const NavbarNuevo = () => {
                                 {showSearchMobile ? (
                                     <Buscador />) : null}
                             </>) : (<>
-                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
-                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Historia</a>
-                                <a class="dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
+                                <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
+                                <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)} >Historia</a>
+                                <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
                                 
 
                                 <hr className="dropdown-divider" />
-                                <a class="dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
-                                <a class="dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>
+                                <a class="espaciado dropdown-item text-primary" href="/login" onClick={() => window(0, 0)}>Login</a>
+                                <a class="espaciado dropdown-item text-success" href="/register" onClick={() => window(0, 0)}>Register</a>
                             </>)}
                     </div>
                 </div>

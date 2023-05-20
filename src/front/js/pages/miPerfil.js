@@ -41,7 +41,7 @@ export const MiPerfil = () => {
     const [declinedCaches, setDeclinedCaches] = useState([]);
     const [getPendingCaches, setGetPendingCaches] = useState([]);
     const [error, setError] = useState("");
-    const [perfilComment, setPerfilComment] = useState([]);
+    const [perfilComment, setPerfilComment] = useState({});
     const [cacheFound, setCacheFound] = useState({});
 
 
@@ -1024,8 +1024,8 @@ export const MiPerfil = () => {
                                                     </div>
                                                 </div>
                                                 <div className="card-body mb-4">
-                                                    <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-2 bordecomment">{comment.title}</h3>
-                                                    <p className="lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
+                                                    <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-4 bordecomment">{comment.title}</h3>
+                                                    <p className="label fs-5 lh-base p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                                 </div>
                                             </div>
                                         )
