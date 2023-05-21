@@ -27,8 +27,8 @@ export const Buscador = ({ onShowSearchChange, fixed, cerrarOffcanvas }) => {
 
 	
 
-	const handleLinkClick = () => {
-		onShowSearchChange(false);	
+	const handleLinkClick = async() => {
+		await onShowSearchChange(false);	
 		window.scrollTo(0, 0)
 		
 	  };
