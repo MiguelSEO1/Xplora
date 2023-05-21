@@ -375,19 +375,19 @@ export const PerfilCache = () => {
                             <form onSubmit={showQR}>
                                 <input
                                     type="password"
-                                    className="imputhallazgo w-50 mx-auto form-control mb-3 border border-dark border border-2 bordecomment bg-dark text-white"
+                                    className="imputhallazgo w-50 mx-auto form-control mt-5  mb-4 border border-dark border border-2 bordecomment bg-dark text-white"
                                     placeholder="Introduzca la clave"
                                     value={cacheClave}
                                     onChange={(e) => setCacheClave(e.target.value)}
                                 />
-                                <button type="submit" className="  btn btn-dark my-3">
+                                <button type="submit" className="  btn btn-dark mb-5">
                                     Validar clave
                                 </button>
                             </form>
                             {mostrarQr ?
                                 <div>
                                     <img src={perfilDetails.qr_code_url} width="300" height="auto" alt="QR code" />
-                                    <p className="font-monospace text-center mb-4"> <i class="text-primary fa-solid fa-gem fa-2x"></i> PASO 2. Escanea el QR y optén la Clave definitiva para REGISTRAR TU HALLAZGO</p>
+                                    <p className="font-monospace text-center mb-5 mt-2"> <i class="text-primary fa-solid fa-gem fa-2x"></i> PASO 2. Escanea el QR y optén la Clave definitiva para REGISTRAR TU HALLAZGO</p>
 
                                     <form onSubmit={showRegisterBoton}>
                                         <input
@@ -397,7 +397,7 @@ export const PerfilCache = () => {
                                             value={secretClave}
                                             onChange={(e) => setSecretClave(e.target.value)}
                                         />
-                                        <button type="submit" className="btn btn-primary my-3">
+                                        <button type="submit" className="btn btn-primary mb-4 mt-2">
                                             Validar clave
                                         </button>
                                     </form>
@@ -416,7 +416,7 @@ export const PerfilCache = () => {
                                 <div>
                                     <div className="text-center my-4">
                                         <p className="font-monospace text-center mb-4"> <i class=" text-warning fa-sharp fa-regular fa-hand-peace fa-2x"></i> PASO 3. Ya puedes Registrar el Hallazgo de tu Tesoro </p>
-                                        <button type="submit" className="btn btn-danger my-3" onClick={() => {
+                                        <button type="submit" className="btn btn-danger mb-5 mt-3" onClick={() => {
                                             addUserCache(caches.id);
                                             navigate("/enhorabuena");
                                             window.scrollTo(0, 0);

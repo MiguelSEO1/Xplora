@@ -68,6 +68,7 @@
 }
 
 .buscador {
+  
   background-image: url("https://viajes.nationalgeographic.com.es/medio/2015/05/12/rub_al_khali_emiratos_arabes_1000x664.jpg");
   background-size: cover;
   background-position: center;
@@ -646,6 +647,12 @@ section.footer.border.border-dark.alert.alert-dark.bg-dark.text-white {
   
 }
 
+.offcanvas-title {
+  
+  margin-bottom: 0px;
+  line-height: 1.5;
+}
+
 .espaciado {
   margin-top: 19px;
   padding: 0.25rem 1rem;
@@ -685,4 +692,8 @@ ul.dropdown-menu.show {
 .text-center.nav-link.active.desplegable:hover {
   color: black; /* Color de texto al pasar el mouse */
   background-color: rgb(240, 237, 237); /* Color de fondo al pasar el mouse */
+}
+
+.logoxplora{
+  padding-right: 0.6em;
 }

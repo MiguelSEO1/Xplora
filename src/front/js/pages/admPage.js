@@ -44,7 +44,7 @@ export const AdmPage = () => {
     return (
         <div className=" container text-center mb-5">
             <h1 className="container-fluid text-center cuerpo mb-4">Panel de Administración</h1>
-            <p>Bienvenido al panel de administrador del sitio web. Por favor, introduzca sus credenciales para acceder a las funciones de administración del sitio. Una vez que haya iniciado sesión, podrá ver y gestionar los datos de los usuarios, modificar el contenido del sitio y realizar otras tareas de mantenimiento. Asegúrese de mantener sus credenciales seguras y no compartir su información de inicio de sesión con nadie. ¡Gracias por su colaboración en el mantenimiento de nuestro sitio web!</p>
+            <p className="mb-5">Bienvenido al panel de administrador del sitio web. Por favor, introduzca sus credenciales para acceder a las funciones de administración del sitio. Una vez que haya iniciado sesión, podrá ver y gestionar los datos de los usuarios, modificar el contenido del sitio y realizar otras tareas de mantenimiento. Asegúrese de mantener sus credenciales seguras y no compartir su información de inicio de sesión con nadie. ¡Gracias por su colaboración en el mantenimiento de nuestro sitio web!</p>
 
             <form onSubmit={admin}>
                 <input

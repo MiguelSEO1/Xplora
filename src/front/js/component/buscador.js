@@ -1,15 +1,21 @@
 
-import { Link } from "react-router-dom";
-import React, { useContext, useState } from 'react';
+import { Link, useParams } from "react-router-dom";
+import React, { useContext, useState, useEffect, useRef } from 'react';
 import { Context } from '../store/appContext';
 import { useNavigate } from "react-router-dom";
 
-export const Buscador = () => {
+
+export const Buscador = ({ onShowSearchChange, fixed, cerrarOffcanvas }) => {
 	const navigate = useNavigate();
+	const params = useParams();
 	const { store, actions } = useContext(Context);
 	const [query, setQuery] = useState({ city: '', state: '', size: '', difficulty: '', name: '' });
 	const [hasFilters, setHasFilters] = useState(false);
 	const [showAdditionalFilters, setShowAdditionalFilters] = useState(false);
+	const { cacheId } = useParams();
+
+
+	
 
 	const handleCloseAdditionalFilters = () => {
 		setShowAdditionalFilters(false);
@@ -18,6 +24,27 @@ export const Buscador = () => {
 	const handleShowAdditionalFilters = () => {
 		setShowAdditionalFilters(true);
 	};
+
+	
+
+	const handleLinkClick = () => {
+		onShowSearchChange(false);	
+		window.scrollTo(0, 0)
+		
+	  };
+
+	  
+
+    const handleMobileSearchClick = () => {
+        onShowSearchChange(false);
+		cerrarOffcanvas();
+		
+    };
+
+    const handleClick = () => {
+        handleLinkClick();
+        handleMobileSearchClick();
+    };
 
 	const handleChange = (event) => {
 
@@ -66,9 +93,15 @@ export const Buscador = () => {
 	const cachesToShow = filterCaches();
 
 	return (
-		<div className="  buscador buscador container-fluid p-3  ">
 
-			<div className=" row row cols-lg-1 m-5 d-flex justify-content-center ">
+		
+      
+
+		
+
+		<div className={` buscador container-fluid p-3 ${fixed ? "fixed-top" : ""}`}>
+
+			<div className=" row row cols-lg-1 m-5 d-flex justify-content-center " >
 				<input className="rounded-pill w-75 mb-2 bg-opacity-10 border border-info rounded py-2 border border-2" placeholder="  Nombre de caché..." type="text" name="name" value={query.name} onChange={handleChange} />
 				{showAdditionalFilters ? (
 					<div className=" justify-content-center text-center ">
@@ -92,14 +125,14 @@ export const Buscador = () => {
 					<div className="container mb-5 row row-cols-lg-4 mx-auto gx-3 flex-nowrap overflow-auto pb-3">
 						{cachesToShow.filter(cache => cache.is_approved).map((cache) => {
 							return (
-								<div className="col-sm-1 col-md-4 ">
+								<div className="">
 								<div className=" Cartabuscador card text-center border border-dark" key={cache.id}>
 									<img src="https://i.etsystatic.com/17054662/r/il/537ada/3528158523/il_340x270.3528158523_hjw9.jpg" className="imageCard card-img-top " alt="..." />
 									<div className="card-body">
 										<h4 className="card-title">{cache.state}</h4>
 										<h5 className="card-title">{cache.city}</h5>
 										<p className="card-text">{cache.name}</p>
-										<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none">
+										<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" role="button"  onClick={handleClick}>
 											<a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
 										</Link>
 
