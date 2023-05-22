@@ -687,7 +687,7 @@ export const PerfilCache = () => {
                                         <h3 className="p-2 border border border-2 border border-dark bg-light tamano text-center fs-4 bordecomment">{comment.title}</h3>
                                         <p className="fs-5 fw-light label  p-4 border border border-2 border border-dark bg-light card-text tamanocomentario bordecomment">{comment.text}</p>
                                     </div>
-                                    {comment.is_spam ? (
+                                    {comment.is_spam && (store.currentUser.id === comment.user.id) ? (
                                         <div className="label mb-3 text-center alert alert-danger" role="alert">
                                             El comentario ha sido reportado y será revisado por nuestros Administradores, Si Desea retirar dicho reporte pulse de nuevo el Botón.
                                         </div>
