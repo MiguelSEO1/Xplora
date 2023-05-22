@@ -225,12 +225,12 @@ export const NavbarNuevo = () => {
                                 </Link>
                             </li>
                             <li className="nav-item d-none d-lg-block">
-                                <Link to="#historia" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
                                     Historia
                                 </Link>
                             </li>
                             <li className="nav-item d-none d-lg-block">
-                                <Link to="#faqs" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
                                     Faqs
                                 </Link>
                             </li>
