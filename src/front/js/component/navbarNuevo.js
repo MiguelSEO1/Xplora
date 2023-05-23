@@ -23,6 +23,22 @@ export const NavbarNuevo = () => {
     const offcanvasRef = useRef(null);
     const [isOffcanvasOpen, setIsOffcanvasOpen] = useState(false);
 
+    useEffect(() => {
+        const urlParams = new URLSearchParams(window.location.search);
+        const targetSection = urlParams.get('section');
+        if (targetSection) {
+          scrollToSection(targetSection);
+        }
+      }, []);
+    
+      function scrollToSection(sectionId) {
+        const section = document.getElementById(sectionId);
+        if (section) {
+          section.scrollIntoView({ behavior: 'smooth' });
+        }
+      }
+    
+
     const cerrarOffcanvas = () => {
         if (offcanvasRef.current) {
           const offcanvas = bootstrap.Offcanvas.getInstance(offcanvasRef.current);
@@ -225,12 +241,12 @@ export const NavbarNuevo = () => {
                                 </Link>
                             </li>
                             <li className="nav-item d-none d-lg-block">
-                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                <Link to="/?section=history-section" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
                                     Historia
                                 </Link>
                             </li>
                             <li className="nav-item d-none d-lg-block">
-                                <Link to="/" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
+                                <Link to="/?section=faqs-section" className="elemento nav-link active" aria-current="page" onClick={() => window(0, 0)}>
                                     Faqs
                                 </Link>
                             </li>
@@ -312,8 +328,8 @@ export const NavbarNuevo = () => {
                                     <Buscador onShowSearchChange={handleShowSearchMobile} cerrarOffcanvas={cerrarOffcanvas}/>) : null}
                             </>) : (<>
                                 <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)}>Home</a>
-                                <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)} >Historia</a>
-                                <a class="espaciado dropdown-item" href="/" onClick={() => window(0, 0)} >Faqs</a>
+                                <a class="espaciado dropdown-item" href="/?section=history-section" onClick={() => window(0, 0)} >Historia</a>
+                                <a class="espaciado dropdown-item" href="/?section=faqs-section" onClick={() => window(0, 0)} >Faqs</a>
 
 
                                 <hr className="dropdown-divider" />

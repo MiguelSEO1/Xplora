@@ -203,7 +203,7 @@ export const CachesSegmentacion = () => {
                 ) : null}
                 {params.tipos === "País vasco" ? (
                     <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
-                        <ClustersCaches link="/caches-provincias/Guipúzkoa" image={Guipuzkoa} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-provincias/Guipúzcoa" image={Guipuzkoa} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Álava" image={Alava} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Vizcaya" image={Vizcaya} onClick={() => window(0, 0)} />
                     </div>

@@ -14,25 +14,26 @@ export const Home = () => {
     backgroundImage: `url(${mapaPirata})`,
   };
 
+
   const elements = document.querySelectorAll('.scroll-animation');
 
   const checkScroll = () => {
     const elements = document.getElementsByClassName('scroll-animation');
-    
+
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i];
       const position = element.getBoundingClientRect().top;
       const screenHeight = window.innerHeight;
-      
+
       if (position < screenHeight * 0.8) {
         element.classList.add('scroll-triggered');
-        
+
         if (i % 2 === 0) {
           element.classList.add('left');
         } else {
           element.classList.add('right');
         }
-        
+
         // Guardar el estado del elemento en localStorage
         localStorage.setItem(`scrollElement-${i}`, 'visible');
       }
@@ -41,7 +42,7 @@ export const Home = () => {
 
   window.addEventListener('scroll', checkScroll);
 
-  
+
 
 
   return (
@@ -122,15 +123,15 @@ export const Home = () => {
 
 
       </div>
-      <section className="mx-auto homesection mt-5" id="historia">
+      <section className="mx-auto homesection mt-5" >
         <div className=" container py-5">
           <h1 className="title mt-4 text-center mb-5" >La épica búsqueda de tesoros ocultos</h1>
           <p>Desde tiempos inmemoriales, los seres humanos han sentido una fascinación por la búsqueda de tesoros ocultos. Ya sea por la promesa de riqueza o por la emoción de la aventura, la idea de descubrir algo valioso que está escondido es un atractivo universal.</p>
           <img className=" imagenhome d-block mx-auto my-5 " src="https://upload.wikimedia.org/wikipedia/commons/c/ce/Kazimierz_Nowak_in_jungle_2.jpg"></img>
           <p>A lo largo de los años, esta búsqueda ha tomado muchas formas diferentes. Desde los cazadores de tesoros que buscaban oro y plata en el Salvaje Oeste hasta los arqueólogos que exploran las antiguas tumbas egipcias, la humanidad siempre ha estado en busca de lo oculto.</p>
           <p>Pero en los últimos tiempos, la búsqueda de caches se ha convertido en una forma popular y emocionante de encontrar tesoros ocultos. A diferencia de los cazadores de tesoros del pasado, los buscadores de caches utilizan la tecnología moderna para encontrar los tesoros escondidos.</p>
-          <p id="faqs">La búsqueda de caches comenzó como un juego entre amigos en el año 2000. Utilizando tecnología GPS, un grupo de amigos escondió un tesoro y compartió las coordenadas con otros amigos en línea. La idea rápidamente se extendió y hoy en día, millones de personas en todo el mundo buscan caches escondidos en lugares remotos.</p>
-          <img className=" imagenhome d-block mx-auto my-5 " src="https://garmin.com.pe/wp-content/uploads/2020/10/OVERLANDER.jpg"></img>
+          <p >La búsqueda de caches comenzó como un juego entre amigos en el año 2000. Utilizando tecnología GPS, un grupo de amigos escondió un tesoro y compartió las coordenadas con otros amigos en línea. La idea rápidamente se extendió y hoy en día, millones de personas en todo el mundo buscan caches escondidos en lugares remotos.</p>
+          <img className=" imagenhome d-block mx-auto my-5 " id="history-section" src="https://garmin.com.pe/wp-content/uploads/2020/10/OVERLANDER.jpg"></img>
           <p>La emoción de la búsqueda, la satisfacción de encontrar el tesoro y la emoción de compartir tus descubrimientos con otros buscadores de caches hacen que esta actividad sea realmente épica. ¿Te unirás a la búsqueda?</p>
         </div>
       </section >
@@ -138,7 +139,7 @@ export const Home = () => {
         <h1 className="title mt-2 text-center mb-4"  >Preguntas frecuentes sobre la búsqueda de cachés</h1>
         <div class=" container accordion" id="accordionExample">
           <div className="  accordion-item">
-            <h2 class="text-center accordion-header">
+            <h2 class="text-center accordion-header" >
               <button className="  accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
                 ¿Qué es la búsqueda de cachés?
               </button>
@@ -149,17 +150,17 @@ export const Home = () => {
             </div>
           </div>
           <div class="accordion-item">
-            <h2 class="accordion-header">
+            <h2 class="accordion-header" id="faqs-section" >
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
                 ¿Cómo encuentro una caché?
               </button>
             </h2>
-            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+            <div  id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
               <div class="accordion-body">
                 Primero debes buscar la ubicación de la cache utilizando las coordenadas proporcionadas en la página web de geocaching. Luego, debes caminar hacia el lugar y buscar el caché en las cercanías utilizando las pistas y descripciones proporcionadas en la página.            </div>
             </div>
           </div>
-          <div class=" accordion-item">
+          <div class=" accordion-item" id="faqs-section">
             <h2 class="accordion-header">
               <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
                 ¿Qué objetos puedo encontrar en un caché?
