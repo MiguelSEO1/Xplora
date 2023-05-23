@@ -5,6 +5,7 @@ import {MapsGooglecopy} from "./component/mapsGooglecopy";
 
 import { Home } from "./pages/home";
 import { Login } from "./pages/login";
+import { LoginAdm } from "./pages/loginAdm";
 import { Register } from "./pages/register";
 import { Cache } from "./pages/regCache"
 import { Demo } from "./pages/demo";
@@ -60,11 +61,12 @@ const Layout = () => {
 
             <Route element={<Home />} path="/" />
             <Route element={<Login />} path="/login" />
+            <Route element={<LoginAdm />} path="/login-adm" />
+
             <Route element={<PerfilCache />} path="/perfil-cache/:id" />
             <Route element={<MiPerfil />} path="/mi-Perfil" />
             <Route element={<AdmPage />} path="/adm-XP" />
             <Route element={<Contact />} path="/contact" />
-
             <Route element={<Register />} path="/register" />
             <Route element={<Cache />} path="/reg_cache" />
             <Route element={<PaginaEnhorabuena />} path="/enhorabuena" />

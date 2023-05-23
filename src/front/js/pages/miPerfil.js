@@ -13,12 +13,12 @@ export const MiPerfil = () => {
     const [urlImageSkull, seturlImageSkull] = useState("https://thumbs.dreamstime.com/b/cr%C3%A1neo-e-icono-de-la-bandera-pirata-aislado-50307817.jpg");
     const [email, setEmail] = useState("");
     const [name, setName] = useState("");
-    const [country, setCountry] = useState("");
+    const [country, setCountry] = useState();
     const [city, setCity] = useState("");
     const [password, setPassword] = useState("");
     const [alertName, setAlertName] = useState("");
     const [alertEmail, setAlertEmail] = useState("");
-    const [alertCountry, setAlertCountry] = useState("");
+    const [alertCountry, setAlertCountry] = useState();
     const [alertTotalChanges, setAlertTotalChanges] = useState("");
 
 
@@ -458,8 +458,7 @@ export const MiPerfil = () => {
     };
 
     const emailRegex = /^[\w.%+-]+@[a-zA-Z0-9.-]+\.(?:com|net|org|edu|gov|mil|info|biz|co|([a-zA-Z]{2,}))$/i;
-    const accents = /[áéíóúü]/;
-    const uppercase = /[A-Z]/;
+    const countryRegex = /^([A-Za-zÁÉÍÓÚÑÜáéíóúñü\s]+)$/;
 
 
     const countries = [
@@ -486,7 +485,7 @@ export const MiPerfil = () => {
                     {getPendingCaches.length === 0 ? null :
                         <span className=" mt-5 position-absolute translate-middle badge rounded-pill bg-danger">
                             {getPendingCaches.length}+
-                        </span>}<button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados </button> 
+                        </span>}<button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesPropios}> Cachés Registrados </button>
                     <button className="colorgradiente btn btn-outline-dark mx-auto w-100 mx-auto" onClick={mostrarcachesEncontrados}> Cachés Encontrados</button>{store.currentUser.caches_found.length === 0 ? null :
                         <span class="mt-2  position-absolute translate-middle badge rounded-pill bg-danger">
                             {store.currentUser.caches_found.length}+
@@ -519,22 +518,34 @@ export const MiPerfil = () => {
                                     setAlertCountry(false);
                                     setAlertTotalChanges(false);
                                     setAlertTotalChanges(false);
-                                }} onKeyUp={async (e) => {
+                                }} onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
-                                        if (name.trim() != "" && email.trim() != "" && emailRegex.test(email.trim()) && countries.includes(country.trim()) || country.trim() === "") {
-                                            await actions.getUpdateUser(email, name, country, city);
+                                        const updatedCountry = country || "";
+                                        if (
+                                            name.trim() !== "" &&
+                                            email.trim() !== "" &&
+                                            emailRegex.test(email.trim()) &&
+                                            (updatedCountry.trim() === "" || (countryRegex.test(updatedCountry.trim()) && countries.includes(updatedCountry.trim())))
+                                        ) {
+                                            actions.getUpdateUser(email, name, country, city);
                                             setAlertTotalChanges("Cambios actualizados correctamente");
-                                        } else if (name.trim() === "") {
-                                            setAlertName("Por favor, ingrese un nombre de usuario.");
-                                        } else if (email.trim() === "" || !emailRegex.test(email.trim())) {
-                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
-                                        } else if (!countries.includes(country.trim() && country.trim() != "")) {
-                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).");
+                                        } else {
+
+                                            if (name.trim() === "") {
+                                                setAlertName("Por favor, ingrese un nombre de usuario.");
+                                            }
+                                            if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                                setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                            }
+                                            if (country.trim() !== "" && (!countryRegex.test(country.trim()) || !countries.includes(country.trim()))) {
+                                                setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y mayúsculas (por ejemplo, España).");
+                                            }
                                         }
                                     }
-                                }
-                                }
+                                }}
+
+
                                 placeholder={store.currentUser.name} />
                             {alertName ? (
                                 <div className=" label alert alert-danger" role="alert">
@@ -550,22 +561,32 @@ export const MiPerfil = () => {
                                     setAlertName(false);
                                     setAlertEmail(false);
                                     setAlertTotalChanges(false);
-                                }} onKeyUp={async (e) => {
+                                }} onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
-                                        if (email.trim() != "" && emailRegex.test(email.trim()) && name.trim() != "" && countries.includes(country.trim()) || country.trim() === "") {
-                                            await actions.getUpdateUser(email, name, country, city);
-                                            setAlertTotalChanges("Cambios actualizados correctamente")
-                                        } else if (email.trim() === "" || !emailRegex.test(email.trim())) {
-                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
-                                        } else if (name.trim() === "") {
-                                            setAlertName("Por favor, ingrese un nombre de usuario.");
-                                        } else if (!countries.includes(country.trim()) && country.trim() != "") {
-                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).´");
+                                        const updatedCountry = country || "";
+                                        if (
+                                            name.trim() !== "" &&
+                                            email.trim() !== "" &&
+                                            emailRegex.test(email.trim()) &&
+                                            (updatedCountry.trim() === "" || (countryRegex.test(updatedCountry.trim()) && countries.includes(updatedCountry.trim())))
+                                        ) {
+                                            actions.getUpdateUser(email, name, country, city);
+                                            setAlertTotalChanges("Cambios actualizados correctamente");
+                                        } else {
+
+                                            if (name.trim() === "") {
+                                                setAlertName("Por favor, ingrese un nombre de usuario.");
+                                            }
+                                            if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                                setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                            }
+                                            if (country.trim() !== "" && (!countryRegex.test(country.trim()) || !countries.includes(country.trim()))) {
+                                                setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y mayúsculas (por ejemplo, España).");
+                                            }
                                         }
                                     }
-                                }
-                                }
+                                }}
                                 placeholder={store.currentUser.email} />
                             {alertEmail ? (
                                 <div className=" label alert alert-danger" role="alert">
@@ -587,18 +608,29 @@ export const MiPerfil = () => {
                                     setAlertName(false);
                                     setAlertEmail(false);
                                     setAlertTotalChanges(false);
-                                }} onKeyUp={async (e) => {
+                                }} onKeyUp={(e) => {
                                     if (e.key === 'Enter') {
                                         e.preventDefault();
-                                        if (email.trim() === "" || !emailRegex.test(email.trim())) {
-                                            setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
-                                        } else if (name.trim() === "") {
-                                            setAlertName("Por favor, ingrese un nombre de usuario.");
-                                        } else if (email.trim() != "" && emailRegex.test(email.trim()) && name.trim() != "" && countries.includes(country.trim()) || country.trim() === "") {
-                                            await actions.getUpdateUser(email, name, country, city);
+                                        const updatedCountry = country || "";
+                                        if (
+                                            name.trim() !== "" &&
+                                            email.trim() !== "" &&
+                                            emailRegex.test(email.trim()) &&
+                                            (updatedCountry.trim() === "" || (countryRegex.test(updatedCountry.trim()) && countries.includes(updatedCountry.trim())))
+                                        ) {
+                                            actions.getUpdateUser(email, name, country, city);
                                             setAlertTotalChanges("Cambios actualizados correctamente");
-                                        } else if (!countries.includes(country.trim()) && country.trim() != "") {
-                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas (por ejemplo, España).");
+                                        } else {
+
+                                            if (name.trim() === "") {
+                                                setAlertName("Por favor, ingrese un nombre de usuario.");
+                                            }
+                                            if (email.trim() === "" || !emailRegex.test(email.trim())) {
+                                                setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
+                                            }
+                                            if (country.trim() !== "" && (!countryRegex.test(country.trim()) || !countries.includes(country.trim()))) {
+                                                setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y mayúsculas (por ejemplo, España).");
+                                            }
                                         }
                                     }
                                 }}
@@ -610,26 +642,28 @@ export const MiPerfil = () => {
                             ) : null}
                             <div className="d-flex justify-content-end">
                                 <button className="mb-5 mt-5 btn btn-danger btn-sm" onClick={async () => {
+                                    const updatedCountry = country || "";
                                     if (
-                                        country.trim() === "" ||
-                                        countries.includes(country.trim()) &&
                                         name.trim() !== "" &&
                                         email.trim() !== "" &&
-                                        emailRegex.test(email.trim())
-                                    ) {
-                                        await actions.getUpdateUser(email, name, country, city);
+                                        emailRegex.test(email.trim()) &&
+                                        (updatedCountry.trim() === "" || (countryRegex.test(updatedCountry.trim()) && countries.includes(updatedCountry.trim())))
+                                        ) {
+                                        actions.getUpdateUser(email, name, country, city);
                                         setAlertTotalChanges("Cambios actualizados correctamente");
                                     } else {
-                                        if (!countries.includes(country.trim()) && country.trim() != "") {
-                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y Mayúsculas.");
-                                        }
+
                                         if (name.trim() === "") {
                                             setAlertName("Por favor, ingrese un nombre de usuario.");
                                         }
                                         if (email.trim() === "" || !emailRegex.test(email.trim())) {
                                             setAlertEmail("Por favor, ingrese un email con el formato indicado ´nombre@gmail.com, por ejemplo´");
                                         }
+                                        if (country.trim() !== "" && (!countryRegex.test(country.trim()) || !countries.includes(country.trim()))) {
+                                            setAlertCountry("Por favor, ingrese un país de localización válido, respetando tildes y mayúsculas (por ejemplo, España).");
+                                        }
                                     }
+
                                 }}>Guardar Cambios</button>
 
 
