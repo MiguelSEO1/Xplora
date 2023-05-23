@@ -3,6 +3,11 @@ import { Link, useParams } from "react-router-dom";
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
 import { shuffle } from 'lodash';
+import { Cluster } from "../component/cluster";
+import Ubicacion from "../../img/ubicacion.png"
+import Dificultad from "../../img/dificultad.png"
+import Tamano from "../../img/tamano.png"
+
 
 
 
@@ -76,7 +81,13 @@ export const CachesSegmentacionProvincias = () => {
                     Mostrar más tarjetas
                 </button>
             </div>
-
+            <div className=" container mx-auto text-center">
+                <h2 className="text-center my-4">Otros Cachés por Ubicación</h2>
+                <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
+                    <Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
+                </div>
+            </div>
         </div>
     );
 }

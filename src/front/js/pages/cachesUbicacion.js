@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useContext } from "react";
 import { Link } from "react-router-dom";
 import { ClustersCaches } from "../component/clustersCaches";
+import { Cluster } from "../component/cluster";
+import Dificultad from "../../img/dificultad.png"
+import Tamano from "../../img/tamano.png"
 import { Context } from "../store/appContext";
 import "../../styles/clusters.css";
 import Andalucia from "../../img/andalucia.png";;
@@ -69,7 +72,7 @@ export const CachesUbicacion = () => {
                     <ClustersCaches link="/caches/Madrid" image={Madrid} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/País vasco" image={PaisVasco} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Murcia" image={RegionMurcia} onClick={() => window(0, 0)} />
-                    <ClustersCaches link="/caches/Principado de Asturias" image={PrincipadoAsturias} onClick={() => window(0, 0)} />
+                    <ClustersCaches link="/caches/Principado de asturias" image={PrincipadoAsturias} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Ceuta" image={Ceuta} onClick={() => window(0, 0)} />
                     <ClustersCaches link="/caches/Melilla" image={Melilla} onClick={() => window(0, 0)} />
 
@@ -107,7 +110,14 @@ export const CachesUbicacion = () => {
                     Mostrar más tarjetas
                 </button>
             </div>
-
+            <div className=" container mx-auto text-center">
+                <h2 className="text-center my-4">Otros Tipos de Cachés</h2>
+                <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
+                    <Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
+                    <Cluster link="/caches-tamano" classboton="d-none" cardTitle="Tamaño" image={Tamano} onClick={() => window(0, 0)} />
+                </div>
+            </div>
         </div>
     );
 }

@@ -53,8 +53,13 @@ import Ceutaprovincia from "../../img/ceutaprovincia.png";
 import Melillaprovincia from "../../img/melillaprovincia.png";
 import Navarraprovincia from "../../img/navarraprovincia.png";
 import Cantabriaprovincia from "../../img/cantabriaprovincia.png";
+import Lariojaprovincia from "../../img/lariojaprovincia.png";
 import Zamora from "../../img/zamora.png";
 import { shuffle } from 'lodash';
+import { Cluster } from "../component/cluster";
+import Ubicacion from "../../img/ubicacion.png"
+import Dificultad from "../../img/dificultad.png"
+import Tamano from "../../img/tamano.png"
 
 
 export const CachesSegmentacion = () => {
@@ -74,7 +79,7 @@ export const CachesSegmentacion = () => {
         setMostrarTarjetas2(mostrarTarjetas2 + 3);
     };
 
-   
+
 
     // Función de efecto para mantener el orden constante
     useEffect(() => {
@@ -206,7 +211,7 @@ export const CachesSegmentacion = () => {
                 {params.tipos === "Castilla-la mancha" ? (
                     <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
                         <ClustersCaches link="/caches-provincias/Albacete" image={Albacete} onClick={() => window(0, 0)} />
-                        <ClustersCaches link="/caches-provincias/Ciudad Real" image={Ciudadreal} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-provincias/Ciudad real" image={Ciudadreal} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Cuenca" image={Cuenca} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Guadalajara" image={Guadalajara} onClick={() => window(0, 0)} />
                         <ClustersCaches link="/caches-provincias/Toledo" image={Toledo} onClick={() => window(0, 0)} />
@@ -235,9 +240,9 @@ export const CachesSegmentacion = () => {
                         <ClustersCaches link="/caches-provincias/Badajoz" image={Badajoz} onClick={() => window(0, 0)} />
                     </div>
                 ) : null}
-                {params.tipos === "Principado de Asturias" ? (
+                {params.tipos === "Principado de asturias" ? (
                     <div className="container row row-cols-lg-3 g-3 mx-auto mb-4">
-                        <ClustersCaches link="/caches-provincias/Principado de Asturias" image={Asturiasprovincia} onClick={() => window(0, 0)} />
+                        <ClustersCaches link="/caches-provincias/Principado de asturias" image={Asturiasprovincia} onClick={() => window(0, 0)} />
                     </div>
                 ) : null}
                 {params.tipos === "Navarra" ? (
@@ -303,6 +308,32 @@ export const CachesSegmentacion = () => {
                 </button>
             </div>
 
+
+            {params.tipos === "Andalucía" || params.tipos === "Aragón" || params.tipos === "Canarias" || params.tipos === "Cantabria" || params.tipos === "Castilla y león" || params.tipos === "Castilla-la mancha" || params.tipos === "Cataluña" || params.tipos === "Comunidad valenciana" || params.tipos === "Extremadura" || params.tipos === "Galicia" || params.tipos === "Islas baleares" || params.tipos === "La rioja" || params.tipos === "Madrid" || params.tipos === "Aragón" || params.tipos === "Pais vasco" || params.tipos === "Murcia" || params.tipos === "Principado de Asturias" || params.tipos === "Ceuta" || params.tipos === "Melilla" ? (
+                <div className=" container mx-auto text-center">
+                    <h2 className="text-center my-4">Otros cachés por ubicación</h2>
+                    <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                    <div className="container row row-cols-lg-3 gx-3 mx-auto mb-4">
+                        <Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
+                    </div>
+                </div>
+            ) : params.tipos === "Alta" || params.tipos === "Media" || params.tipos === "Baja" ? (
+                <div className=" container mx-auto text-center">
+                    <h2 className="text-center my-4">Otros cachés por Dificultad</h2>
+                    <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                    <div className="container row row-cols-lg-3 gx-3 mx-auto mb-4">
+                        <Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
+                    </div>
+                </div>
+            ) : params.tipos === "Grande" || "Mediano" || "Pequeño" ? (
+                <div className=" container mx-auto text-center">
+                    <h2 className="text-center my-4">Otros cachés por Tamaño</h2>
+                    <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                    <div className="container row row-cols-lg-3 gx-3 mx-auto mb-4">
+                        <Cluster link="/caches-tamano" classboton="d-none" cardTitle="Tamaño" image={Tamano} onClick={() => window(0, 0)} />
+                    </div>
+                </div>
+            ) : null}
         </div>
     );
 }

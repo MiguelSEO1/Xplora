@@ -6,6 +6,10 @@ import "../../styles/clusters.css";
 import Grandes from "../../img/grandes.png";
 import Medianos from "../../img/medianos.png";
 import Pequenos from "../../img/pequenos.png";
+import { Cluster } from "../component/cluster";
+import Ubicacion from "../../img/ubicacion.png"
+import Dificultad from "../../img/dificultad.png"
+
 import { shuffle } from 'lodash';
 
 
@@ -74,7 +78,14 @@ export const CachesTamano = () => {
                     Mostrar más tarjetas
                 </button>
             </div>
-
+            <div className=" container mx-auto text-center">
+                <h2 className="text-center my-4">Otros Tipos de Cachés</h2>
+                <p className="mb-5">Desde emocionantes rutas de senderismo, pasando por exploraciones urbanas, tenemos todo lo que necesitas para satisfacer tu espíritu aventurero. ¡No esperes más, comienza a explorar nuestros cachés ahora mismo y descubre lo que el mundo tiene para ofrecer!</p>
+                <div className="container mb-5 row row-cols-lg-3 mx-auto my-5">
+                    <Cluster link="/caches-ubicacion" classboton="d-none" cardTitle="Ubicación" image={Ubicacion} onClick={() => window(0, 0)} />
+                    <Cluster link="/caches-dificultad" classboton="d-none" cardTitle="Dificultad" image={Dificultad} onClick={() => window(0, 0)} />
+                </div>
+            </div>
         </div>
     );
 }
