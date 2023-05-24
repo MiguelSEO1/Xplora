@@ -131,7 +131,7 @@ export const Buscador = ({ onShowSearchChange, fixed, cerrarOffcanvas }) => {
 									<div className="card-body">
 										<h4 className="card-title">{cache.state}</h4>
 										<h5 className="card-title">{cache.city}</h5>
-										<p className="card-text">{cache.name}</p>
+										<p className="mb-3 card-text">{cache.name}</p>
 										<Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" role="button"  onClick={handleClick}>
 											<a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
 										</Link>

@@ -712,7 +712,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body text-center">
                                                         <h3 className="card-title">{cache_Found.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{cache_Found.provincia}</h4>
-                                                        <p className="card-text">{cache_Found.name}</p>
+                                                        <p className="mb-3 card-text">{cache_Found.name}</p>
                                                         <Link to={"/perfil-cache/" + cache_Found.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -747,7 +747,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body text-center">
                                                         <h3 className="card-title">{favorites.cache.state}</h3>
                                                         <h4 className="card-title">{favorites.cache.city}</h4>
-                                                        <p className="card-text">{favorites.cache.name}</p>
+                                                        <p className="mb-3 card-text">{favorites.cache.name}</p>
                                                         <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -779,7 +779,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body text-center">
                                                         <h3 className="card-title">{favorites.cache.state}</h3>
                                                         <h4 className="card-title">{favorites.cache.city}</h4>
-                                                        <p className="card-text">{favorites.cache.name}</p>
+                                                        <p className="mb-3 card-text">{favorites.cache.name}</p>
                                                         <Link to={"/perfil-cache/" + favorites.cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className="btn btn-primary"><i class="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -811,7 +811,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -842,7 +842,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -873,7 +873,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -903,7 +903,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -934,7 +934,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -965,7 +965,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <Link to={"/perfil-cache/" + caches.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)} >
                                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                                         </Link>
@@ -1012,7 +1012,7 @@ export const MiPerfil = () => {
                                                     <div className="card-body">
                                                         <h3 className="card-title">{caches.comunidad_autonoma}</h3>
                                                         <h4 className="card-title">{caches.provincia}</h4>
-                                                        <p className="card-text">{caches.name}</p>
+                                                        <p className="mb-3 card-text">{caches.name}</p>
                                                         <button
                                                             className="btn btn-success btn-sm mt-1"
                                                             onClick={(e) => {

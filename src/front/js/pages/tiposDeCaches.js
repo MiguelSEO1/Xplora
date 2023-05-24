@@ -53,7 +53,7 @@ export const TiposDeCaches = () => {
                                     <div className="card-body">
                                         <h3 className="card-title">{cache.state}</h3>
                                         <h4 className="card-title">{cache.city}</h4>
-                                        <p className="card-text">{cache.name}</p>
+                                        <p className="mb-3 card-text">{cache.name}</p>
                                         <Link to={"/perfil-cache/" + cache.id} className="text-decoration-none" onClick={() => window.scrollTo(0, 0)}>
                                             <a href="#" className=" botonBonito btn btn-primary"><i className="fa-solid fa-earth-americas"></i></a>
                                         </Link>

@@ -352,19 +352,7 @@ export const PerfilCache = () => {
                                 </div>
 
                             </div>
-                            <nav aria-label="Page navigation example mt-5" >
-                                <ul className="pagination justify-content-center">
-                                    <li className="page-item disabled" >
-                                        <a className="page-link">Previous</a>
-                                    </li>
-                                    <li className="page-item " ><a className="page-link" href="#">1</a></li>
-                                    <li className="page-item "><a className="page-link" href="#">2</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            
                         </div>
 
                     ) : null}
@@ -434,7 +422,7 @@ export const PerfilCache = () => {
                     ) : null}
                     {selectedDiv4 ? (
 
-                        <div className="container">
+                        <div className="containercomment container ">
                             <div className="text-center mb-5 mt-5 ">
                                 <div className="" aria-label="Basic checkbox toggle button group" >
                                     <button type="button " className="btn btn-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
@@ -578,7 +566,7 @@ export const PerfilCache = () => {
                                                 {store.currentUser.id === comment.user.id ? (
 
 
-                                                    <div className="  ">
+                                                    <div className=" ">
                                                         <button id="editarComentarioBtn" type="button" className="  btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target={"#exampleModal" + comment.id} onClick={() => {
                                                             setUpdatedComment({ ...updatedComment, title: comment.title, text: comment.text })
                                                         }}>
@@ -696,29 +684,17 @@ export const PerfilCache = () => {
 
                             })}
                             
-                            <nav ref={commentsSectionRef} aria-label="Page navigation example mt-5" >
-                                <ul className="pagination justify-content-center">
-                                    <li className="page-item disabled" >
-                                        <a className="page-link">Previous</a>
-                                    </li>
-                                    <li className="page-item " ><a className="page-link" href="#">1</a></li>
-                                    <li className="page-item "><a className="page-link" href="#">2</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            
                         </div>
                     ) : null}
                     {selectedDiv5 ? (
-                        <div className="container-fluid">
+                        <div className="container-fluid ">
                             <div className="text-center" aria-label="Basic checkbox toggle button group" >
                                 <button type="button " className="btn btn-dark mx-1" onClick={mostrarComentarios}>Comentarios <i className="fa-solid fa-comment"></i></button>
                                 <button type="button " className="btn btn-dark" onClick={mostrarFotosCache}>Fotos <i className="fa-solid fa-image"></i></button>
                             </div>
                             <h2 className="text-center mb-4 mt-5">Galería de fotos</h2>
-                            <div className=" mb-5 mx-auto">
+                            <div className=" containercomment mx-auto">
                                 <div className="cajafotos1 border p-3 mb-5">
                                     <h2 className="text-center mb-4 mt-3 text-danger text-decoration-underline">Sube tus mejores fotos</h2>
 
@@ -850,19 +826,7 @@ export const PerfilCache = () => {
                             </div>
 
 
-                            <nav aria-label="Page navigation example mt-5" >
-                                <ul className="pagination justify-content-center">
-                                    <li className="page-item disabled" >
-                                        <a className="page-link">Previous</a>
-                                    </li>
-                                    <li className="page-item " ><a className="page-link" href="#">1</a></li>
-                                    <li className="page-item "><a className="page-link" href="#">2</a></li>
-                                    <li className="page-item"><a className="page-link" href="#">3</a></li>
-                                    <li className="page-item">
-                                        <a className="page-link" href="#">Next</a>
-                                    </li>
-                                </ul>
-                            </nav>
+                            
                         </div>
                     ) : null}
                 </div>
